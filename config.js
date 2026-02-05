@@ -1,4 +1,4 @@
 const CONFIG = {
-    SUPABASE_URL: 'https://hiyxrgbyftirxxbeklrn.supabase.co',
-    SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhpeXhyZ2J5ZnRpcnh4YmVrbHJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk4OTA4MzUsImV4cCI6MjA4NTQ2NjgzNX0.SJj5nCjV1Q914JqdOLF22_wogigntCIhuknwZdGH--k'
+    SUPABASE_URL: 'https://ifbfqxfdkgptbvhnngfn.supabase.co',
+    SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlmYmZxeGZka2dwdGJ2aG5uZ2ZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAzMDUxNDksImV4cCI6MjA4NTg4MTE0OX0.B5JKISapbCHNXehGdPs9OxUPKj84YPP6fyTZHHUyyFE'
 };
