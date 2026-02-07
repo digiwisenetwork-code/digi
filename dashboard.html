@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIGIFILIATE - Dashboard</title>
+    <title>ADSAFFILIATENETWORK - Dashboard</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@400;600&display=swap"
         rel="stylesheet">
@@ -859,7 +859,7 @@
 
     <div class="login-container" id="loginPage">
         <div class="login-box">
-            <h1><i class="fas fa-cube"></i> DIGIFILIATE</h1>
+            <h1><i class="fas fa-cube"></i> ADSAFFILIATENETWORK</h1>
             <p>Sign in to access your dashboard</p>
             <form id="loginForm">
                 <div class="form-group"><label>Email</label><input type="email" id="loginEmail" required
@@ -876,7 +876,8 @@
     <div class="app-container" id="appContainer">
         <aside class="sidebar" id="sidebar">
             <div class="logo">
-                <div style="display:flex;align-items:center;gap:0.5rem;"><i class="fas fa-cube"></i> DIGIFILIATE</div>
+                <div style="display:flex;align-items:center;gap:0.5rem;"><i class="fas fa-cube"></i> ADSAFFILIATENETWORK
+                </div>
                 <button onclick="toggleSidebar()"
                     style="background:none;border:none;cursor:pointer;color:var(--text);font-size:1.2rem;"><i
                         class="fas fa-bars"></i></button>
@@ -932,6 +933,13 @@
             <div class="page" id="myCampaignsPage">
                 <div class="page-header">
                     <h1 class="page-title">My Assigned Campaigns</h1>
+                    <div class="search-box">
+                        <i class="fas fa-globe"></i>
+                        <select id="myCampCountryFilter" onchange="renderMyCampaigns()"
+                            style="background:none; border:none; color:var(--text); outline:none; cursor:pointer;">
+                            <option value="">All Countries</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="campaigns-grid" id="myCampaignsGrid"></div>
             </div>
@@ -999,8 +1007,16 @@
                 </div>
                 <div class="table-container">
                     <div class="table-header">
-                        <div class="search-box"><i class="fas fa-search"></i><input id="campSearch"
-                                placeholder="Search..." onkeyup="renderCampaigns()"></div>
+                        <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+                            <div class="search-box"><i class="fas fa-search"></i><input id="campSearch"
+                                    placeholder="Search..." onkeyup="renderCampaigns()"></div>
+                            <div class="search-box"><i class="fas fa-globe"></i>
+                                <select id="campCountryFilter" onchange="renderCampaigns()"
+                                    style="background:none; border:none; color:var(--text); outline:none; cursor:pointer;">
+                                    <option value="">All Countries</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <table>
                         <thead>
@@ -1050,8 +1066,16 @@
                 </div>
                 <div class="table-container">
                     <div class="table-header">
-                        <div class="search-box"><i class="fas fa-search"></i><input id="ucSearch"
-                                placeholder="Search User or Campaign..." onkeyup="renderUC()"></div>
+                        <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+                            <div class="search-box"><i class="fas fa-search"></i><input id="ucSearch"
+                                    placeholder="Search User or Campaign..." onkeyup="renderUC()"></div>
+                            <div class="search-box"><i class="fas fa-globe"></i>
+                                <select id="ucCountryFilter" onchange="renderUC()"
+                                    style="background:none; border:none; color:var(--text); outline:none; cursor:pointer;">
+                                    <option value="">All Countries</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <table>
                         <thead>
@@ -1264,7 +1288,11 @@
         let _assignments = [];
 
         // Init Data
+        const countryOptions = '<option value="">All Countries</option>' + COUNTRIES.map(c => `<option value="${c}">${c}</option>`).join('');
         document.getElementById('campCountry').innerHTML = COUNTRIES.map(c => `<option value="${c}">${c}</option>`).join('');
+        document.getElementById('myCampCountryFilter').innerHTML = countryOptions;
+        document.getElementById('campCountryFilter').innerHTML = countryOptions;
+        document.getElementById('ucCountryFilter').innerHTML = countryOptions;
 
         // Toast & Modal
         function toast(msg, type = 'success') { const t = document.getElementById('toast'); t.textContent = msg; t.className = 'toast show' + (type === 'error' ? ' error' : type === 'warning' ? ' warning' : ''); setTimeout(() => t.className = 'toast', 3000); }
@@ -1359,11 +1387,11 @@
 
         function saveSession() {
             const session = { userId: currentUser.id, isAdmin: isAdmin, timestamp: Date.now() };
-            localStorage.setItem('digifiliate_session', JSON.stringify(session));
+            localStorage.setItem('adsaffiliate_session', JSON.stringify(session));
         }
 
         async function loadSession() {
-            const s = localStorage.getItem('digifiliate_session');
+            const s = localStorage.getItem('adsaffiliate_session');
             if (!s) return false;
             const session = JSON.parse(s);
             if (Date.now() - session.timestamp > 24 * 60 * 60 * 1000) {
@@ -1385,7 +1413,7 @@
             return false;
         }
 
-        function clearSession() { localStorage.removeItem('digifiliate_session'); }
+        function clearSession() { localStorage.removeItem('adsaffiliate_session'); }
 
         function showDashboard() {
             document.getElementById('userName').textContent = currentUser.name.split(' ')[0];
@@ -1491,16 +1519,20 @@
             renderTable(_users, 'userTable', 'userInfo', 'userPag', 'users', u => `<tr><td>${u.name}</td><td>${u.email}</td><td><span class="status ${u.status.toLowerCase()}">${u.status}</span></td><td>${u.type}</td><td class="actions"><button class="action-btn edit" onclick="editUser(${u.id})"><i class="fas fa-edit"></i></button><button class="action-btn key" onclick="openUserPwd(${u.id})"><i class="fas fa-key"></i></button><button class="action-btn delete" onclick="delUser(${u.id})"><i class="fas fa-trash"></i></button></td></tr>`);
         }
         function renderCampaigns() {
-            renderTable(_campaigns, 'campTable', 'campInfo', 'campPag', 'camps', c => `<tr><td>${c.name}</td><td>${c.offer_id || '-'}</td><td>${c.country || '-'}</td><td style="word-break:break-all;min-width:150px;"><a href="${c.link}" target="_blank" style="color:var(--primary)">${c.link || ''}</a></td><td><span class="status ${(c.type || 'click').toLowerCase()}">${c.type || 'Click'}</span></td><td class="actions"><button class="action-btn edit" onclick="editCamp(${c.id})"><i class="fas fa-edit"></i></button><button class="action-btn delete" onclick="delCamp(${c.id})"><i class="fas fa-trash"></i></button></td></tr>`);
+            const country = document.getElementById('campCountryFilter').value;
+            const data = country ? _campaigns.filter(c => c.country === country) : _campaigns;
+            renderTable(data, 'campTable', 'campInfo', 'campPag', 'camps', c => `<tr><td>${c.name}</td><td>${c.offer_id || '-'}</td><td>${c.country || '-'}</td><td style="word-break:break-all;min-width:150px;"><a href="${c.link}" target="_blank" style="color:var(--primary)">${c.link || ''}</a></td><td><span class="status ${(c.type || 'click').toLowerCase()}">${c.type || 'Click'}</span></td><td class="actions"><button class="action-btn edit" onclick="editCamp(${c.id})"><i class="fas fa-edit"></i></button><button class="action-btn delete" onclick="delCamp(${c.id})"><i class="fas fa-trash"></i></button></td></tr>`);
         }
         function renderUC() {
             const search = (document.getElementById('ucSearch') || {}).value?.toLowerCase() || '';
+            const country = document.getElementById('ucCountryFilter').value;
 
             const filtered = _assignments.filter(uc => {
                 const u = _users.find(x => x.id === uc.user_id);
                 const c = _campaigns.find(x => x.id === uc.campaign_id);
-                const str = ((u?.name || '') + ' ' + (u?.email || '') + ' ' + (c?.name || '')).toLowerCase();
-                return str.includes(search);
+                const matchesSearch = ((u?.name || '') + ' ' + (u?.email || '') + ' ' + (c?.name || '')).toLowerCase().includes(search);
+                const matchesCountry = !country || c?.country === country;
+                return matchesSearch && matchesCountry;
             });
 
             document.getElementById('ucTable').innerHTML = filtered.length ? filtered.map(uc => {
@@ -1555,7 +1587,13 @@
         }
 
         function renderMyCampaigns() {
-            const html = _assignments.length ? _assignments.map(assign => {
+            const country = document.getElementById('myCampCountryFilter').value;
+            const filtered = _assignments.filter(assign => {
+                const c = _campaigns.find(c => c.id === assign.campaign_id);
+                return c && (!country || c.country === country);
+            });
+
+            const html = filtered.length ? filtered.map(assign => {
                 const c = _campaigns.find(c => c.id === assign.campaign_id);
                 if (!c) return '';
 
