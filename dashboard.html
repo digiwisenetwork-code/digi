@@ -88,9 +88,15 @@
 
         .login-box h1 {
             text-align: center;
+            color: var(--text);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            word-break: break-word;
+            line-height: 1.2;
+        }
+
+        .login-box h1 span {
             color: var(--primary);
-            font-size: 1.75rem;
-            margin-bottom: 0.5rem
         }
 
         .login-box>p {
@@ -167,14 +173,28 @@
         }
 
         .logo {
-            padding: 1rem;
-            margin-bottom: 2rem;
-            font-size: 1.5rem;
+            padding: 1.5rem 1rem;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            /* Slightly reduced */
             font-weight: 700;
-            color: var(--primary);
+            color: var(--text);
             display: flex;
             align-items: center;
             justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo div {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 160px;
+            /* Limit text width to leave room for toggle */
+        }
+
+        .logo span {
+            color: var(--primary);
         }
 
         .nav-menu {
@@ -189,11 +209,14 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            padding: 0.875rem 1rem;
+            padding: 0.75rem 0.875rem;
+            /* Slightly more compact */
             color: var(--text-muted);
             border-radius: 0.75rem;
             cursor: pointer;
-            transition: all 0.3s
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            /* Slightly smaller for better fit */
         }
 
         .nav-link:hover,
@@ -262,12 +285,14 @@
         }
 
         .welcome {
-            font-size: 1.25rem;
-            font-weight: 600
-        }
-
-        .welcome span {
-            color: var(--primary)
+            font-size: 1.1rem;
+            /* Slightly smaller */
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+            /* Prevent long names from breaking header */
         }
 
         .role-badge {
@@ -771,8 +796,12 @@
                 top: 0;
                 left: 0;
                 height: 100%;
-                margin-left: -260px;
+                width: 280px;
+                /* Bit wider for mobile clarity */
+                margin-left: -280px;
                 /* Hidden by default */
+                z-index: 2000;
+                /* Above everything */
             }
 
             /* Open State for Mobile */
@@ -786,14 +815,17 @@
             body.sidebar-mobile-open .main-content {
                 margin-left: 0 !important;
                 width: 100% !important;
-                filter: blur(2px);
-                /* nice touch to focus menu */
+                filter: grayscale(0.5) blur(2px) brightness(0.7);
+                /* enhanced focus menu */
                 pointer-events: none;
             }
 
             .main-content {
                 width: 100%;
                 padding: 1rem;
+                height: auto;
+                /* Allow scrolling naturally on mobile */
+                overflow: visible;
             }
         }
 
@@ -1468,27 +1500,30 @@
 
         // UI & Rendering
         function updateStats() {
+            if (!currentUser) return;
             const statsHtml = isAdmin ? `
                 <div class="stat-card"><h3><i class="fas fa-user-shield"></i> Admins</h3><div class="value">${_admins.length}</div></div>
                 <div class="stat-card"><h3><i class="fas fa-users"></i> Users</h3><div class="value">${_users.length}</div></div>
                 <div class="stat-card"><h3><i class="fas fa-bullhorn"></i> Campaigns</h3><div class="value">${_campaigns.length}</div></div>
-                <div class="stat-card"><h3><i class="fas fa-mouse-pointer"></i> Click Type</h3><div class="value">${_campaigns.filter(c => c.type === 'Click').length}</div></div>
+                <div class="stat-card"><h3><i class="fas fa-mouse-pointer"></i> Global Clicks</h3><div class="value">${_assignments.reduce((s, a) => s + (a.count || 0), 0)}</div></div>
             ` : `
                 <div class="stat-card"><h3><i class="fas fa-bullhorn"></i> My Campaigns</h3><div class="value">${_assignments.length}</div></div>
-                <div class="stat-card"><h3><i class="fas fa-mouse-pointer"></i> Total Clicks</h3><div class="value">${_assignments.reduce((s, a) => s + (a.count || 0), 0)}</div></div>
+                <div class="stat-card"><h3><i class="fas fa-mouse-pointer"></i> My Clicks</h3><div class="value">${_assignments.reduce((s, a) => s + (a.count || 0), 0)}</div></div>
+                <div class="stat-card"><h3><i class="fas fa-globe"></i> Countries</h3><div class="value">${new Set(_campaigns.map(c => c.country)).size}</div></div>
             `;
             document.getElementById('dashStats').innerHTML = statsHtml;
         }
 
         function renderAll() {
+            // Always render My Campaigns so the page is ready if clicked
+            renderMyCampaigns();
+
             if (isAdmin) {
                 renderAdmins();
                 renderUsers();
                 renderCampaigns();
                 renderUC();
                 renderAssign();
-            } else {
-                renderMyCampaigns();
             }
         }
 
@@ -1528,22 +1563,24 @@
             const country = document.getElementById('ucCountryFilter').value;
 
             const filtered = _assignments.filter(uc => {
-                const u = _users.find(x => x.id === uc.user_id);
+                const u = _users.find(x => x.id === uc.user_id) || _admins.find(x => x.id === uc.admin_id);
                 const c = _campaigns.find(x => x.id === uc.campaign_id);
-                const matchesSearch = ((u?.name || '') + ' ' + (u?.email || '') + ' ' + (c?.name || '')).toLowerCase().includes(search);
+                const roleText = uc.admin_id ? '[Admin] ' : '';
+                const matchesSearch = ((roleText + (u?.name || '')) + ' ' + (u?.email || '') + ' ' + (c?.name || '')).toLowerCase().includes(search);
                 const matchesCountry = !country || c?.country === country;
                 return matchesSearch && matchesCountry;
             });
 
             document.getElementById('ucTable').innerHTML = filtered.length ? filtered.map(uc => {
-                const u = _users.find(x => x.id === uc.user_id);
+                const u = _users.find(x => x.id === uc.user_id) || _admins.find(x => x.id === uc.admin_id);
                 const c = _campaigns.find(x => x.id === uc.campaign_id);
+                const roleBadge = uc.admin_id ? '<span class="role-badge admin">Admin</span>' : '';
 
                 const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/')) || window.location.origin;
                 const trackLink = `${baseUrl}/track.html?ref=${uc.id}`;
 
                 return `<tr>
-                    <td>${u?.name || '<em>Unknown</em>'}</td>
+                    <td>${roleBadge} ${u?.name || '<em>Unknown</em>'}</td>
                     <td>${c?.name || '<em>Unknown</em>'}</td>
                     <td>${c?.country || '-'}</td>
                     <td><span class="status ${(c?.type || 'click').toLowerCase()}">${c?.type || 'Click'}</span></td>
@@ -1560,10 +1597,16 @@
         }
         function renderAssign() {
             const sel = document.getElementById('assignUser');
-            sel.innerHTML = '<option value="">Select User...</option>' + _users.filter(u => u.status === 'Active').map(u => `<option value="${u.id}">${u.name} (${u.email})</option>`).join('');
+            let opts = '<option value="">Select Target...</option>';
+            opts += '<optgroup label="Admins">';
+            opts += _admins.filter(a => a.status === 'Active').map(a => `<option value="admin:${a.id}">${a.name} (${a.email})</option>`).join('');
+            opts += '</optgroup><optgroup label="Users">';
+            opts += _users.filter(u => u.status === 'Active').map(u => `<option value="user:${u.id}">${u.name} (${u.email})</option>`).join('');
+            opts += '</optgroup>';
+            sel.innerHTML = opts;
             sel.onchange = (e) => loadUserAssignments(e.target.value);
 
-            // Grid Layout for Campaigns (Design Mode)
+            // Grid Layout for Campaigns
             document.getElementById('assignList').innerHTML = _campaigns.length ? `<div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));gap:1rem;">` + _campaigns.map(c => `
                 <label style="position:relative;display:block;background:var(--bg-card);padding:1.5rem;border-radius:12px;border:1px solid var(--border);cursor:pointer;transition:all 0.3s;box-shadow:var(--shadow);">
                     <input type="checkbox" value="${c.id}" id="c_${c.id}" style="position:absolute;top:15px;right:15px;accent-color:var(--primary);width:20px;height:20px;">
@@ -1576,10 +1619,11 @@
             `).join('') + `</div>` : '<p style="padding:1rem;color:var(--text-muted);">No campaigns available</p>';
         }
 
-        function loadUserAssignments(uid) {
+        function loadUserAssignments(val) {
             document.querySelectorAll('#assignList input').forEach(cb => cb.checked = false);
-            if (!uid) return;
-            const userAssigns = _assignments.filter(a => a.user_id == uid);
+            if (!val) return;
+            const [type, id] = val.split(':');
+            const userAssigns = _assignments.filter(a => (type === 'admin' ? a.admin_id : a.user_id) == id);
             userAssigns.forEach(a => {
                 const cb = document.getElementById('c_' + a.campaign_id);
                 if (cb) cb.checked = true;
@@ -1588,7 +1632,11 @@
 
         function renderMyCampaigns() {
             const country = document.getElementById('myCampCountryFilter').value;
+            // Filter by current role ID
             const filtered = _assignments.filter(assign => {
+                const isMine = isAdmin ? (assign.admin_id == currentUser.id) : (assign.user_id == currentUser.id);
+                if (!isMine) return false;
+
                 const c = _campaigns.find(c => c.id === assign.campaign_id);
                 return c && (!country || c.country === country);
             });
@@ -1777,14 +1825,15 @@
         // --- ASSIGNMENTS ---
         function checkAll(v) { document.querySelectorAll('#assignList input').forEach(cb => cb.checked = v); }
         async function submitAssign() {
-            const userId = document.getElementById('assignUser').value;
-            if (!userId) return toast('Select user', 'error');
+            const val = document.getElementById('assignUser').value;
+            if (!val) return toast('Select target', 'error');
+            const [type, id] = val.split(':');
 
             const allCbs = Array.from(document.querySelectorAll('#assignList input'));
             const checkedIds = allCbs.filter(cb => cb.checked).map(cb => parseInt(cb.value));
 
             // Sync Logic
-            const currentIds = _assignments.filter(a => a.user_id == userId).map(a => a.campaign_id);
+            const currentIds = _assignments.filter(a => (type === 'admin' ? a.admin_id : a.user_id) == id).map(a => a.campaign_id);
             const toAdd = checkedIds.filter(id => !currentIds.includes(id));
             const toRemove = currentIds.filter(id => !checkedIds.includes(id));
 
@@ -1792,17 +1841,22 @@
 
             try {
                 if (toAdd.length) {
-                    const inserts = toAdd.map(cid => ({ user_id: userId, campaign_id: cid, count: 0 }));
+                    const inserts = toAdd.map(cid => {
+                        const obj = { campaign_id: cid, count: 0 };
+                        if (type === 'admin') obj.admin_id = id;
+                        else obj.user_id = id;
+                        return obj;
+                    });
                     await sb.from('assignments').insert(inserts).throwOnError();
                 }
                 if (toRemove.length) {
-                    const removeAssignIds = _assignments.filter(a => a.user_id == userId && toRemove.includes(a.campaign_id)).map(a => a.id);
+                    const removeAssignIds = _assignments.filter(a => (type === 'admin' ? a.admin_id : a.user_id) == id && toRemove.includes(a.campaign_id)).map(a => a.id);
                     if (removeAssignIds.length) await sb.from('assignments').delete().in('id', removeAssignIds).throwOnError();
                 }
 
                 toast('Assignments updated successfully!');
                 refreshData();
-                setTimeout(() => loadUserAssignments(userId), 500);
+                setTimeout(() => loadUserAssignments(val), 500);
             } catch (e) { toast(e.message, 'error'); }
         }
         async function delUC(id) {
