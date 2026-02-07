@@ -4,95 +4,835 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting...</title>
+    <title>ADSAFFILIATENETWORK - Performance Marketing Agents</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #c30000;
+            /* Deep Red from images */
+            --dark: #1f1f1f;
+            --gray: #545454;
+            --light: #f9f9f9;
+            --white: #ffffff;
+            --border: #ececec;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Open Sans', sans-serif;
+            color: var(--gray);
+            background: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 8%;
+            background: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            gap: 1rem;
+            /* Added gap */
+            flex-wrap: wrap;
+            /* Allow wrapping if needed */
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            /* Slightly reduced */
+            font-weight: 800;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+            /* Don't let logo shrink too much */
+        }
+
+        .logo i {
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            /* Reduced from 2rem */
+            align-items: center;
+            flex-wrap: wrap;
+            /* For mid-size screens */
+            justify-content: center;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+            /* Slightly smaller */
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .login-btn {
+            background: var(--primary);
+            color: white !important;
+            padding: 0.6rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(195, 0, 0, 0.2);
+        }
+
+        .login-btn:hover {
+            background: #a00000;
+            transform: translateY(-2px);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5rem 8%;
+            background: var(--white);
+            min-height: 85vh;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary);
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            color: var(--gray);
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+        }
+
+        .hero-image {
+            flex: 1;
             display: flex;
             justify-content: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .cta-btn {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(195, 0, 0, 0.3);
+        }
+
+        .cta-btn:hover {
+            background: #900000;
+            transform: translateY(-2px);
+        }
+
+        /* WHY US */
+        .section {
+            padding: 5rem 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title .bar {
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            margin: 0 auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 4rem;
             align-items: center;
-            height: 100vh;
-            background: #f0f2f5;
-            color: #333;
-            flex-direction: column;
         }
 
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #3498db;
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .feature-box {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary);
+        }
+
+        .feature-box i {
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+
+        /* TRAFFIC CHANNELS */
+        .traffic-section {
+            background: var(--light);
+        }
+
+        .traffic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .traffic-card {
+            background: var(--white);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+            border-bottom: 4px solid transparent;
+        }
+
+        .traffic-card:hover {
+            transform: translateY(-10px);
+            border-bottom: 4px solid var(--primary);
+        }
+
+        .traffic-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            background: rgba(195, 0, 0, 0.1);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
         }
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
+        .traffic-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .traffic-card p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .submenu {
+            list-style: none;
+            background: rgba(0, 0, 0, 0.02);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .submenu.open {
+            max-height: 500px;
+            /* Increased to ensure all items show */
+            transition: max-height 0.3s ease-in;
+        }
+
+        .submenu .nav-link {
+            padding-left: 2.5rem;
+            font-size: 0.9rem;
+            border-radius: 0;
+            margin-bottom: 0;
+        }
+
+        /* MISSION */
+        .mission-section {
+            text-align: center;
+            background: var(--white);
+            padding: 6rem 8%;
+        }
+
+        .mission-box {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .mission-box h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .mission-box p {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: #555;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #111;
+            color: #aaa;
+            padding: 4rem 8% 2rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .footer-logo span {
+            color: var(--primary);
+        }
+
+        .footer-links {
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            margin: 0 1rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copy {
+            border-top: 1px solid #333;
+            padding-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* Updated Mobile Logic for index.html */
+        @media(max-width: 900px) {
+            header {
+                padding: 0.8rem 5%;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                height: 70px;
+                /* Force height to prevent overlap */
             }
 
-            100% {
-                transform: rotate(360deg);
+            .logo {
+                font-size: 1.1rem;
+                /* Reduced font size to prevent overlap */
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 70%;
+            }
+
+            .logo span {
+                display: inline;
+                /* Keep it visible but smaller */
+            }
+
+            .nav-links {
+                display: flex;
+                gap: 0;
+            }
+
+            .nav-links a:not(.login-btn) {
+                display: none;
+            }
+
+            .nav-links .login-btn {
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                gap: 0.3rem;
+                font-size: 0.75rem;
+                padding: 0.4rem 0.6rem;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            .nav-links .login-btn i {
+                font-size: 0.75rem;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 80px 5% 3rem 5%;
+                /* Adjusted top padding */
+                min-height: auto;
+            }
+
+            .hero-content {
+                margin: 0 0 2rem 0;
+                max-width: 100%;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem;
+                /* Scaled down heading for better fit */
+                margin-bottom: 1rem;
+            }
+
+            .hero-content p {
+                border-left: none;
+                border-bottom: 3px solid var(--primary);
+                padding: 0 0 1rem 0;
+                display: block;
+                font-size: 0.95rem;
+            }
+
+            .wc-container {
+                width: 100%;
+                max-width: 300px;
+                height: 220px;
+                transform: scale(0.65);
+                /* Reduced scale to fit better */
+                margin: 0 auto;
+                display: block;
+            }
+
+            .section {
+                padding: 3rem 5%;
             }
         }
+
+        /* Word Cloud Graphic */
+        .wc-container {
+            position: relative;
+            width: 380px;
+            height: 280px;
+            margin: 0 auto;
+        }
+
+        .wc-bg {
+            position: absolute;
+            inset: 0;
+            background: var(--primary);
+            border-radius: 20px;
+            transform: translate(15px, 15px);
+        }
+
+        .wc-card {
+            position: absolute;
+            inset: 0;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            padding: 2rem;
+            background-image: radial-gradient(#f0f0f0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Chatbot */
+        .chat-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 2000;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .chat-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(195, 0, 0, 0.4);
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        .chat-header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            background: #f9f9f9;
+        }
+
+        .msg {
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            max-width: 80%;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .msg.bot {
+            background: white;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .msg.user {
+            background: var(--primary);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .chat-options {
+            padding: 1rem;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .chat-options button {
+            flex: 1;
+            min-width: 45%;
+            padding: 0.5rem;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .chat-options button:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Duplicate removed */
+
+        /* Media queries merged above */
     </style>
 </head>
 
 <body>
-    <div class="loader"></div>
-    <p id="msg">Redirecting to offer...</p>
 
-    <script src="config.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <header>
+        <div class="logo"><i class="fas fa-cube"></i> ADS<span>AFFILIATENETWORK</span></div>
+        <nav class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#mission">Mission</a>
+            <a href="#contact">Contact</a>
+            <a href="dashboard.html" class="login-btn"><i class="fas fa-lock"></i> Login</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Bringing in Qualified, Highly Interested Traffic To Your Audience <span>Co-reg</span></h1>
+            <p>ADSAFFILIATENETWORK works hard to deliver the best, most innovative marketing services and solutions. Our
+                goal is
+                to help clients grow, reach their audience effectively, and succeed in all areas of performance
+                marketing.</p>
+            <a href="#services" class="cta-btn">See Our Work</a>
+        </div>
+        <div class="hero-image">
+            <div class="wc-container">
+                <div class="wc-bg"></div>
+                <div class="wc-card">
+                    <div
+                        style="display:flex;align-items:baseline;flex-wrap:wrap;justify-content:center;gap:0.5rem;margin-bottom:1rem;">
+                        <span
+                            style="font-size:1.4rem;font-weight:700;color:#333;text-transform:uppercase;">DIGITAL</span>
+                        <span
+                            style="font-size:2.2rem;font-weight:800;color:var(--primary);text-transform:uppercase;">MARKETING</span>
+                    </div>
+                    <div
+                        style="display:flex;gap:1.5rem;align-items:center;justify-content:center;width:100%;margin-bottom:0.5rem;flex-wrap:wrap;">
+                        <span style="font-size:1.2rem;font-weight:700;color:#444;">SEO</span>
+                        <span style="font-size:1.5rem;font-weight:800;color:#555;">BUSINESS</span>
+                    </div>
+                    <div
+                        style="display:flex;gap:1rem;align-items:center;justify-content:center;width:100%;margin-bottom:1rem;">
+                        <span style="font-size:1.3rem;font-weight:800;color:#333;">TRAFFIC CONTENT</span>
+                    </div>
+                    <span style="font-size:1.2rem;font-weight:700;color:#444;">WEB SALES</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <div class="section-title">
+            <h2>Why Use Adsaffiliatenetwork??</h2>
+            <div class="bar"></div>
+        </div>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>ADSAFFILIATENETWORK is powered by a team of experienced marketing and creative professionals,
+                    bringing over
+                    20 years of combined expertise in the digital space.</p>
+                <p>We not only understand the value of lead generation and customer acquisition but also recognize the
+                    importance of clear brand messaging, audience connection, and delivering strong ROI.</p>
+
+                <div class="feature-box">
+                    <i class="fas fa-sitemap"></i>
+                    <div>
+                        <h3>Dedicated Account Manager</h3>
+                        <p>Our account managers identify the best channels and target audiences for your brand. From
+                            crafting impactful creatives to delivering insightful analysis, we ensure you get the ROI
+                            you're looking for.</p>
+                    </div>
+                </div>
+
+                <div class="feature-box" style="margin-top:1rem; border-color:#222;">
+                    <i class="fas fa-wallet" style="color:#222;"></i>
+                    <div>
+                        <h3>No Set Up Fees</h3>
+                        <p>Pay for performance only. Whether it's CPL, CPA, CPC, or CPM, you choose the campaign model
+                            that best fits your goals and budget.</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80"
+                    alt="Analytics" style="width:100%;border-radius:10px;box-shadow:0 15px 30px rgba(0,0,0,0.1);">
+            </div>
+        </div>
+    </section>
+
+    <section class="section traffic-section" id="services">
+        <div class="section-title">
+            <h2>Worldwide CPA Lead Generation</h2>
+            <p style="max-width:700px;margin:1rem auto 0;">We specialize in four different traffic channels: email,
+                display, SMS and co-registration.</p>
+            <div class="bar" style="margin-top:1rem;"></div>
+        </div>
+
+        <div class="traffic-grid">
+            <div class="traffic-card">
+                <i class="fas fa-envelope-open-text"></i>
+                <h3>Email Traffic</h3>
+                <p>Hit 'em at home – Tap into our broad range of email databases to communicate with prospective
+                    customers in their domain.</p>
+            </div>
+            <div class="traffic-card">
+                <i class="fas fa-comment-dots"></i>
+                <h3>SMS Traffic</h3>
+                <p>Get personal – reach customers in the most direct way and engage them through the medium they feel
+                    most comfortable.</p>
+            </div>
+            <div class="traffic-card">
+                <i class="fas fa-laptop-code"></i>
+                <h3>Display Traffic</h3>
+                <p>World wide – Enjoy the benefits of our website network and place your advertisements amongst content
+                    that best compliments your brand.</p>
+            </div>
+            <div class="traffic-card">
+                <i class="fas fa-wifi"></i>
+                <h3>Co-reg Traffic</h3>
+                <p>Ask Away – design questions to generate interest from online questionnaires, surveys and competitions
+                    to maximise your database.</p>
+            </div>
+            <div class="traffic-card">
+                <i class="fas fa-user-friends"></i>
+                <h3>Social</h3>
+                <p>Be part of the buzz – Build clever communications and strategies to precisely target the customers
+                    likely to engage.</p>
+            </div>
+            <div class="traffic-card">
+                <i class="fas fa-code"></i>
+                <h3>Web Development</h3>
+                <p>Build your presence – From sleek landing pages to complex web applications, we build solutions that
+                    convert and perform.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section mission-section" id="mission">
+        <div class="mission-box">
+            <h5 style="color:var(--primary);letter-spacing:2px;margin-bottom:1rem;text-transform:uppercase;">Our Mission
+            </h5>
+            <h2>DRIVING CREATIVE PERFORMANCE</h2>
+            <div class="bar" style="margin-bottom:2rem;"></div>
+            <p>"Our mission is to handle every detail once a brand joins our agency, ensuring the most innovative and
+                effective creative adaptations for each traffic channel. Using data-driven insights, we personalize
+                creativity to engage each user while maintaining brand safety."</p>
+            <br>
+            <p style="font-size:1.1rem; color:var(--dark); font-weight:600;">We work on a performance basis, if we don't
+                perform, you don't pay us.</p>
+            <br>
+            <a href="#contact" class="cta-btn">Contact Us Today</a>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-logo"><i class="fas fa-cube"></i> ADS<span>AFFILIATENETWORK</span></div>
+        <div class="footer-links">
+            <a href="#">Home</a>
+            <a href="#">About Us</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+            <a href="dashboard.html">Login</a>
+        </div>
+        <div class="copy">
+            <p>&copy; 2026 ADSAFFILIATENETWORK. All Rights Reserved.</p>
+            <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 1.5rem; font-size: 1.5rem;">
+                <a href="https://instagram.com" target="_blank" style="color: #E1306C;"><i
+                        class="fab fa-instagram"></i></a>
+                <a href="https://twitter.com" target="_blank" style="color: #1DA1F2;"><i class="fab fa-twitter"></i></a>
+                <a href="https://linkedin.com" target="_blank" style="color: #0077B5;"><i
+                        class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="chat-widget">
+        <button class="chat-btn" onclick="toggleChat()"><i class="fas fa-comment-dots"></i></button>
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div style="font-weight:700;"><i class="fas fa-robot"></i> Assistant</div>
+                <button onclick="toggleChat()"
+                    style="background:none;border:none;color:white;font-size:1.2rem;cursor:pointer;">&times;</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="msg bot">Hello! Welcome to Adsaffiliatenetwork. How can I help you regarding our services?
+                </div>
+            </div>
+            <div class="chat-options">
+                <button onclick="ask('fees')">Are there setup fees?</button>
+                <button onclick="ask('channels')">What traffic channels?</button>
+                <button onclick="ask('contact')">How do I contact you?</button>
+                <button onclick="ask('join')">How to join?</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        const sb = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
-
-        async function trackAndRedirect() {
-            const params = new URLSearchParams(window.location.search);
-            const refId = params.get('ref');
-
-            if (!refId) {
-                document.getElementById('msg').innerText = 'Invalid tracking link.';
-                document.querySelector('.loader').style.display = 'none';
-                return;
-            }
-
-            try {
-                // 1. Get Assignment details (to find next count and campaign link)
-                // We join assignments with campaign data
-                const { data: assignment, error } = await sb
-                    .from('assignments')
-                    .select('*, campaigns(*)')
-                    .eq('id', refId)
-                    .single();
-
-                if (error || !assignment) throw new Error('Offer not found');
-
-                // 2. Increment Count (Optimistic)
-                // Note: In production, use an RPC for atomic increment.
-                await sb.from('assignments')
-                    .update({ count: (assignment.count || 0) + 1 })
-                    .eq('id', refId);
-
-                // 3. Redirect
-                if (assignment.campaigns && assignment.campaigns.link) {
-                    // Ensure protocol exists
-                    let dest = assignment.campaigns.link;
-                    if (!dest.startsWith('http')) dest = 'https://' + dest;
-                    window.location.href = dest;
-                } else {
-                    throw new Error('Destination link missing');
-                }
-
-            } catch (err) {
-                console.error(err);
-                document.getElementById('msg').innerText = 'Tracking error. Redirecting to home...';
-                setTimeout(() => window.location.href = 'index.html', 2000);
-            }
+        function toggleChat() {
+            const w = document.getElementById('chatWindow');
+            w.style.display = w.style.display === 'flex' ? 'none' : 'flex';
         }
 
-        trackAndRedirect();
+        function ask(type) {
+            const body = document.getElementById('chatBody');
+            let q = '', a = '';
+
+            if (type === 'fees') { q = 'Are there setup fees?'; a = 'No! There are absolutely no setup fees. You only pay for performance (CPA, CPL, etc).'; }
+            if (type === 'channels') { q = 'What traffic channels?'; a = 'We specialize in Email, SMS, Display, and Co-registration traffic.'; }
+            if (type === 'contact') { q = 'Contact info?'; a = 'You can reach us via the Contact Us form or email support@adsaffiliatenetwork.com.'; }
+            if (type === 'join') { q = 'How to join?'; a = 'Click the "Login" button to access the dashboard. If you are a new advertiser, contact us to get an account.'; }
+
+            body.innerHTML += `<div class="msg user">${q}</div>`;
+            setTimeout(() => {
+                body.innerHTML += `<div class="msg bot">${a}</div>`;
+                body.scrollTop = body.scrollHeight;
+            }, 500);
+        }
     </script>
 </body>
 
