@@ -18,22 +18,30 @@
 
         :root {
             --primary: #c30000;
+            --primary-glow: rgba(195, 0, 0, 0.15);
+            --primary-gradient: linear-gradient(135deg, #c30000 0%, #ff4444 100%);
             --bg-dark: #f8f9fa;
             --bg-card: #ffffff;
+            --bg-card-glass: rgba(255, 255, 255, 0.85);
             --bg-input: #f1f3f5;
             --text: #333333;
             --text-muted: #64748b;
             --success: #22c55e;
+            --success-glow: rgba(34, 197, 94, 0.15);
             --danger: #ef4444;
             --warning: #f59e0b;
             --info: #3b82f6;
+            --info-glow: rgba(59, 130, 246, 0.15);
             --border: #e2e8f0;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            --shadow-glow: 0 0 20px rgba(195, 0, 0, 0.2);
         }
 
         [data-theme="dark"] {
-            --bg-dark: #1a1a2e;
-            --bg-card: #16213e;
+            --bg-dark: #0f0f1a;
+            --bg-card: #1a1a2e;
+            --bg-card-glass: rgba(26, 26, 46, 0.85);
             --bg-input: #0f3460;
             --text: #f8fafc;
             --text-muted: #94a3b8;
@@ -42,7 +50,9 @@
             --warning: #f59e0b;
             --info: #3b82f6;
             --border: #334155;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 30px rgba(195, 0, 0, 0.3);
         }
 
         body {
@@ -419,7 +429,7 @@
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1rem;
+            gap: 1.25rem;
             margin-bottom: 2rem
         }
 
@@ -427,19 +437,55 @@
             background: var(--bg-card);
             padding: 1.5rem;
             border-radius: 1rem;
-            border: 1px solid var(--border)
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
         }
 
         .stat-card h3 {
             color: var(--text-muted);
             font-size: 0.8rem;
-            margin-bottom: 0.5rem
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-card h3 i {
+            font-size: 0.9rem;
+            opacity: 0.7;
         }
 
         .stat-card .value {
-            font-size: 1.75rem;
+            font-size: 2rem;
             font-weight: 700;
-            color: var(--primary)
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .table-container {
@@ -728,13 +774,41 @@
         .campaign-card {
             background: var(--bg-card);
             padding: 1.5rem;
-            border-radius: 1rem;
-            border: 1px solid var(--border)
+            border-radius: 1.25rem;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow);
+        }
+
+        .campaign-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--primary-gradient);
+        }
+
+        .campaign-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: var(--shadow-glow), var(--shadow-lg);
+            border-color: rgba(195, 0, 0, 0.3);
         }
 
         .campaign-card h3 {
+            color: var(--text);
+            margin-bottom: 0.75rem;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .campaign-card h3 i {
             color: var(--primary);
-            margin-bottom: 0.5rem
         }
 
         .campaign-card p {
@@ -745,23 +819,74 @@
 
         .campaign-card a {
             color: var(--primary);
-            word-break: break-all
+            word-break: break-all;
+            transition: opacity 0.2s;
+        }
+
+        .campaign-card a:hover {
+            opacity: 0.8;
         }
 
         .campaign-card .count {
-            display: inline-block;
-            margin-top: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(211, 47, 47, 0.1);
-            border-radius: 0.5rem;
-            color: var(--primary);
-            font-weight: 600
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            padding: 0.6rem 1.25rem;
+            background: var(--primary-gradient);
+            border-radius: 2rem;
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(195, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .campaign-card:hover .count {
+            transform: scale(1.05);
+        }
+
+        .campaign-card .country-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.75rem;
+            background: var(--info-glow);
+            border-radius: 1rem;
+            font-size: 0.85rem;
+            color: var(--info);
+            font-weight: 500;
+        }
+
+        .campaign-card .country-badge .flag {
+            font-size: 1.1rem;
         }
 
         .campaigns-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.75rem
+        }
+
+        /* Flag styling in tables */
+        .country-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .country-cell .flag {
+            font-size: 1.3rem;
+            line-height: 1;
+        }
+
+        /* Table row hover effect */
+        tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: var(--primary-glow);
         }
 
         .access-denied {
@@ -1308,6 +1433,67 @@
             "Zambia", "Zimbabwe"
         ];
 
+        // Country to ISO 2-letter code mapping (for FlagCDN)
+        const COUNTRY_ISO = {
+            "Afghanistan": "af", "Albania": "al", "Algeria": "dz", "Andorra": "ad", "Angola": "ao",
+            "Antigua and Barbuda": "ag", "Argentina": "ar", "Armenia": "am", "Australia": "au", "Austria": "at",
+            "Azerbaijan": "az", "Bahamas": "bs", "Bahrain": "bh", "Bangladesh": "bd", "Barbados": "bb",
+            "Belarus": "by", "Belgium": "be", "Belize": "bz", "Benin": "bj", "Bhutan": "bt",
+            "Bolivia": "bo", "Bosnia and Herzegovina": "ba", "Botswana": "bw", "Brazil": "br", "Brunei": "bn",
+            "Bulgaria": "bg", "Burkina Faso": "bf", "Burundi": "bi", "Cabo Verde": "cv", "Cambodia": "kh",
+            "Cameroon": "cm", "Canada": "ca", "Central African Republic": "cf", "Chad": "td", "Chile": "cl",
+            "China": "cn", "Colombia": "co", "Comoros": "km", "Congo": "cg", "Costa Rica": "cr",
+            "Croatia": "hr", "Cuba": "cu", "Cyprus": "cy", "Czech Republic": "cz", "Denmark": "dk",
+            "Djibouti": "dj", "Dominica": "dm", "Dominican Republic": "do", "East Timor": "tl", "Ecuador": "ec",
+            "Egypt": "eg", "El Salvador": "sv", "Equatorial Guinea": "gq", "Eritrea": "er", "Estonia": "ee",
+            "Eswatini": "sz", "Ethiopia": "et", "Fiji": "fj", "Finland": "fi", "France": "fr",
+            "Gabon": "ga", "Gambia": "gm", "Georgia": "ge", "Germany": "de", "Ghana": "gh",
+            "Greece": "gr", "Grenada": "gd", "Guatemala": "gt", "Guinea": "gn", "Guinea-Bissau": "gw",
+            "Guyana": "gy", "Haiti": "ht", "Honduras": "hn", "Hong Kong": "hk", "Hungary": "hu",
+            "Iceland": "is", "India": "in", "Indonesia": "id", "Iran": "ir", "Iraq": "iq",
+            "Ireland": "ie", "Israel": "il", "Italy": "it", "Ivory Coast": "ci", "Jamaica": "jm",
+            "Japan": "jp", "Jordan": "jo", "Kazakhstan": "kz", "Kenya": "ke", "Kiribati": "ki",
+            "Kosovo": "xk", "Kuwait": "kw", "Kyrgyzstan": "kg", "Laos": "la", "Latvia": "lv",
+            "Lebanon": "lb", "Lesotho": "ls", "Liberia": "lr", "Libya": "ly", "Liechtenstein": "li",
+            "Lithuania": "lt", "Luxembourg": "lu", "Madagascar": "mg", "Malawi": "mw", "Malaysia": "my",
+            "Maldives": "mv", "Mali": "ml", "Malta": "mt", "Marshall Islands": "mh", "Mauritania": "mr",
+            "Mauritius": "mu", "Mexico": "mx", "Micronesia": "fm", "Moldova": "md", "Monaco": "mc",
+            "Mongolia": "mn", "Montenegro": "me", "Morocco": "ma", "Mozambique": "mz", "Myanmar": "mm",
+            "Namibia": "na", "Nauru": "nr", "Nepal": "np", "Netherlands": "nl", "New Zealand": "nz",
+            "Nicaragua": "ni", "Niger": "ne", "Nigeria": "ng", "North Korea": "kp", "North Macedonia": "mk",
+            "Norway": "no", "Oman": "om", "Pakistan": "pk", "Palau": "pw", "Palestine": "ps",
+            "Panama": "pa", "Papua New Guinea": "pg", "Paraguay": "py", "Peru": "pe", "Philippines": "ph",
+            "Poland": "pl", "Portugal": "pt", "Qatar": "qa", "Romania": "ro", "Russia": "ru",
+            "Rwanda": "rw", "Saint Kitts and Nevis": "kn", "Saint Lucia": "lc", "Saint Vincent and the Grenadines": "vc",
+            "Samoa": "ws", "San Marino": "sm", "Sao Tome and Principe": "st", "Saudi Arabia": "sa",
+            "Senegal": "sn", "Serbia": "rs", "Seychelles": "sc", "Sierra Leone": "sl", "Singapore": "sg",
+            "Slovakia": "sk", "Slovenia": "si", "Solomon Islands": "sb", "Somalia": "so", "South Africa": "za",
+            "South Korea": "kr", "South Sudan": "ss", "Spain": "es", "Sri Lanka": "lk", "Sudan": "sd",
+            "Suriname": "sr", "Sweden": "se", "Switzerland": "ch", "Syria": "sy", "Taiwan": "tw",
+            "Tajikistan": "tj", "Tanzania": "tz", "Thailand": "th", "Togo": "tg", "Tonga": "to",
+            "Trinidad and Tobago": "tt", "Tunisia": "tn", "Turkey": "tr", "Turkmenistan": "tm", "Tuvalu": "tv",
+            "Uganda": "ug", "Ukraine": "ua", "UAE": "ae", "UK": "gb", "USA": "us",
+            "Uruguay": "uy", "Uzbekistan": "uz", "Vanuatu": "vu", "Vatican City": "va", "Venezuela": "ve",
+            "Vietnam": "vn", "Yemen": "ye", "Zambia": "zm", "Zimbabwe": "zw",
+            // Aliases
+            "United States": "us", "United Kingdom": "gb", "United Arab Emirates": "ae", "South Korea": "kr", "North Korea": "kp", "USA": "us", "UK": "gb", "UAE": "ae"
+        };
+
+        // Get flag for country (robust matching with image fallback)
+        function getFlag(country) {
+            if (!country) return '🌍';
+            const cleanCountry = country.trim();
+
+            // Case-insensitive match for ISO code
+            const countryKey = Object.keys(COUNTRY_ISO).find(k => k.toLowerCase() === cleanCountry.toLowerCase());
+            const iso = countryKey ? COUNTRY_ISO[countryKey] : null;
+
+            if (iso) {
+                return `<img src="https://flagcdn.com/w40/${iso}.png" srcset="https://flagcdn.com/w80/${iso}.png 2x" width="20" alt="${cleanCountry}" style="border-radius:2px; vertical-align:middle;">`;
+            }
+            return '🌍';
+        }
+
         // State
         let currentUser = null;
         let isAdmin = false;
@@ -1319,9 +1505,9 @@
         let _campaigns = [];
         let _assignments = [];
 
-        // Init Data
-        const countryOptions = '<option value="">All Countries</option>' + COUNTRIES.map(c => `<option value="${c}">${c}</option>`).join('');
-        document.getElementById('campCountry').innerHTML = COUNTRIES.map(c => `<option value="${c}">${c}</option>`).join('');
+        // Init Data with flags
+        const countryOptions = '<option value="">🌍 All Countries</option>' + COUNTRIES.map(c => `<option value="${c}">${getFlag(c)} ${c}</option>`).join('');
+        document.getElementById('campCountry').innerHTML = COUNTRIES.map(c => `<option value="${c}">${getFlag(c)} ${c}</option>`).join('');
         document.getElementById('myCampCountryFilter').innerHTML = countryOptions;
         document.getElementById('campCountryFilter').innerHTML = countryOptions;
         document.getElementById('ucCountryFilter').innerHTML = countryOptions;
@@ -1556,7 +1742,7 @@
         function renderCampaigns() {
             const country = document.getElementById('campCountryFilter').value;
             const data = country ? _campaigns.filter(c => c.country === country) : _campaigns;
-            renderTable(data, 'campTable', 'campInfo', 'campPag', 'camps', c => `<tr><td>${c.name}</td><td>${c.offer_id || '-'}</td><td>${c.country || '-'}</td><td style="word-break:break-all;min-width:150px;"><a href="${c.link}" target="_blank" style="color:var(--primary)">${c.link || ''}</a></td><td><span class="status ${(c.type || 'click').toLowerCase()}">${c.type || 'Click'}</span></td><td class="actions"><button class="action-btn edit" onclick="editCamp(${c.id})"><i class="fas fa-edit"></i></button><button class="action-btn delete" onclick="delCamp(${c.id})"><i class="fas fa-trash"></i></button></td></tr>`);
+            renderTable(data, 'campTable', 'campInfo', 'campPag', 'camps', c => `<tr><td>${c.name}</td><td>${c.offer_id || '-'}</td><td><div class="country-cell"><span class="flag">${getFlag(c.country)}</span>${c.country || '-'}</div></td><td style="word-break:break-all;min-width:150px;"><a href="${c.link}" target="_blank" style="color:var(--primary)">${c.link || ''}</a></td><td><span class="status ${(c.type || 'click').toLowerCase()}">${c.type || 'Click'}</span></td><td class="actions"><button class="action-btn edit" onclick="editCamp(${c.id})"><i class="fas fa-edit"></i></button><button class="action-btn delete" onclick="delCamp(${c.id})"><i class="fas fa-trash"></i></button></td></tr>`);
         }
         function renderUC() {
             const search = (document.getElementById('ucSearch') || {}).value?.toLowerCase() || '';
@@ -1582,7 +1768,7 @@
                 return `<tr>
                     <td>${roleBadge} ${u?.name || '<em>Unknown</em>'}</td>
                     <td>${c?.name || '<em>Unknown</em>'}</td>
-                    <td>${c?.country || '-'}</td>
+                    <td><div class="country-cell"><span class="flag">${getFlag(c?.country)}</span>${c?.country || '-'}</div></td>
                     <td><span class="status ${(c?.type || 'click').toLowerCase()}">${c?.type || 'Click'}</span></td>
                     <td>
                         <div style="display:flex;align-items:center;gap:0.5rem;max-width:200px;">
@@ -1606,15 +1792,16 @@
             sel.innerHTML = opts;
             sel.onchange = (e) => loadUserAssignments(e.target.value);
 
-            // Grid Layout for Campaigns
-            document.getElementById('assignList').innerHTML = _campaigns.length ? `<div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));gap:1rem;">` + _campaigns.map(c => `
-                <label style="position:relative;display:block;background:var(--bg-card);padding:1.5rem;border-radius:12px;border:1px solid var(--border);cursor:pointer;transition:all 0.3s;box-shadow:var(--shadow);">
-                    <input type="checkbox" value="${c.id}" id="c_${c.id}" style="position:absolute;top:15px;right:15px;accent-color:var(--primary);width:20px;height:20px;">
+            // Grid Layout for Campaigns with flags
+            document.getElementById('assignList').innerHTML = _campaigns.length ? `<div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));gap:1.25rem;">` + _campaigns.map(c => `
+                <label style="position:relative;display:block;background:var(--bg-card);padding:1.5rem;border-radius:14px;border:1px solid var(--border);cursor:pointer;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);box-shadow:var(--shadow);overflow:hidden;">
+                    <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(135deg, #c30000 0%, #ff4444 100%);"></div>
+                    <input type="checkbox" value="${c.id}" id="c_${c.id}" style="position:absolute;top:18px;right:15px;accent-color:var(--primary);width:20px;height:20px;cursor:pointer;">
                     <div style="font-weight:700;margin-bottom:0.5rem;padding-right:2rem;color:var(--text);font-size:1.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${c.name}">${c.name}</div>
-                    <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem;font-size:0.9rem;color:var(--text-muted);">
-                        <i class="fas fa-globe"></i> ${c.country}
+                    <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem;font-size:0.95rem;color:var(--text-muted);">
+                        <span style="font-size:1.25rem;">${getFlag(c.country)}</span> ${c.country}
                     </div>
-                    <div style="font-size:0.75rem;font-weight:700;color:var(--primary);background:rgba(195,0,0,0.1);display:inline-block;padding:0.3rem 0.8rem;border-radius:20px;text-transform:uppercase;">${c.type}</div>
+                    <div style="font-size:0.75rem;font-weight:700;color:var(--primary);background:rgba(195,0,0,0.1);display:inline-block;padding:0.35rem 0.9rem;border-radius:20px;text-transform:uppercase;">${c.type}</div>
                 </label>
             `).join('') + `</div>` : '<p style="padding:1rem;color:var(--text-muted);">No campaigns available</p>';
         }
@@ -1652,19 +1839,29 @@
                 return `
                 <div class="campaign-card">
                     <h3><i class="fas fa-bullhorn"></i> ${c.name}</h3>
-                    <p><strong>Tracking Link:</strong></p>
-                    <div style="background:var(--bg-input);padding:0.5rem;border-radius:0.5rem;word-break:break-all;margin-bottom:0.5rem;display:flex;justify-content:space-between;align-items:center;gap:0.5rem;">
-                        <a href="${trackLink}" target="_blank" style="font-size:0.9rem;text-decoration:none;">${trackLink}</a>
-                        <button onclick="navigator.clipboard.writeText('${trackLink}');toast('Copied!')" class="action-btn" title="Copy"><i class="fas fa-copy"></i></button>
+                    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+                        <span class="country-badge"><span class="flag">${getFlag(c.country)}</span> ${c.country}</span>
+                        <span class="status ${(c.type || 'click').toLowerCase()}">${c.type || 'Click'}</span>
                     </div>
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem;">
-                        <p><strong>Offer ID:</strong> ${c.offer_id || '-'}</p>
-                        <p><strong>Country:</strong> ${c.country}</p>
-                        <p><strong>Type:</strong> <span class="status ${(c.type || 'click').toLowerCase()}">${c.type || 'Click'}</span></p>
+                    <p style="margin-bottom:0.5rem;"><strong>Tracking Link:</strong></p>
+                    <div style="background:var(--bg-input);padding:0.6rem 0.8rem;border-radius:0.6rem;word-break:break-all;margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center;gap:0.5rem;border:1px solid var(--border);">
+                        <a href="${trackLink}" target="_blank" style="font-size:0.85rem;text-decoration:none;flex:1;">${trackLink}</a>
+                        <button onclick="navigator.clipboard.writeText('${trackLink}');toast('Copied!')" class="action-btn" title="Copy" style="background:var(--primary-glow);"><i class="fas fa-copy" style="color:var(--primary);"></i></button>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:1rem;padding:0.75rem;background:var(--bg-input);border-radius:0.6rem;margin-bottom:1rem;">
+                        <div style="text-align:center;flex:1;">
+                            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Offer ID</div>
+                            <div style="font-weight:600;color:var(--text);">${c.offer_id || '-'}</div>
+                        </div>
+                        <div style="width:1px;height:30px;background:var(--border);"></div>
+                        <div style="text-align:center;flex:1;">
+                            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Country</div>
+                            <div style="font-weight:600;color:var(--text);display:flex;align-items:center;justify-content:center;gap:0.35rem;"><span style="font-size:1.1rem;">${getFlag(c.country)}</span> ${c.country}</div>
+                        </div>
                     </div>
                     <div class="count"><i class="fas fa-mouse-pointer"></i> ${assign.count} Clicks</div>
                 </div>`;
-            }).join('') : '<p style="color:var(--text-muted);grid-column:1/-1;text-align:center;padding:2rem;">No campaigns assigned yet.</p>';
+            }).join('') : '<p style="color:var(--text-muted);grid-column:1/-1;text-align:center;padding:3rem;font-size:1.1rem;"><i class="fas fa-inbox" style="font-size:2.5rem;display:block;margin-bottom:1rem;opacity:0.5;"></i>No campaigns assigned yet.</p>';
             document.getElementById('myCampaignsGrid').innerHTML = html;
         }
 
