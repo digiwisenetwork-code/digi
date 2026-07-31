@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #0f172a;
-            --primary-hover: #1e293b;
-            --primary-light: rgba(15, 23, 42, 0.05);
-            --primary-gradient: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-light: rgba(37, 99, 235, 0.08);
+            --primary-gradient: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #1d4ed8 100%);
             
             --bg-body: #f8fafc;
             --bg-card: #ffffff;
@@ -28,11 +28,24 @@
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --info: #0f172a;
+            --info: #0284c7;
 
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
             --shadow-md: 0 4px 15px -2px rgba(15, 23, 42, 0.06);
             --shadow-lg: 0 20px 40px -15px rgba(15, 23, 42, 0.12);
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #090d16;
+            --bg-card: #111827;
+            --bg-sidebar: #0e1320;
+            --bg-input: #1f2937;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(37, 99, 235, 0.3);
+            
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
         }
 
         * {
@@ -90,7 +103,7 @@
             justify-content: center;
             color: white;
             font-size: 1.35rem;
-            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
         }
 
         .brand-name {
@@ -193,7 +206,7 @@
             text-transform: uppercase;
         }
         .role-badge.admin { background: #fee2e2; color: #dc2626; }
-        .role-badge.user { background: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; }
+        .role-badge.user { background: #dbeafe; color: #2563eb; }
 
         /* MAIN CONTENT AREA */
         .main-wrapper {
@@ -263,11 +276,7 @@
         .btn-primary {
             background: var(--primary-gradient);
             color: white;
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
-        }
-
-        .btn-primary:hover {
-            background: #1e293b;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
         }
 
         .btn-outline {
@@ -381,7 +390,7 @@
         }
         .status.active { background: #ecfdf5; color: #059669; }
         .status.inactive { background: #fef2f2; color: #dc2626; }
-        .status.click { background: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; }
+        .status.click { background: #f0f9ff; color: #0284c7; }
         .status.punch { background: #fef3c7; color: #d97706; }
 
         .actions {
@@ -402,7 +411,7 @@
             font-size: 0.85rem;
         }
 
-        .action-btn.edit:hover { background: #f1f5f9; color: #0f172a; }
+        .action-btn.edit:hover { background: #eff6ff; color: #2563eb; }
         .action-btn.key:hover { background: #fef3c7; color: #d97706; }
         .action-btn.delete:hover { background: #fef2f2; color: #dc2626; }
 
