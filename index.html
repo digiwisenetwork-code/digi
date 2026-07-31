@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DigiWise | Next-Gen Performance Marketing Network</title>
     <meta name="description" content="DigiWise is the premier performance marketing network empowering publishers, advertisers, and digital marketers with real-time tracking, high-payout offers, and instant payouts.">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -47,102 +47,49 @@
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
+            width: 100%;
         }
 
-        /* BACKGROUND FLOATING BLOBS & MOTIONS */
+        /* BACKGROUND MOTION BLOBS */
         .ambient-blob {
             position: absolute;
             border-radius: 50%;
             filter: blur(80px);
-            opacity: 0.45;
+            opacity: 0.4;
             pointer-events: none;
             z-index: 0;
         }
 
         .blob-1 {
-            width: 450px;
-            height: 450px;
+            width: 400px; height: 400px;
             background: rgba(37, 99, 235, 0.25);
-            top: -100px;
-            left: -100px;
+            top: -100px; left: -100px;
             animation: floatBlob 14s ease-in-out infinite alternate;
         }
 
         .blob-2 {
-            width: 550px;
-            height: 550px;
+            width: 450px; height: 450px;
             background: rgba(59, 130, 246, 0.2);
-            top: 200px;
-            right: -150px;
+            top: 200px; right: -150px;
             animation: floatBlob 18s ease-in-out infinite alternate-reverse;
-        }
-
-        .blob-3 {
-            width: 400px;
-            height: 400px;
-            background: rgba(16, 185, 129, 0.15);
-            bottom: 300px;
-            left: 10%;
-            animation: floatBlob 16s ease-in-out infinite alternate;
         }
 
         @keyframes floatBlob {
             0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(40px, 60px) scale(1.1); }
-            100% { transform: translate(-30px, -40px) scale(0.95); }
-        }
-
-        /* FLOATING GEOMETRIC OBJECTS */
-        .floating-object {
-            position: absolute;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.7;
-        }
-
-        .object-sphere-1 {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.4), rgba(59, 130, 246, 0.1));
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            top: 150px;
-            left: 5%;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
-            animation: floatMotion 6s ease-in-out infinite;
-        }
-
-        .object-sphere-2 {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.4), rgba(52, 211, 153, 0.1));
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            bottom: 120px;
-            right: 8%;
-            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
-            animation: floatMotion 8s ease-in-out infinite reverse;
-        }
-
-        @keyframes floatMotion {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-25px) rotate(15deg); }
+            50% { transform: translate(30px, 40px) scale(1.08); }
+            100% { transform: translate(-20px, -30px) scale(0.95); }
         }
 
         /* HEADER & NAVIGATION */
         header {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 80px;
+            top: 0; left: 0; right: 0;
+            height: 75px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 6%;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(226, 232, 240, 0.8);
@@ -158,26 +105,20 @@
         }
 
         .brand-icon {
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             background: var(--primary-gradient);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
-            animation: pulseGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35); }
-            50% { box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6); }
         }
 
         .brand-name {
-            font-size: 1.5rem;
+            font-size: 1.45rem;
             font-weight: 800;
             letter-spacing: -0.5px;
             color: var(--text-main);
@@ -207,27 +148,10 @@
             font-weight: 600;
             font-size: 0.95rem;
             transition: all 0.25s ease;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.25s ease;
-            border-radius: 2px;
         }
 
         .nav-links a:hover {
             color: var(--primary);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
         }
 
         .header-actions {
@@ -241,16 +165,14 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            padding: 0.7rem 1.4rem;
+            padding: 0.65rem 1.3rem;
             border-radius: 10px;
             font-size: 0.925rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s ease;
             text-decoration: none;
             border: none;
-            position: relative;
-            overflow: hidden;
         }
 
         .btn-ghost {
@@ -259,29 +181,33 @@
             border: 1px solid var(--border);
         }
 
-        .btn-ghost:hover {
-            background: var(--bg-surface);
-            border-color: var(--border-hover);
-            transform: translateY(-1px);
-        }
-
         .btn-primary {
             background: var(--primary-gradient);
             color: white;
             box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.45);
+        /* MOBILE MENU TOGGLE */
+        .mobile-menu-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: #ffffff;
+            color: var(--text-main);
+            font-size: 1.2rem;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* LIVE MARQUEE TICKER */
+        /* MARQUEE TICKER */
         .ticker-bar {
             background: rgba(37, 99, 235, 0.05);
             border-bottom: 1px solid rgba(37, 99, 235, 0.1);
             padding: 0.6rem 0;
-            margin-top: 80px;
+            margin-top: 75px;
             overflow: hidden;
             white-space: nowrap;
             display: flex;
@@ -314,7 +240,7 @@
 
         /* HERO SECTION */
         .hero-section {
-            padding: 80px 6% 90px 6%;
+            padding: 70px 6% 80px 6%;
             position: relative;
             z-index: 2;
         }
@@ -332,7 +258,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
-            padding: 0.45rem 1.1rem;
+            padding: 0.4rem 1rem;
             background: var(--primary-light);
             border: 1px solid rgba(37, 99, 235, 0.2);
             border-radius: 9999px;
@@ -340,22 +266,15 @@
             font-weight: 700;
             color: var(--primary);
             margin-bottom: 1.5rem;
-            animation: slideDown 0.6s ease-out;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .hero-title {
-            font-size: 3.6rem;
+            font-size: 3.5rem;
             font-weight: 800;
             line-height: 1.15;
             letter-spacing: -1.5px;
             color: var(--text-main);
             margin-bottom: 1.5rem;
-            animation: fadeIn 0.8s ease-out;
         }
 
         .hero-title span {
@@ -371,12 +290,6 @@
             line-height: 1.7;
             margin-bottom: 2.2rem;
             max-width: 580px;
-            animation: fadeIn 1s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
         .hero-cta {
@@ -386,7 +299,7 @@
             flex-wrap: wrap;
         }
 
-        /* HERO INTERACTIVE CARD WITH MOTION CHIPS */
+        /* HERO CARD & CHIPS */
         .hero-card-wrapper {
             position: relative;
         }
@@ -408,35 +321,20 @@
             animation: floatChip 5s ease-in-out infinite alternate;
         }
 
-        .chip-1 {
-            top: -20px;
-            right: -20px;
-            color: #059669;
-        }
-
-        .chip-2 {
-            bottom: -20px;
-            left: -20px;
-            color: var(--primary);
-        }
+        .chip-1 { top: -15px; right: -15px; color: #059669; }
+        .chip-2 { bottom: -15px; left: -15px; color: var(--primary); }
 
         @keyframes floatChip {
             0% { transform: translateY(0); }
-            100% { transform: translateY(-12px); }
+            100% { transform: translateY(-10px); }
         }
 
         .hero-card {
             background: #ffffff;
             border: 1px solid var(--border);
-            border-radius: 1.75rem;
+            border-radius: 1.5rem;
             padding: 2.2rem;
             box-shadow: var(--shadow-lg);
-            transition: all 0.4s ease;
-        }
-
-        .hero-card:hover {
-            transform: translateY(-6px) scale(1.01);
-            box-shadow: 0 30px 60px -15px rgba(37, 99, 235, 0.2);
         }
 
         .hero-card-header {
@@ -462,8 +360,7 @@
         }
 
         .pulse-dot {
-            width: 8px;
-            height: 8px;
+            width: 8px; height: 8px;
             border-radius: 50%;
             background: #10b981;
             box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
@@ -472,7 +369,7 @@
 
         @keyframes pulseRing {
             0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
@@ -488,13 +385,6 @@
             border: 1px solid var(--border);
             border-radius: 1.25rem;
             padding: 1.25rem;
-            transition: all 0.3s ease;
-        }
-
-        .hero-stat-box:hover {
-            background: #ffffff;
-            border-color: var(--primary);
-            transform: translateY(-3px);
         }
 
         .hero-stat-box h4 {
@@ -507,14 +397,14 @@
         }
 
         .hero-stat-box p {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: var(--text-main);
         }
 
         /* FEATURES SECTION */
         .features-section {
-            padding: 100px 6%;
+            padding: 90px 6%;
             background: #ffffff;
             position: relative;
             z-index: 2;
@@ -523,7 +413,7 @@
         .section-header {
             text-align: center;
             max-width: 650px;
-            margin: 0 auto 4rem auto;
+            margin: 0 auto 3.5rem auto;
         }
 
         .section-subtitle {
@@ -536,7 +426,7 @@
         }
 
         .section-title {
-            font-size: 2.5rem;
+            font-size: 2.4rem;
             font-weight: 800;
             letter-spacing: -0.75px;
             color: var(--text-main);
@@ -547,68 +437,42 @@
             max-width: 1280px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.75rem;
         }
 
         .feature-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 1.5rem;
-            padding: 2.2rem;
+            padding: 2rem;
             box-shadow: var(--shadow-sm);
             transition: all 0.35s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--primary-gradient);
-            opacity: 0;
-            transition: opacity 0.3s ease;
         }
 
         .feature-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-6px);
             border-color: rgba(37, 99, 235, 0.3);
             box-shadow: var(--shadow-md);
         }
 
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-
         .feature-icon {
-            width: 56px;
-            height: 56px;
+            width: 52px; height: 52px;
             border-radius: 14px;
             background: var(--primary-light);
             color: var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover .feature-icon {
-            background: var(--primary);
-            color: white;
-            transform: rotate(6deg) scale(1.05);
+            font-size: 1.4rem;
+            margin-bottom: 1.25rem;
         }
 
         .feature-card h3 {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--text-main);
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.6rem;
         }
 
         .feature-card p {
@@ -617,9 +481,9 @@
             line-height: 1.6;
         }
 
-        /* DYNAMIC CALCULATOR SECTION */
+        /* CALCULATOR SECTION */
         .calculator-section {
-            padding: 100px 6%;
+            padding: 90px 6%;
             background: var(--bg-surface);
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
@@ -654,68 +518,57 @@
         }
 
         .calc-slider {
-            width: 100%;
-            height: 10px;
+            width: 100%; height: 10px;
             border-radius: 5px;
             background: #e2e8f0;
             outline: none;
             -webkit-appearance: none;
-            transition: all 0.2s ease;
         }
 
         .calc-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 24px;
-            height: 24px;
+            width: 24px; height: 24px;
             border-radius: 50%;
             background: var(--primary);
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
-            transition: all 0.2s ease;
-        }
-
-        .calc-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.15);
         }
 
         .calc-result-box {
             background: linear-gradient(135deg, rgba(37, 99, 235, 0.04) 0%, rgba(59, 130, 246, 0.08) 100%);
             border: 1px solid rgba(37, 99, 235, 0.2);
             border-radius: 1.5rem;
-            padding: 2.8rem;
+            padding: 2.5rem 2rem;
             text-align: center;
-            position: relative;
         }
 
         .calc-result-number {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             font-weight: 800;
             color: var(--primary);
             margin: 0.5rem 0;
-            transition: all 0.3s ease;
         }
 
-        /* GRAPH BARS ANIMATION IN CALCULATOR */
         .calc-graph {
             display: flex;
             align-items: flex-end;
             justify-content: center;
             gap: 8px;
-            height: 60px;
+            height: 50px;
             margin-bottom: 1.5rem;
         }
 
         .graph-bar {
-            width: 12px;
+            width: 10px;
             background: var(--primary-light);
             border-radius: 4px;
-            transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
+            transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* STATS BAR WITH ANIMATED RING */
+        /* STATS BAR */
         .stats-bar {
             max-width: 1280px;
-            margin: 90px auto;
+            margin: 80px auto;
             padding: 0 6%;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -728,20 +581,13 @@
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 1.25rem;
-            padding: 2rem 1.5rem;
+            padding: 1.8rem 1.25rem;
             text-align: center;
             box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-4px);
-            border-color: var(--primary);
-            box-shadow: var(--shadow-md);
         }
 
         .stat-number {
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             font-weight: 800;
             color: var(--text-main);
             margin-bottom: 0.35rem;
@@ -749,7 +595,7 @@
 
         .stat-label {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             font-weight: 600;
         }
 
@@ -757,12 +603,12 @@
         footer {
             border-top: 1px solid var(--border);
             background: #ffffff;
-            padding: 4rem 6% 2rem 6%;
+            padding: 3.5rem 6% 2rem 6%;
             max-width: 1280px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 2.5rem;
+            gap: 2rem;
             position: relative;
             z-index: 2;
         }
@@ -772,7 +618,7 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .footer-bottom {
@@ -782,34 +628,119 @@
             color: var(--text-dim);
             font-size: 0.875rem;
             border-top: 1px solid var(--border);
-            padding-top: 2rem;
+            padding-top: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
+        /* RESPONSIVE MEDIA QUERIES FOR MOBILE EXCELLENCE */
         @media (max-width: 992px) {
             .hero-container {
                 grid-template-columns: 1fr;
-                padding-top: 100px;
+                padding-top: 40px;
+                gap: 3rem;
+            }
+            .hero-title {
+                font-size: 2.8rem;
             }
             .calc-container {
                 grid-template-columns: 1fr;
+                padding: 2.5rem 1.75rem;
+                gap: 2.5rem;
             }
             .stats-bar {
                 grid-template-columns: repeat(2, 1fr);
             }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 0 5%;
+            }
+            .mobile-menu-btn {
+                display: flex;
+            }
             .nav-links {
+                position: fixed;
+                top: 75px;
+                left: 0;
+                right: 0;
+                background: #ffffff;
+                border-bottom: 1px solid var(--border);
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 1.25rem;
+                box-shadow: var(--shadow-md);
                 display: none;
+            }
+            .nav-links.mobile-active {
+                display: flex;
+            }
+            .header-actions {
+                display: none;
+            }
+            .hero-section {
+                padding: 40px 5% 60px 5%;
+            }
+            .hero-title {
+                font-size: 2.3rem;
+                letter-spacing: -0.75px;
+            }
+            .hero-desc {
+                font-size: 1rem;
+            }
+            .hero-cta {
+                flex-direction: column;
+                width: 100%;
+            }
+            .hero-cta .btn {
+                width: 100%;
+            }
+            .floating-chip {
+                display: none; /* Hide floating chips on mobile to prevent overflow */
+            }
+            .hero-card {
+                padding: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.85rem;
+            }
+            .features-section, .calculator-section {
+                padding: 60px 5%;
+            }
+            .calc-result-number {
+                font-size: 2.5rem;
+            }
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+                margin: 50px auto;
+            }
+            .stat-number {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-bar {
+                grid-template-columns: 1fr;
+            }
+            .footer-top, .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
             }
         }
     </style>
 </head>
 
 <body>
-    <!-- BACKGROUND MOTION BLOBS & OBJECTS -->
+    <!-- BACKGROUND MOTION BLOBS -->
     <div class="ambient-blob blob-1"></div>
     <div class="ambient-blob blob-2"></div>
-    <div class="ambient-blob blob-3"></div>
-    <div class="floating-object object-sphere-1"></div>
-    <div class="floating-object object-sphere-2"></div>
 
     <!-- HEADER -->
     <header>
@@ -821,10 +752,10 @@
             <span class="brand-tag">PRO</span>
         </a>
 
-        <ul class="nav-links">
-            <li><a href="#features">Features</a></li>
-            <li><a href="#calculator">Earnings Calc</a></li>
-            <li><a href="#network">Network Stats</a></li>
+        <ul class="nav-links" id="navMenu">
+            <li><a href="#features" onclick="toggleMobileMenu()">Features</a></li>
+            <li><a href="#calculator" onclick="toggleMobileMenu()">Earnings Calc</a></li>
+            <li><a href="#network" onclick="toggleMobileMenu()">Network Stats</a></li>
             <li><a href="dashboard.html">Portal Login</a></li>
         </ul>
 
@@ -836,6 +767,10 @@
                 Access Portal <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
+
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fa-solid fa-bars" id="menuIcon"></i>
+        </button>
     </header>
 
     <!-- LIVE MARQUEE TICKER -->
@@ -845,7 +780,7 @@
             <div class="ticker-item"><i class="fa-solid fa-fire"></i> Hot Offer: US Finance App CPA - $45.00 / Install</div>
             <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Real-time Supabase SmartLink tracking active across 150 GEOs</div>
             <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Advertiser Campaign #108 reached 10,000 conversions</div>
-            <!-- Repeat for seamless looping -->
+            <!-- Duplicate for infinite marquee loop -->
             <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Publisher #4812 just cashed out $3,450.00 via Wire</div>
             <div class="ticker-item"><i class="fa-solid fa-fire"></i> Hot Offer: US Finance App CPA - $45.00 / Install</div>
             <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Real-time Supabase SmartLink tracking active across 150 GEOs</div>
@@ -874,7 +809,7 @@
                 </div>
             </div>
 
-            <!-- HERO INTERACTIVE CARD WITH MOTION CHIPS -->
+            <!-- HERO CARD -->
             <div class="hero-card-wrapper">
                 <div class="floating-chip chip-1">
                     <i class="fa-solid fa-arrow-trend-up"></i> +142 New Conversions Today
@@ -913,7 +848,7 @@
                         </div>
                     </div>
 
-                    <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; padding: 0.85rem 1rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem;">
+                    <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; padding: 0.85rem 1rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; flex-wrap: wrap; gap: 0.5rem;">
                         <span style="color: var(--text-muted); font-weight: 600;"><i class="fa-solid fa-shield-check" style="color: #10b981;"></i> SmartLink Verification Active</span>
                         <span style="color: var(--primary); font-weight: 700;">Weekly Payouts</span>
                     </div>
@@ -967,7 +902,7 @@
         <div class="calc-container">
             <div>
                 <p class="section-subtitle">Revenue Estimator</p>
-                <h2 style="font-size: 2.2rem; font-weight: 800; color: var(--text-main); margin-bottom: 1rem;">Estimate Your Monthly Income</h2>
+                <h2 style="font-size: 2rem; font-weight: 800; color: var(--text-main); margin-bottom: 1rem;">Estimate Your Monthly Income</h2>
                 <p style="color: var(--text-muted); margin-bottom: 2rem;">Adjust traffic volume and payout rates to see your potential monthly income on DigiWise.</p>
 
                 <div class="calc-input-group">
@@ -982,7 +917,6 @@
             </div>
 
             <div class="calc-result-box">
-                <!-- GRAPH VISUALIZATION BARS -->
                 <div class="calc-graph" id="calcGraph">
                     <div class="graph-bar" style="height: 30%;"></div>
                     <div class="graph-bar" style="height: 45%;"></div>
@@ -1030,7 +964,7 @@
                 </div>
                 <span class="brand-name">DigiWise</span>
             </a>
-            <div style="display: flex; gap: 1.8rem;">
+            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
                 <a href="#features" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Features</a>
                 <a href="#calculator" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Calculator</a>
                 <a href="#network" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Stats</a>
@@ -1044,6 +978,17 @@
     </footer>
 
     <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('navMenu');
+            const icon = document.getElementById('menuIcon');
+            menu.classList.toggle('mobile-active');
+            if (menu.classList.contains('mobile-active')) {
+                icon.className = 'fa-solid fa-xmark';
+            } else {
+                icon.className = 'fa-solid fa-bars';
+            }
+        }
+
         function updateCalc() {
             const clicks = parseInt(document.getElementById('clicksSlider').value);
             const payout = parseInt(document.getElementById('payoutSlider').value);
@@ -1055,7 +1000,6 @@
             const total = conversions * payout;
             document.getElementById('calcTotal').innerText = '$' + Math.round(total).toLocaleString();
 
-            // Animate graph bars proportionally
             const bars = document.querySelectorAll('.graph-bar');
             const ratio = clicks / 250000;
             bars.forEach((bar, index) => {
@@ -1064,7 +1008,6 @@
             });
         }
 
-        // Animated hero live metrics counter
         let cCount = 14820;
         setInterval(() => {
             if (Math.random() > 0.5) {

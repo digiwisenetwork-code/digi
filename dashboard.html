@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DigiWise Dashboard | Performance Management Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -60,6 +60,8 @@
             color: var(--text-main);
             min-height: 100vh;
             transition: background-color 0.25s ease, color 0.25s ease;
+            width: 100%;
+            overflow-x: hidden;
         }
 
         /* LOGIN OVERLAY PAGE */
@@ -128,13 +130,13 @@
             border-right: 1px solid var(--border);
             height: 100vh;
             position: fixed;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             padding: 1.5rem;
             z-index: 100;
+            transition: transform 0.3s ease;
         }
 
         .nav-menu {
@@ -177,8 +179,7 @@
         }
 
         .user-avatar {
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             border-radius: 50%;
             background: var(--primary-gradient);
             display: flex;
@@ -214,6 +215,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            transition: margin-left 0.3s ease;
         }
 
         /* TOPBAR */
@@ -243,6 +245,19 @@
             gap: 1rem;
         }
 
+        .sidebar-toggle-btn {
+            display: none;
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-main);
+            font-size: 1.1rem;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -264,21 +279,10 @@
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
         }
 
-        .btn-primary:hover {
-            opacity: 0.92;
-            transform: translateY(-1px);
-        }
-
         .btn-outline {
             background: transparent;
             border: 1px solid var(--border);
             color: var(--text-main);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary-light);
-            border-color: var(--primary);
-            color: var(--primary);
         }
 
         .btn-danger {
@@ -293,12 +297,8 @@
         }
 
         /* PAGES */
-        .page {
-            display: none;
-        }
-        .page.active {
-            display: block;
-        }
+        .page { display: none; }
+        .page.active { display: block; }
 
         /* METRIC CARDS GRID */
         .metrics-grid {
@@ -353,12 +353,14 @@
         .table-responsive {
             width: 100%;
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             text-align: left;
+            min-width: 600px;
         }
 
         th {
@@ -376,10 +378,6 @@
             font-size: 0.925rem;
             border-bottom: 1px solid var(--border);
             color: var(--text-main);
-        }
-
-        tr:hover td {
-            background: var(--primary-light);
         }
 
         .status {
@@ -401,8 +399,7 @@
         }
 
         .action-btn {
-            width: 32px;
-            height: 32px;
+            width: 32px; height: 32px;
             border-radius: 8px;
             border: 1px solid var(--border);
             background: var(--bg-card);
@@ -412,17 +409,16 @@
             align-items: center;
             justify-content: center;
             font-size: 0.85rem;
-            transition: all 0.2s ease;
         }
 
-        .action-btn.edit:hover { background: #eff6ff; color: #2563eb; border-color: #bfdbfe; }
-        .action-btn.key:hover { background: #fef3c7; color: #d97706; border-color: #fde68a; }
-        .action-btn.delete:hover { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
+        .action-btn.edit:hover { background: #eff6ff; color: #2563eb; }
+        .action-btn.key:hover { background: #fef3c7; color: #d97706; }
+        .action-btn.delete:hover { background: #fef2f2; color: #dc2626; }
 
         /* MY CAMPAIGNS GRID */
         .campaigns-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
         }
 
@@ -430,13 +426,12 @@
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 1.25rem;
-            padding: 1.75rem;
+            padding: 1.5rem;
             box-shadow: var(--shadow-sm);
-            position: relative;
         }
 
         .campaign-card h3 {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--text-main);
             margin-bottom: 0.75rem;
@@ -452,7 +447,7 @@
         }
 
         .campaign-card .count {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 800;
             color: var(--primary);
             margin-top: 0.75rem;
@@ -467,23 +462,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
+            padding: 1.25rem;
             z-index: 1000;
             opacity: 0;
             pointer-events: none;
             transition: all 0.25s ease;
         }
 
-        .modal.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .modal.active { opacity: 1; pointer-events: auto; }
 
         .modal-content {
             background: #ffffff;
             border: 1px solid var(--border);
             border-radius: 1.5rem;
-            padding: 2.2rem;
+            padding: 2rem 1.5rem;
             width: 100%;
             max-width: 520px;
             position: relative;
@@ -500,8 +492,7 @@
         .modal-close {
             background: var(--bg-input);
             border: 1px solid var(--border);
-            width: 32px;
-            height: 32px;
+            width: 32px; height: 32px;
             border-radius: 50%;
             cursor: pointer;
             font-size: 1.1rem;
@@ -568,8 +559,7 @@
         }
 
         .pagination button {
-            width: 32px;
-            height: 32px;
+            width: 32px; height: 32px;
             border-radius: 8px;
             border: 1px solid var(--border);
             background: var(--bg-card);
@@ -582,12 +572,40 @@
             color: white;
             border-color: var(--primary);
         }
+
+        /* MOBILE RESPONSIVENESS MEDIA QUERIES */
+        @media (max-width: 900px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+            .main-wrapper {
+                margin-left: 0;
+            }
+            .sidebar-toggle-btn {
+                display: flex;
+            }
+            .topbar {
+                padding: 0 1.25rem;
+            }
+            .content {
+                padding: 1.25rem;
+            }
+            .card {
+                padding: 1.25rem;
+            }
+            .login-card {
+                padding: 2rem 1.5rem;
+            }
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- 1. LOGIN PAGE (Displayed when not authenticated) -->
+    <!-- 1. LOGIN PAGE -->
     <div class="login-page" id="loginPage">
         <div class="login-card">
             <a href="index.html" class="brand-logo-center">
@@ -597,8 +615,8 @@
                 <span class="brand-name">DigiWise</span>
             </a>
             
-            <h2 style="text-align: center; font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem;">Sign In to Portal</h2>
-            <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">Enter your email & password to access your dashboard</p>
+            <h2 style="text-align: center; font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem;">Sign In to Portal</h2>
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.75rem;">Enter your email & password to access your dashboard</p>
 
             <form id="loginForm">
                 <div class="form-group">
@@ -619,7 +637,7 @@
     <!-- 2. MAIN APPLICATION CONTAINER -->
     <div class="app-container" id="appContainer">
         <!-- SIDEBAR -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div>
                 <a href="index.html" class="brand-logo-center" style="justify-content: flex-start; margin-bottom: 2rem;">
                     <div class="brand-icon">
@@ -670,7 +688,12 @@
         <!-- MAIN WRAPPER -->
         <div class="main-wrapper">
             <header class="topbar">
-                <h1 class="page-title" id="pageTitle">Overview</h1>
+                <div style="display:flex; align-items:center; gap:0.75rem;">
+                    <button class="sidebar-toggle-btn" onclick="toggleSidebarDrawer()">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h1 class="page-title" id="pageTitle">Overview</h1>
+                </div>
                 <div class="topbar-actions">
                     <button class="btn btn-outline" onclick="refreshData()">
                         <i class="fa-solid fa-rotate"></i> Refresh
@@ -680,7 +703,7 @@
 
             <main class="content">
 
-                <!-- 1. OVERVIEW PAGE -->
+                <!-- OVERVIEW PAGE -->
                 <div class="page active" id="overviewPage">
                     <div class="metrics-grid" id="dashStats"></div>
 
@@ -693,7 +716,7 @@
                     </div>
                 </div>
 
-                <!-- 2. ADMINS PAGE (ADMIN ONLY) -->
+                <!-- ADMINS PAGE -->
                 <div class="page" id="adminsPage">
                     <div class="card">
                         <div class="card-header">
@@ -701,7 +724,7 @@
                             <button class="btn btn-primary" onclick="openAddAdmin()"><i class="fa-solid fa-user-plus"></i> Add Admin</button>
                         </div>
                         <div style="margin-bottom: 1rem;">
-                            <input type="text" id="adminSearch" placeholder="Search admin..." onkeyup="renderAdmins()" style="padding:0.6rem 1rem; border-radius:8px; border:1px solid var(--border); width: 250px;">
+                            <input type="text" id="adminSearch" placeholder="Search admin..." onkeyup="renderAdmins()" style="padding:0.6rem 1rem; border-radius:8px; border:1px solid var(--border); width: 100%; max-width: 250px;">
                         </div>
                         <div class="table-responsive">
                             <table>
@@ -716,14 +739,14 @@
                                 <tbody id="adminTable"></tbody>
                             </table>
                         </div>
-                        <div style="display:flex; justify-between; align-items:center; margin-top:1rem;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem; flex-wrap:wrap; gap:0.5rem;">
                             <span id="adminInfo" style="color:var(--text-muted); font-size:0.85rem;"></span>
                             <div class="pagination" id="adminPag"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 3. USERS PAGE (ADMIN ONLY) -->
+                <!-- USERS PAGE -->
                 <div class="page" id="usersPage">
                     <div class="card">
                         <div class="card-header">
@@ -731,7 +754,7 @@
                             <button class="btn btn-primary" onclick="openAddUser()"><i class="fa-solid fa-user-plus"></i> Add User</button>
                         </div>
                         <div style="margin-bottom: 1rem;">
-                            <input type="text" id="userSearch" placeholder="Search user..." onkeyup="renderUsers()" style="padding:0.6rem 1rem; border-radius:8px; border:1px solid var(--border); width: 250px;">
+                            <input type="text" id="userSearch" placeholder="Search user..." onkeyup="renderUsers()" style="padding:0.6rem 1rem; border-radius:8px; border:1px solid var(--border); width: 100%; max-width: 250px;">
                         </div>
                         <div class="table-responsive">
                             <table>
@@ -747,22 +770,22 @@
                                 <tbody id="userTable"></tbody>
                             </table>
                         </div>
-                        <div style="display:flex; justify-between; align-items:center; margin-top:1rem;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem; flex-wrap:wrap; gap:0.5rem;">
                             <span id="userInfo" style="color:var(--text-muted); font-size:0.85rem;"></span>
                             <div class="pagination" id="userPag"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 4. CAMPAIGNS PAGE (ADMIN ONLY) -->
+                <!-- CAMPAIGNS PAGE -->
                 <div class="page" id="campaignsPage">
                     <div class="card">
                         <div class="card-header">
                             <h2>Manage Campaigns</h2>
                             <button class="btn btn-primary" onclick="openAddCampaign()"><i class="fa-solid fa-plus"></i> Add Campaign</button>
                         </div>
-                        <div style="display:flex; gap:1rem; margin-bottom:1rem;">
-                            <input type="text" id="campSearch" placeholder="Search campaign..." onkeyup="renderCampaigns()" style="padding:0.6rem 1rem; border-radius:8px; border:1px solid var(--border); width: 250px;">
+                        <div style="display:flex; gap:1rem; margin-bottom:1rem; flex-wrap:wrap;">
+                            <input type="text" id="campSearch" placeholder="Search campaign..." onkeyup="renderCampaigns()" style="padding:0.6rem 1rem; border-radius:8px; border:1px solid var(--border); width: 100%; max-width: 250px;">
                             <select id="campCountryFilter" onchange="renderCampaigns()" style="padding:0.6rem 1rem; border-radius:8px; border:1px solid var(--border);"></select>
                         </div>
                         <div class="table-responsive">
@@ -780,14 +803,14 @@
                                 <tbody id="campTable"></tbody>
                             </table>
                         </div>
-                        <div style="display:flex; justify-between; align-items:center; margin-top:1rem;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem; flex-wrap:wrap; gap:0.5rem;">
                             <span id="campInfo" style="color:var(--text-muted); font-size:0.85rem;"></span>
                             <div class="pagination" id="campPag"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 5. ASSIGN OFFERS PAGE (ADMIN ONLY) -->
+                <!-- ASSIGN OFFERS PAGE -->
                 <div class="page" id="assignPage">
                     <div class="card">
                         <div class="card-header">
@@ -799,7 +822,7 @@
                             <select id="assignUser" style="padding:0.75rem 1rem; border-radius:10px; border:1px solid var(--border); width:100%; max-width:400px; font-weight:600;"></select>
                         </div>
 
-                        <div style="display:flex; justify-between; align-items:center; margin-bottom:1rem;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
                             <h3 style="font-size:1rem; font-weight:700;">Select Campaigns to Assign:</h3>
                             <div>
                                 <button class="btn btn-outline" onclick="checkAll(true)">Select All</button>
@@ -811,15 +834,15 @@
                     </div>
                 </div>
 
-                <!-- 6. ASSIGNMENTS LIST PAGE (ADMIN ONLY) -->
+                <!-- ASSIGNMENTS LIST PAGE -->
                 <div class="page" id="viewUCPage">
                     <div class="card">
                         <div class="card-header">
                             <h2>All Assigned Tracking Links</h2>
                             <button class="btn btn-danger" onclick="resetCounts()"><i class="fa-solid fa-rotate-left"></i> Reset All Counts to 0</button>
                         </div>
-                        <div style="display:flex; gap:1rem; margin-bottom:1rem;">
-                            <input type="text" id="ucSearch" placeholder="Search target or campaign..." onkeyup="renderUC()" style="padding:0.6rem 1rem; border-radius:8px; border:1px solid var(--border); width:250px;">
+                        <div style="display:flex; gap:1rem; margin-bottom:1rem; flex-wrap:wrap;">
+                            <input type="text" id="ucSearch" placeholder="Search target or campaign..." onkeyup="renderUC()" style="padding:0.6rem 1rem; border-radius:8px; border:1px solid var(--border); width:100%; max-width:250px;">
                             <select id="ucCountryFilter" onchange="renderUC()" style="padding:0.6rem 1rem; border-radius:8px; border:1px solid var(--border);"></select>
                         </div>
                         <div class="table-responsive">
@@ -841,7 +864,7 @@
                     </div>
                 </div>
 
-                <!-- 7. SETTINGS PAGE -->
+                <!-- SETTINGS PAGE -->
                 <div class="page" id="settingsPage">
                     <div class="card" style="max-width: 500px;">
                         <h2 style="margin-bottom: 1.5rem;">Account Security</h2>
@@ -1053,6 +1076,10 @@
         document.getElementById('campCountryFilter').innerHTML = countryOptions;
         document.getElementById('ucCountryFilter').innerHTML = countryOptions;
 
+        function toggleSidebarDrawer() {
+            document.getElementById('sidebar').classList.toggle('mobile-open');
+        }
+
         function toast(msg, type = 'success') {
             const t = document.getElementById('toast');
             t.textContent = msg;
@@ -1107,7 +1134,6 @@
                 btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Signing in...';
                 btn.disabled = true;
 
-                // 1. Check Admin table
                 let { data: admin } = await sb.from('admins').select('*').eq('email', email).limit(1).maybeSingle();
                 if (admin && admin.password === pwd) {
                     if (admin.status !== 'Active') throw new Error('Account inactive');
@@ -1118,7 +1144,6 @@
                     return;
                 }
 
-                // 2. Check User table
                 let { data: user } = await sb.from('users').select('*').eq('email', email).limit(1).maybeSingle();
                 if (user && user.password === pwd) {
                     if (user.status !== 'Active') throw new Error('Account inactive');
@@ -1209,6 +1234,9 @@
                 document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
                 document.getElementById(pageName + 'Page').classList.add('active');
 
+                // Close sidebar drawer on mobile
+                document.getElementById('sidebar').classList.remove('mobile-open');
+
                 const titleMap = {
                     overview: 'Dashboard Overview',
                     admins: 'Admin Accounts',
@@ -1227,7 +1255,7 @@
             if (!currentUser) return;
             const statsHtml = isAdmin ? `
                 <div class="stat-card"><h3><i class="fa-solid fa-user-shield"></i> Admins</h3><div class="value">${_admins.length}</div></div>
-                <div class="stat-card"><h3><div class="metric-icon"><i class="fa-solid fa-users"></i></div> Users</h3><div class="value">${_users.length}</div></div>
+                <div class="stat-card"><h3><i class="fa-solid fa-users"></i> Users</h3><div class="value">${_users.length}</div></div>
                 <div class="stat-card"><h3><i class="fa-solid fa-bullhorn"></i> Campaigns</h3><div class="value">${_campaigns.length}</div></div>
                 <div class="stat-card"><h3><i class="fa-solid fa-mouse-pointer"></i> Global Clicks</h3><div class="value">${_assignments.reduce((s, a) => s + (a.count || 0), 0)}</div></div>
             ` : `
@@ -1312,7 +1340,7 @@
                     <td><span class="status ${(c?.type || 'click').toLowerCase()}">${c?.type || 'Click'}</span></td>
                     <td>
                         <div style="display:flex;align-items:center;gap:0.5rem;">
-                            <input readonly value="${trackLink}" style="width:200px;font-size:0.8rem;padding:0.35rem 0.5rem;border:1px solid var(--border);border-radius:6px;background:var(--bg-input);">
+                            <input readonly value="${trackLink}" style="width:160px;font-size:0.8rem;padding:0.35rem 0.5rem;border:1px solid var(--border);border-radius:6px;background:var(--bg-input);">
                             <button onclick="navigator.clipboard.writeText('${trackLink}');toast('Copied link!')" class="action-btn" title="Copy"><i class="fa-solid fa-copy"></i></button>
                         </div>
                     </td>
@@ -1391,7 +1419,7 @@
             document.getElementById('myCampaignsGrid').innerHTML = html;
         }
 
-        // CRUD ADMINS
+        // CRUD FUNCTIONS
         function openAddAdmin() {
             document.getElementById('adminEditId').value = '';
             document.getElementById('adminName').value = '';
@@ -1454,7 +1482,6 @@
             toast('Admin password updated!');
         }
 
-        // CRUD USERS
         function openAddUser() {
             document.getElementById('userEditId').value = '';
             document.getElementById('userNameInp').value = '';
@@ -1520,7 +1547,6 @@
             toast('User password updated!');
         }
 
-        // CRUD CAMPAIGNS
         function openAddCampaign() {
             document.getElementById('campEditId').value = '';
             document.getElementById('campName').value = '';
@@ -1566,7 +1592,6 @@
             }
         }
 
-        // ASSIGNMENTS SYNC
         function checkAll(v) { document.querySelectorAll('#assignList input').forEach(cb => cb.checked = v); }
         async function submitAssign() {
             const val = document.getElementById('assignUser').value;
@@ -1619,7 +1644,6 @@
             }
         }
 
-        // SETTINGS: CHANGE MY PASSWORD
         async function changeMyPwd() {
             const curr = document.getElementById('currPwd').value.trim();
             const p = document.getElementById('myNewPwd').value.trim();
@@ -1636,7 +1660,6 @@
             } catch (e) { toast('Error updating password', 'error'); }
         }
 
-        // INIT SESSION ON STARTUP
         (async function () {
             if (await loadSession()) {
                 showDashboard();
