@@ -29,8 +29,8 @@
             --text-dim: #64748b;
             
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
-            --shadow-md: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
-            --shadow-lg: 0 20px 40px -15px rgba(15, 23, 42, 0.12);
+            --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+            --shadow-lg: 0 25px 50px -12px rgba(15, 23, 42, 0.15);
         }
 
         * {
@@ -46,6 +46,89 @@
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* BACKGROUND FLOATING BLOBS & MOTIONS */
+        .ambient-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.45;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .blob-1 {
+            width: 450px;
+            height: 450px;
+            background: rgba(37, 99, 235, 0.25);
+            top: -100px;
+            left: -100px;
+            animation: floatBlob 14s ease-in-out infinite alternate;
+        }
+
+        .blob-2 {
+            width: 550px;
+            height: 550px;
+            background: rgba(59, 130, 246, 0.2);
+            top: 200px;
+            right: -150px;
+            animation: floatBlob 18s ease-in-out infinite alternate-reverse;
+        }
+
+        .blob-3 {
+            width: 400px;
+            height: 400px;
+            background: rgba(16, 185, 129, 0.15);
+            bottom: 300px;
+            left: 10%;
+            animation: floatBlob 16s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatBlob {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(40px, 60px) scale(1.1); }
+            100% { transform: translate(-30px, -40px) scale(0.95); }
+        }
+
+        /* FLOATING GEOMETRIC OBJECTS */
+        .floating-object {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.7;
+        }
+
+        .object-sphere-1 {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.4), rgba(59, 130, 246, 0.1));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            top: 150px;
+            left: 5%;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+            animation: floatMotion 6s ease-in-out infinite;
+        }
+
+        .object-sphere-2 {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.4), rgba(52, 211, 153, 0.1));
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            bottom: 120px;
+            right: 8%;
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+            animation: floatMotion 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes floatMotion {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(15deg); }
         }
 
         /* HEADER & NAVIGATION */
@@ -59,10 +142,10 @@
             align-items: center;
             justify-content: space-between;
             padding: 0 6%;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
             z-index: 100;
         }
 
@@ -84,7 +167,13 @@
             justify-content: center;
             color: white;
             font-size: 1.3rem;
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35); }
+            50% { box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6); }
         }
 
         .brand-name {
@@ -117,11 +206,28 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 0.95rem;
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.25s ease;
+            border-radius: 2px;
         }
 
         .nav-links a:hover {
             color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .header-actions {
@@ -140,9 +246,11 @@
             font-size: 0.925rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
             border: none;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-ghost {
@@ -154,6 +262,7 @@
         .btn-ghost:hover {
             background: var(--bg-surface);
             border-color: var(--border-hover);
+            transform: translateY(-1px);
         }
 
         .btn-primary {
@@ -164,14 +273,50 @@
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.45);
+        }
+
+        /* LIVE MARQUEE TICKER */
+        .ticker-bar {
+            background: rgba(37, 99, 235, 0.05);
+            border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+            padding: 0.6rem 0;
+            margin-top: 80px;
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+
+        .ticker-track {
+            display: flex;
+            gap: 3rem;
+            animation: marquee 25s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .ticker-item i {
+            color: var(--accent-emerald);
         }
 
         /* HERO SECTION */
         .hero-section {
-            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
-            border-bottom: 1px solid var(--border);
-            padding: 160px 6% 90px 6%;
+            padding: 80px 6% 90px 6%;
+            position: relative;
+            z-index: 2;
         }
 
         .hero-container {
@@ -187,7 +332,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
-            padding: 0.4rem 1rem;
+            padding: 0.45rem 1.1rem;
             background: var(--primary-light);
             border: 1px solid rgba(37, 99, 235, 0.2);
             border-radius: 9999px;
@@ -195,19 +340,29 @@
             font-weight: 700;
             color: var(--primary);
             margin-bottom: 1.5rem;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .hero-title {
-            font-size: 3.5rem;
+            font-size: 3.6rem;
             font-weight: 800;
             line-height: 1.15;
             letter-spacing: -1.5px;
             color: var(--text-main);
             margin-bottom: 1.5rem;
+            animation: fadeIn 0.8s ease-out;
         }
 
         .hero-title span {
             color: var(--primary);
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero-desc {
@@ -216,6 +371,12 @@
             line-height: 1.7;
             margin-bottom: 2.2rem;
             max-width: 580px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .hero-cta {
@@ -225,13 +386,57 @@
             flex-wrap: wrap;
         }
 
-        /* HERO PREVIEW CARD */
-        .hero-card {
-            background: var(--bg-card);
+        /* HERO INTERACTIVE CARD WITH MOTION CHIPS */
+        .hero-card-wrapper {
+            position: relative;
+        }
+
+        .floating-chip {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
             border: 1px solid var(--border);
-            border-radius: 1.5rem;
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            box-shadow: var(--shadow-md);
+            font-size: 0.85rem;
+            font-weight: 700;
+            z-index: 10;
+            animation: floatChip 5s ease-in-out infinite alternate;
+        }
+
+        .chip-1 {
+            top: -20px;
+            right: -20px;
+            color: #059669;
+        }
+
+        .chip-2 {
+            bottom: -20px;
+            left: -20px;
+            color: var(--primary);
+        }
+
+        @keyframes floatChip {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-12px); }
+        }
+
+        .hero-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1.75rem;
             padding: 2.2rem;
             box-shadow: var(--shadow-lg);
+            transition: all 0.4s ease;
+        }
+
+        .hero-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 30px 60px -15px rgba(37, 99, 235, 0.2);
         }
 
         .hero-card-header {
@@ -256,6 +461,21 @@
             font-weight: 700;
         }
 
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulseRing 1.6s infinite;
+        }
+
+        @keyframes pulseRing {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
         .hero-stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -266,8 +486,15 @@
         .hero-stat-box {
             background: var(--bg-surface);
             border: 1px solid var(--border);
-            border-radius: 1rem;
+            border-radius: 1.25rem;
             padding: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .hero-stat-box:hover {
+            background: #ffffff;
+            border-color: var(--primary);
+            transform: translateY(-3px);
         }
 
         .hero-stat-box h4 {
@@ -289,6 +516,8 @@
         .features-section {
             padding: 100px 6%;
             background: #ffffff;
+            position: relative;
+            z-index: 2;
         }
 
         .section-header {
@@ -307,7 +536,7 @@
         }
 
         .section-title {
-            font-size: 2.4rem;
+            font-size: 2.5rem;
             font-weight: 800;
             letter-spacing: -0.75px;
             color: var(--text-main);
@@ -325,33 +554,58 @@
         .feature-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 1.25rem;
+            border-radius: 1.5rem;
             padding: 2.2rem;
             box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
+            transform: translateY(-8px);
+            border-color: rgba(37, 99, 235, 0.3);
             box-shadow: var(--shadow-md);
         }
 
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
         .feature-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 12px;
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
             background: var(--primary-light);
             color: var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            background: var(--primary);
+            color: white;
+            transform: rotate(6deg) scale(1.05);
         }
 
         .feature-card h3 {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: var(--text-main);
             margin-bottom: 0.75rem;
@@ -363,12 +617,14 @@
             line-height: 1.6;
         }
 
-        /* CALCULATOR SECTION */
+        /* DYNAMIC CALCULATOR SECTION */
         .calculator-section {
-            padding: 90px 6%;
+            padding: 100px 6%;
             background: var(--bg-surface);
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
+            position: relative;
+            z-index: 2;
         }
 
         .calc-container {
@@ -376,7 +632,7 @@
             margin: 0 auto;
             background: #ffffff;
             border: 1px solid var(--border);
-            border-radius: 1.75rem;
+            border-radius: 2rem;
             padding: 3.5rem 3rem;
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -399,59 +655,93 @@
 
         .calc-slider {
             width: 100%;
-            height: 8px;
+            height: 10px;
             border-radius: 5px;
             background: #e2e8f0;
             outline: none;
             -webkit-appearance: none;
+            transition: all 0.2s ease;
         }
 
         .calc-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             background: var(--primary);
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .calc-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
         }
 
         .calc-result-box {
-            background: var(--bg-surface);
-            border: 1px solid var(--border);
-            border-radius: 1.25rem;
-            padding: 2.5rem;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.04) 0%, rgba(59, 130, 246, 0.08) 100%);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: 1.5rem;
+            padding: 2.8rem;
             text-align: center;
+            position: relative;
         }
 
         .calc-result-number {
-            font-size: 3.2rem;
+            font-size: 3.5rem;
             font-weight: 800;
             color: var(--primary);
             margin: 0.5rem 0;
+            transition: all 0.3s ease;
         }
 
-        /* STATS BAR */
+        /* GRAPH BARS ANIMATION IN CALCULATOR */
+        .calc-graph {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 8px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+        }
+
+        .graph-bar {
+            width: 12px;
+            background: var(--primary-light);
+            border-radius: 4px;
+            transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
+        }
+
+        /* STATS BAR WITH ANIMATED RING */
         .stats-bar {
             max-width: 1280px;
-            margin: 80px auto;
+            margin: 90px auto;
             padding: 0 6%;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
+            position: relative;
+            z-index: 2;
         }
 
         .stat-item {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 1.25rem;
-            padding: 1.8rem;
+            padding: 2rem 1.5rem;
             text-align: center;
             box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
         }
 
         .stat-number {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             font-weight: 800;
             color: var(--text-main);
             margin-bottom: 0.35rem;
@@ -473,6 +763,8 @@
             display: flex;
             flex-direction: column;
             gap: 2.5rem;
+            position: relative;
+            z-index: 2;
         }
 
         .footer-top {
@@ -493,136 +785,10 @@
             padding-top: 2rem;
         }
 
-        /* AUTH MODALS */
-        .modal-backdrop {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-            z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.25s ease;
-        }
-
-        .modal-backdrop.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .auth-card {
-            background: #ffffff;
-            border: 1px solid var(--border);
-            border-radius: 1.5rem;
-            padding: 2.8rem;
-            width: 100%;
-            max-width: 440px;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            transform: translateY(15px);
-            transition: all 0.25s ease;
-        }
-
-        .modal-backdrop.active .auth-card {
-            transform: translateY(0);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1.25rem;
-            right: 1.25rem;
-            background: var(--bg-surface);
-            border: 1px solid var(--border);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.2s ease;
-        }
-
-        .modal-close:hover {
-            color: var(--text-main);
-            background: #e2e8f0;
-        }
-
-        .auth-title {
-            font-size: 1.6rem;
-            font-weight: 800;
-            text-align: center;
-            color: var(--text-main);
-            margin-bottom: 0.4rem;
-        }
-
-        .auth-subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.925rem;
-            margin-bottom: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.35rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 0.4rem;
-        }
-
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 0.85rem 1rem;
-            background: var(--bg-surface);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            outline: none;
-            transition: all 0.2s ease;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            border-color: var(--primary);
-            background: #ffffff;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-        }
-
-        .auth-alert {
-            padding: 0.75rem 1rem;
-            border-radius: 10px;
-            font-size: 0.875rem;
-            margin-bottom: 1rem;
-            display: none;
-        }
-
-        .auth-alert.error {
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            color: #dc2626;
-        }
-
-        .auth-alert.success {
-            background: #ecfdf5;
-            border: 1px solid #a7f3d0;
-            color: #059669;
-        }
-
         @media (max-width: 992px) {
             .hero-container {
                 grid-template-columns: 1fr;
-                padding-top: 120px;
+                padding-top: 100px;
             }
             .calc-container {
                 grid-template-columns: 1fr;
@@ -638,6 +804,13 @@
 </head>
 
 <body>
+    <!-- BACKGROUND MOTION BLOBS & OBJECTS -->
+    <div class="ambient-blob blob-1"></div>
+    <div class="ambient-blob blob-2"></div>
+    <div class="ambient-blob blob-3"></div>
+    <div class="floating-object object-sphere-1"></div>
+    <div class="floating-object object-sphere-2"></div>
+
     <!-- HEADER -->
     <header>
         <a href="#" class="brand-logo">
@@ -645,80 +818,105 @@
                 <i class="fa-solid fa-bolt"></i>
             </div>
             <span class="brand-name">DigiWise</span>
-            <span class="brand-tag">NETWORK</span>
+            <span class="brand-tag">PRO</span>
         </a>
 
         <ul class="nav-links">
             <li><a href="#features">Features</a></li>
             <li><a href="#calculator">Earnings Calc</a></li>
             <li><a href="#network">Network Stats</a></li>
-            <li><a href="#about">About Us</a></li>
+            <li><a href="dashboard.html">Portal Login</a></li>
         </ul>
 
         <div class="header-actions">
-            <button class="btn btn-ghost" onclick="openModal('loginModal')">
+            <a href="dashboard.html" class="btn btn-ghost">
                 <i class="fa-solid fa-right-to-bracket"></i> Login
-            </button>
-            <button class="btn btn-primary" onclick="openModal('registerModal')">
-                Get Started <i class="fa-solid fa-arrow-right"></i>
-            </button>
+            </a>
+            <a href="dashboard.html" class="btn btn-primary">
+                Access Portal <i class="fa-solid fa-arrow-right"></i>
+            </a>
         </div>
     </header>
+
+    <!-- LIVE MARQUEE TICKER -->
+    <div class="ticker-bar">
+        <div class="ticker-track">
+            <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Publisher #4812 just cashed out $3,450.00 via Wire</div>
+            <div class="ticker-item"><i class="fa-solid fa-fire"></i> Hot Offer: US Finance App CPA - $45.00 / Install</div>
+            <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Real-time Supabase SmartLink tracking active across 150 GEOs</div>
+            <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Advertiser Campaign #108 reached 10,000 conversions</div>
+            <!-- Repeat for seamless looping -->
+            <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Publisher #4812 just cashed out $3,450.00 via Wire</div>
+            <div class="ticker-item"><i class="fa-solid fa-fire"></i> Hot Offer: US Finance App CPA - $45.00 / Install</div>
+            <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Real-time Supabase SmartLink tracking active across 150 GEOs</div>
+            <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Advertiser Campaign #108 reached 10,000 conversions</div>
+        </div>
+    </div>
 
     <!-- HERO SECTION -->
     <section class="hero-section">
         <div class="hero-container">
             <div class="hero-content">
                 <div class="badge-pill">
-                    <i class="fa-solid fa-chart-line"></i> Premier Performance Marketing Network
+                    <i class="fa-solid fa-sparkles" style="color: #f59e0b;"></i> Next-Gen Performance Marketing Network
                 </div>
                 <h1 class="hero-title">Scale Performance Revenue with <span>DigiWise</span></h1>
                 <p class="hero-desc">
-                    Access high-payout CPA/CPL offers, real-time conversion tracking, and guaranteed weekly payouts with enterprise-grade technology.
+                    Access exclusive high-payout CPA/CPL offers, real-time tracking accuracy, and guaranteed weekly payouts backed by enterprise infrastructure.
                 </p>
                 <div class="hero-cta">
-                    <button class="btn btn-primary" style="padding: 0.9rem 2rem; font-size: 1rem;" onclick="openModal('registerModal')">
-                        Join as Publisher <i class="fa-solid fa-user-plus"></i>
-                    </button>
-                    <button class="btn btn-ghost" style="padding: 0.9rem 2rem; font-size: 1rem;" onclick="openModal('loginModal')">
-                        Publisher Login <i class="fa-solid fa-gauge-high"></i>
-                    </button>
+                    <a href="dashboard.html" class="btn btn-primary" style="padding: 0.95rem 2rem; font-size: 1rem;">
+                        Publisher Portal <i class="fa-solid fa-gauge-high"></i>
+                    </a>
+                    <a href="#features" class="btn btn-ghost" style="padding: 0.95rem 2rem; font-size: 1rem;">
+                        Explore Features <i class="fa-solid fa-circle-chevron-down"></i>
+                    </a>
                 </div>
             </div>
 
-            <div class="hero-card">
-                <div class="hero-card-header">
-                    <div>
-                        <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);">Live Platform Overview</h3>
-                        <p style="font-size: 0.85rem; color: var(--text-muted);">Real-time performance snapshot</p>
-                    </div>
-                    <div class="metric-badge">
-                        <i class="fa-solid fa-circle" style="font-size: 0.5rem;"></i> Active
-                    </div>
+            <!-- HERO INTERACTIVE CARD WITH MOTION CHIPS -->
+            <div class="hero-card-wrapper">
+                <div class="floating-chip chip-1">
+                    <i class="fa-solid fa-arrow-trend-up"></i> +142 New Conversions Today
+                </div>
+                <div class="floating-chip chip-2">
+                    <i class="fa-solid fa-bolt"></i> Instant Supabase Sync
                 </div>
 
-                <div class="hero-stats-grid">
-                    <div class="hero-stat-box">
-                        <h4>Daily Clicks</h4>
-                        <p id="heroClicks">14,250</p>
+                <div class="hero-card">
+                    <div class="hero-card-header">
+                        <div>
+                            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);">Live Network Snapshot</h3>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Real-time performance analytics</p>
+                        </div>
+                        <div class="metric-badge">
+                            <div class="pulse-dot"></div> Live Sync
+                        </div>
                     </div>
-                    <div class="hero-stat-box">
-                        <h4>Conversions</h4>
-                        <p id="heroConversions" style="color: #059669;">1,280</p>
-                    </div>
-                    <div class="hero-stat-box">
-                        <h4>Conversion Rate</h4>
-                        <p style="color: #2563eb;">8.98%</p>
-                    </div>
-                    <div class="hero-stat-box">
-                        <h4>Est. Revenue</h4>
-                        <p style="color: #0284c7;">$5,420.00</p>
-                    </div>
-                </div>
 
-                <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 10px; padding: 0.85rem 1rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem;">
-                    <span style="color: var(--text-muted); font-weight: 600;"><i class="fa-solid fa-shield-check" style="color: #10b981;"></i> SmartLink Verification Active</span>
-                    <span style="color: var(--primary); font-weight: 700;">Weekly Payouts</span>
+                    <div class="hero-stats-grid">
+                        <div class="hero-stat-box">
+                            <h4>Daily Clicks</h4>
+                            <p id="heroClicks">14,820</p>
+                        </div>
+                        <div class="hero-stat-box">
+                            <h4>Conversions</h4>
+                            <p id="heroConversions" style="color: #059669;">1,340</p>
+                        </div>
+                        <div class="hero-stat-box">
+                            <h4>Conversion Rate</h4>
+                            <p style="color: #2563eb;">9.04%</p>
+                        </div>
+                        <div class="hero-stat-box">
+                            <h4>Est. Revenue</h4>
+                            <p style="color: #0284c7;">$5,680.00</p>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; padding: 0.85rem 1rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem;">
+                        <span style="color: var(--text-muted); font-weight: 600;"><i class="fa-solid fa-shield-check" style="color: #10b981;"></i> SmartLink Verification Active</span>
+                        <span style="color: var(--primary); font-weight: 700;">Weekly Payouts</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -728,7 +926,7 @@
     <section id="features" class="features-section">
         <div class="section-header">
             <p class="section-subtitle">Why DigiWise</p>
-            <h2 class="section-title">Built for High-Growth Performance Marketers</h2>
+            <h2 class="section-title">Built for Modern Digital Marketers</h2>
             <p style="color: var(--text-muted);">Industrial-strength tracking and high-converting campaign offers tailored for maximum EPC.</p>
         </div>
 
@@ -769,7 +967,7 @@
         <div class="calc-container">
             <div>
                 <p class="section-subtitle">Revenue Estimator</p>
-                <h2 style="font-size: 2.2rem; font-weight: 800; color: var(--text-main); margin-bottom: 1rem;">Estimate Your Monthly Payouts</h2>
+                <h2 style="font-size: 2.2rem; font-weight: 800; color: var(--text-main); margin-bottom: 1rem;">Estimate Your Monthly Income</h2>
                 <p style="color: var(--text-muted); margin-bottom: 2rem;">Adjust traffic volume and payout rates to see your potential monthly income on DigiWise.</p>
 
                 <div class="calc-input-group">
@@ -784,12 +982,21 @@
             </div>
 
             <div class="calc-result-box">
+                <!-- GRAPH VISUALIZATION BARS -->
+                <div class="calc-graph" id="calcGraph">
+                    <div class="graph-bar" style="height: 30%;"></div>
+                    <div class="graph-bar" style="height: 45%;"></div>
+                    <div class="graph-bar" style="height: 60%;"></div>
+                    <div class="graph-bar" style="height: 75%;"></div>
+                    <div class="graph-bar" style="height: 100%; background: var(--primary);"></div>
+                </div>
+
                 <p style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 700;">Estimated Monthly Earnings</p>
                 <div class="calc-result-number" id="calcTotal">$37,500</div>
                 <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Calculated at an average 5% conversion rate</p>
-                <button class="btn btn-primary" style="width: 100%;" onclick="openModal('registerModal')">
-                    Start Earning Now
-                </button>
+                <a href="dashboard.html" class="btn btn-primary" style="width: 100%;">
+                    Access Portal <i class="fa-solid fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>
@@ -815,7 +1022,7 @@
     </section>
 
     <!-- FOOTER -->
-    <footer id="about">
+    <footer>
         <div class="footer-top">
             <a href="#" class="brand-logo">
                 <div class="brand-icon">
@@ -827,6 +1034,7 @@
                 <a href="#features" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Features</a>
                 <a href="#calculator" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Calculator</a>
                 <a href="#network" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Stats</a>
+                <a href="dashboard.html" style="color: var(--primary); text-decoration: none; font-weight: 700;">Login</a>
             </div>
         </div>
         <div class="footer-bottom">
@@ -835,82 +1043,7 @@
         </div>
     </footer>
 
-    <!-- LOGIN MODAL -->
-    <div class="modal-backdrop" id="loginModal">
-        <div class="auth-card">
-            <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
-            <h2 class="auth-title">Welcome Back</h2>
-            <p class="auth-subtitle">Sign in to your DigiWise account</p>
-
-            <div class="auth-alert error" id="loginError"></div>
-
-            <form onsubmit="handleLogin(event)">
-                <div class="form-group">
-                    <label>Account Role</label>
-                    <select id="loginRole">
-                        <option value="user">Publisher / Affiliate</option>
-                        <option value="admin">Administrator</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="loginEmail" required placeholder="name@company.com">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="loginPassword" required placeholder="••••••••">
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
-                    Sign In <i class="fa-solid fa-arrow-right"></i>
-                </button>
-            </form>
-            <p style="text-align: center; font-size: 0.875rem; color: var(--text-muted); margin-top: 1.5rem;">
-                Need an account? <a href="#" style="color: var(--primary); font-weight: 700;" onclick="closeModal('loginModal'); openModal('registerModal');">Register now</a>
-            </p>
-        </div>
-    </div>
-
-    <!-- REGISTER MODAL -->
-    <div class="modal-backdrop" id="registerModal">
-        <div class="auth-card">
-            <button class="modal-close" onclick="closeModal('registerModal')">&times;</button>
-            <h2 class="auth-title">Create Account</h2>
-            <p class="auth-subtitle">Join DigiWise Performance Network</p>
-
-            <div class="auth-alert error" id="registerError"></div>
-            <div class="auth-alert success" id="registerSuccess"></div>
-
-            <form onsubmit="handleRegister(event)">
-                <div class="form-group">
-                    <label>Full Name / Company</label>
-                    <input type="text" id="regName" required placeholder="John Doe">
-                </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="regEmail" required placeholder="name@company.com">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="regPassword" required placeholder="••••••••">
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
-                    Create Account <i class="fa-solid fa-user-plus"></i>
-                </button>
-            </form>
-            <p style="text-align: center; font-size: 0.875rem; color: var(--text-muted); margin-top: 1.5rem;">
-                Already registered? <a href="#" style="color: var(--primary); font-weight: 700;" onclick="closeModal('registerModal'); openModal('loginModal');">Log in</a>
-            </p>
-        </div>
-    </div>
-
-    <script src="config.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const sb = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
-
-        function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
         function updateCalc() {
             const clicks = parseInt(document.getElementById('clicksSlider').value);
             const payout = parseInt(document.getElementById('payoutSlider').value);
@@ -921,76 +1054,24 @@
             const conversions = clicks * 0.05;
             const total = conversions * payout;
             document.getElementById('calcTotal').innerText = '$' + Math.round(total).toLocaleString();
+
+            // Animate graph bars proportionally
+            const bars = document.querySelectorAll('.graph-bar');
+            const ratio = clicks / 250000;
+            bars.forEach((bar, index) => {
+                const heightPercent = Math.min(100, Math.max(15, (index + 1) * 20 * ratio + 20));
+                bar.style.height = heightPercent + '%';
+            });
         }
 
-        async function handleLogin(e) {
-            e.preventDefault();
-            const role = document.getElementById('loginRole').value;
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
-            const errDiv = document.getElementById('loginError');
-            errDiv.style.display = 'none';
-
-            try {
-                const table = (role === 'admin') ? 'admins' : 'users';
-                const { data, error } = await sb
-                    .from(table)
-                    .select('*')
-                    .eq('email', email)
-                    .eq('password', password)
-                    .single();
-
-                if (error || !data) {
-                    throw new Error('Invalid credentials. Please check your email and password.');
-                }
-
-                sessionStorage.setItem('digiUser', JSON.stringify({
-                    id: data.id,
-                    name: data.name,
-                    email: data.email,
-                    role: role
-                }));
-
-                window.location.href = 'dashboard.html';
-            } catch (err) {
-                errDiv.innerText = err.message;
-                errDiv.style.display = 'block';
+        // Animated hero live metrics counter
+        let cCount = 14820;
+        setInterval(() => {
+            if (Math.random() > 0.5) {
+                cCount += Math.floor(Math.random() * 4) + 1;
+                document.getElementById('heroClicks').innerText = cCount.toLocaleString();
             }
-        }
-
-        async function handleRegister(e) {
-            e.preventDefault();
-            const name = document.getElementById('regName').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const password = document.getElementById('regPassword').value.trim();
-            const errDiv = document.getElementById('registerError');
-            const succDiv = document.getElementById('registerSuccess');
-            
-            errDiv.style.display = 'none';
-            succDiv.style.display = 'none';
-
-            try {
-                const { data, error } = await sb
-                    .from('users')
-                    .insert([{ name, email, password, status: 'Active', type: 'Publisher' }])
-                    .select();
-
-                if (error) throw error;
-
-                succDiv.innerText = 'Registration successful! Opening login...';
-                succDiv.style.display = 'block';
-
-                setTimeout(() => {
-                    closeModal('registerModal');
-                    openModal('loginModal');
-                    document.getElementById('loginEmail').value = email;
-                }, 1500);
-
-            } catch (err) {
-                errDiv.innerText = err.message || 'Registration failed.';
-                errDiv.style.display = 'block';
-            }
-        }
+        }, 2500);
     </script>
 </body>
 
