@@ -11,12 +11,11 @@
     
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --primary-light: rgba(37, 99, 235, 0.08);
-            --primary-gradient: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #1d4ed8 100%);
-            --accent-cyan: #0284c7;
-            --accent-emerald: #10b981;
+            --primary: #0f172a;
+            --primary-hover: #1e293b;
+            --primary-light: rgba(15, 23, 42, 0.05);
+            --primary-gradient: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+            --accent-green: #10b981;
             
             --bg-body: #ffffff;
             --bg-surface: #f8fafc;
@@ -29,8 +28,8 @@
             --text-dim: #64748b;
             
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
-            --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
-            --shadow-lg: 0 25px 50px -12px rgba(15, 23, 42, 0.15);
+            --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.06);
+            --shadow-lg: 0 25px 50px -12px rgba(15, 23, 42, 0.12);
         }
 
         * {
@@ -50,26 +49,26 @@
             width: 100%;
         }
 
-        /* BACKGROUND MOTION BLOBS */
+        /* BACKGROUND SUBTLE MOTIONS */
         .ambient-blob {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
+            filter: blur(90px);
+            opacity: 0.25;
             pointer-events: none;
             z-index: 0;
         }
 
         .blob-1 {
-            width: 400px; height: 400px;
-            background: rgba(37, 99, 235, 0.25);
+            width: 450px; height: 450px;
+            background: rgba(15, 23, 42, 0.15);
             top: -100px; left: -100px;
             animation: floatBlob 14s ease-in-out infinite alternate;
         }
 
         .blob-2 {
             width: 450px; height: 450px;
-            background: rgba(59, 130, 246, 0.2);
+            background: rgba(16, 185, 129, 0.1);
             top: 200px; right: -150px;
             animation: floatBlob 18s ease-in-out infinite alternate-reverse;
         }
@@ -89,7 +88,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 0 6%;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(226, 232, 240, 0.8);
@@ -114,7 +113,7 @@
             justify-content: center;
             color: white;
             font-size: 1.25rem;
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25);
         }
 
         .brand-name {
@@ -130,7 +129,7 @@
             text-transform: uppercase;
             padding: 2px 8px;
             background: var(--primary-light);
-            border: 1px solid rgba(37, 99, 235, 0.2);
+            border: 1px solid rgba(15, 23, 42, 0.15);
             border-radius: 20px;
             color: var(--primary);
         }
@@ -184,10 +183,15 @@
         .btn-primary {
             background: var(--primary-gradient);
             color: white;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2);
         }
 
-        /* MOBILE MENU TOGGLE */
+        .btn-primary:hover {
+            background: #1e293b;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.3);
+        }
+
         .mobile-menu-btn {
             display: none;
             width: 40px;
@@ -204,8 +208,8 @@
 
         /* MARQUEE TICKER */
         .ticker-bar {
-            background: rgba(37, 99, 235, 0.05);
-            border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+            background: rgba(15, 23, 42, 0.03);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
             padding: 0.6rem 0;
             margin-top: 75px;
             overflow: hidden;
@@ -235,7 +239,7 @@
         }
 
         .ticker-item i {
-            color: var(--accent-emerald);
+            color: var(--accent-green);
         }
 
         /* HERO SECTION */
@@ -260,7 +264,7 @@
             gap: 0.6rem;
             padding: 0.4rem 1rem;
             background: var(--primary-light);
-            border: 1px solid rgba(37, 99, 235, 0.2);
+            border: 1px solid rgba(15, 23, 42, 0.15);
             border-radius: 9999px;
             font-size: 0.85rem;
             font-weight: 700;
@@ -279,9 +283,6 @@
 
         .hero-title span {
             color: var(--primary);
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
         .hero-desc {
@@ -452,7 +453,7 @@
 
         .feature-card:hover {
             transform: translateY(-6px);
-            border-color: rgba(37, 99, 235, 0.3);
+            border-color: rgba(15, 23, 42, 0.3);
             box-shadow: var(--shadow-md);
         }
 
@@ -531,12 +532,12 @@
             border-radius: 50%;
             background: var(--primary);
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.3);
         }
 
         .calc-result-box {
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.04) 0%, rgba(59, 130, 246, 0.08) 100%);
-            border: 1px solid rgba(37, 99, 235, 0.2);
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
             border-radius: 1.5rem;
             padding: 2.5rem 2rem;
             text-align: center;
@@ -560,7 +561,7 @@
 
         .graph-bar {
             width: 10px;
-            background: var(--primary-light);
+            background: rgba(15, 23, 42, 0.1);
             border-radius: 4px;
             transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -633,7 +634,7 @@
             gap: 1rem;
         }
 
-        /* RESPONSIVE MEDIA QUERIES FOR MOBILE EXCELLENCE */
+        /* RESPONSIVE MEDIA QUERIES */
         @media (max-width: 992px) {
             .hero-container {
                 grid-template-columns: 1fr;
@@ -684,10 +685,6 @@
             }
             .hero-title {
                 font-size: 2.3rem;
-                letter-spacing: -0.75px;
-            }
-            .hero-desc {
-                font-size: 1rem;
             }
             .hero-cta {
                 flex-direction: column;
@@ -697,7 +694,7 @@
                 width: 100%;
             }
             .floating-chip {
-                display: none; /* Hide floating chips on mobile to prevent overflow */
+                display: none;
             }
             .hero-card {
                 padding: 1.5rem;
@@ -840,7 +837,7 @@
                         </div>
                         <div class="hero-stat-box">
                             <h4>Conversion Rate</h4>
-                            <p style="color: #2563eb;">9.04%</p>
+                            <p style="color: #0f172a;">9.04%</p>
                         </div>
                         <div class="hero-stat-box">
                             <h4>Est. Revenue</h4>
@@ -911,7 +908,7 @@
                 </div>
 
                 <div class="calc-input-group">
-                    <label>Average Payout Per Conversion: <span id="payoutVal" style="color: var(--accent-emerald);">$15.00</span></label>
+                    <label>Average Payout Per Conversion: <span id="payoutVal" style="color: var(--accent-green);">$15.00</span></label>
                     <input type="range" min="1" max="100" step="1" value="15" class="calc-slider" id="payoutSlider" oninput="updateCalc()">
                 </div>
             </div>

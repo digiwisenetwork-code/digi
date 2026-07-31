@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --primary-light: rgba(37, 99, 235, 0.08);
-            --primary-gradient: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #1d4ed8 100%);
+            --primary: #0f172a;
+            --primary-hover: #1e293b;
+            --primary-light: rgba(15, 23, 42, 0.05);
+            --primary-gradient: linear-gradient(135deg, #0f172a 0%, #334155 100%);
             
             --bg-body: #f8fafc;
             --bg-card: #ffffff;
@@ -28,24 +28,11 @@
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --info: #0284c7;
+            --info: #0f172a;
 
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
             --shadow-md: 0 4px 15px -2px rgba(15, 23, 42, 0.06);
             --shadow-lg: 0 20px 40px -15px rgba(15, 23, 42, 0.12);
-        }
-
-        [data-theme="dark"] {
-            --bg-body: #090d16;
-            --bg-card: #111827;
-            --bg-sidebar: #0e1320;
-            --bg-input: #1f2937;
-            --border: rgba(255, 255, 255, 0.08);
-            --border-hover: rgba(37, 99, 235, 0.3);
-            
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --text-dim: #64748b;
         }
 
         * {
@@ -103,7 +90,7 @@
             justify-content: center;
             color: white;
             font-size: 1.35rem;
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
         }
 
         .brand-name {
@@ -206,7 +193,7 @@
             text-transform: uppercase;
         }
         .role-badge.admin { background: #fee2e2; color: #dc2626; }
-        .role-badge.user { background: #dbeafe; color: #2563eb; }
+        .role-badge.user { background: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; }
 
         /* MAIN CONTENT AREA */
         .main-wrapper {
@@ -276,7 +263,11 @@
         .btn-primary {
             background: var(--primary-gradient);
             color: white;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: #1e293b;
         }
 
         .btn-outline {
@@ -390,7 +381,7 @@
         }
         .status.active { background: #ecfdf5; color: #059669; }
         .status.inactive { background: #fef2f2; color: #dc2626; }
-        .status.click { background: #f0f9ff; color: #0284c7; }
+        .status.click { background: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; }
         .status.punch { background: #fef3c7; color: #d97706; }
 
         .actions {
@@ -411,7 +402,7 @@
             font-size: 0.85rem;
         }
 
-        .action-btn.edit:hover { background: #eff6ff; color: #2563eb; }
+        .action-btn.edit:hover { background: #f1f5f9; color: #0f172a; }
         .action-btn.key:hover { background: #fef3c7; color: #d97706; }
         .action-btn.delete:hover { background: #fef2f2; color: #dc2626; }
 
@@ -573,7 +564,7 @@
             border-color: var(--primary);
         }
 
-        /* MOBILE RESPONSIVENESS MEDIA QUERIES */
+        /* RESPONSIVE MEDIA QUERIES */
         @media (max-width: 900px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -1234,7 +1225,6 @@
                 document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
                 document.getElementById(pageName + 'Page').classList.add('active');
 
-                // Close sidebar drawer on mobile
                 document.getElementById('sidebar').classList.remove('mobile-open');
 
                 const titleMap = {
@@ -1303,13 +1293,13 @@
         }
 
         function renderUsers() {
-            renderTable(_users, 'userTable', 'userInfo', 'userPag', 'users', u => `<tr><td><strong>${u.name}</strong></td><td>${u.email}</td><td><span class="status ${u.status.toLowerCase()}">${u.status}</span></td><td><span class="badge badge-info">${u.type}</span></td><td class="actions"><button class="action-btn edit" onclick="editUser(${u.id})"><i class="fa-solid fa-pen"></i></button><button class="action-btn key" onclick="openUserPwd(${u.id})"><i class="fa-solid fa-key"></i></button><button class="action-btn delete" onclick="delUser(${u.id})"><i class="fa-solid fa-trash"></i></button></td></tr>`);
+            renderTable(_users, 'userTable', 'userInfo', 'userPag', 'users', u => `<tr><td><strong>${u.name}</strong></td><td>${u.email}</td><td><span class="status ${u.status.toLowerCase()}">${u.status}</span></td><td><span class="status click">${u.type}</span></td><td class="actions"><button class="action-btn edit" onclick="editUser(${u.id})"><i class="fa-solid fa-pen"></i></button><button class="action-btn key" onclick="openUserPwd(${u.id})"><i class="fa-solid fa-key"></i></button><button class="action-btn delete" onclick="delUser(${u.id})"><i class="fa-solid fa-trash"></i></button></td></tr>`);
         }
 
         function renderCampaigns() {
             const country = document.getElementById('campCountryFilter').value;
             const data = country ? _campaigns.filter(c => c.country === country) : _campaigns;
-            renderTable(data, 'campTable', 'campInfo', 'campPag', 'camps', c => `<tr><td><strong>${c.name}</strong></td><td><span class="badge badge-info">${c.offer_id || '-'}</span></td><td><div><span style="margin-right:4px;">${getFlag(c.country)}</span> ${c.country || '-'}</div></td><td><a href="${c.link}" target="_blank" style="color:var(--primary); font-weight:600;">${c.link || ''}</a></td><td><span class="status ${(c.type || 'click').toLowerCase()}">${c.type || 'Click'}</span></td><td class="actions"><button class="action-btn edit" onclick="editCamp(${c.id})"><i class="fa-solid fa-pen"></i></button><button class="action-btn delete" onclick="delCamp(${c.id})"><i class="fa-solid fa-trash"></i></button></td></tr>`);
+            renderTable(data, 'campTable', 'campInfo', 'campPag', 'camps', c => `<tr><td><strong>${c.name}</strong></td><td><span class="status click">${c.offer_id || '-'}</span></td><td><div><span style="margin-right:4px;">${getFlag(c.country)}</span> ${c.country || '-'}</div></td><td><a href="${c.link}" target="_blank" style="color:var(--primary); font-weight:600;">${c.link || ''}</a></td><td><span class="status ${(c.type || 'click').toLowerCase()}">${c.type || 'Click'}</span></td><td class="actions"><button class="action-btn edit" onclick="editCamp(${c.id})"><i class="fa-solid fa-pen"></i></button><button class="action-btn delete" onclick="delCamp(${c.id})"><i class="fa-solid fa-trash"></i></button></td></tr>`);
         }
 
         function renderUC() {
