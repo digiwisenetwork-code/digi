@@ -80,7 +80,6 @@
             100% { transform: translate(-25px, -35px) scale(0.95); }
         }
 
-        /* FLOATING SPHERES */
         .floating-sphere {
             position: absolute;
             pointer-events: none;
@@ -708,6 +707,134 @@
             font-weight: 600;
         }
 
+        /* FLOATING CHATBOT WIDGET */
+        .chat-widget {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 9999;
+        }
+
+        .chat-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .chat-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 14px 30px rgba(37, 99, 235, 0.55);
+        }
+
+        .chat-window {
+            position: fixed;
+            bottom: 95px;
+            right: 25px;
+            width: 360px;
+            height: 480px;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 9999;
+            animation: chatSlideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes chatSlideUp {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .chat-header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-header h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 1.25rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            background: var(--bg-surface);
+        }
+
+        .chat-msg {
+            max-width: 82%;
+            padding: 0.75rem 1rem;
+            border-radius: 14px;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .chat-msg.bot {
+            background: #ffffff;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .chat-msg.user {
+            background: var(--primary);
+            color: white;
+            border-bottom-right-radius: 4px;
+            align-self: flex-end;
+        }
+
+        .chat-options {
+            padding: 0.85rem 1rem;
+            background: #ffffff;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .chat-chip {
+            background: var(--primary-light);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            color: var(--primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .chat-chip:hover {
+            background: var(--primary);
+            color: white;
+        }
+
         /* FOOTER */
         footer {
             border-top: 1px solid var(--border);
@@ -821,6 +948,11 @@
             }
             .stat-number {
                 font-size: 1.8rem;
+            }
+            .chat-window {
+                width: 90%;
+                right: 5%;
+                bottom: 90px;
             }
         }
 
@@ -1060,6 +1192,26 @@
         </div>
     </section>
 
+    <!-- FLOATING CHATBOT WIDGET -->
+    <div class="chat-widget">
+        <button class="chat-btn" onclick="toggleChat()"><i class="fa-solid fa-comments"></i></button>
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <h4><i class="fa-solid fa-robot"></i> DigiWise Assistant</h4>
+                <button onclick="toggleChat()" style="background:none;border:none;color:white;font-size:1.2rem;cursor:pointer;">&times;</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="chat-msg bot">Hello! Welcome to DigiWise. How can I help you today regarding our performance marketing network?</div>
+            </div>
+            <div class="chat-options">
+                <button class="chat-chip" onclick="askChat('fees')">Setup fees?</button>
+                <button class="chat-chip" onclick="askChat('channels')">Traffic channels?</button>
+                <button class="chat-chip" onclick="askChat('contact')">Support contact?</button>
+                <button class="chat-chip" onclick="askChat('join')">How to join?</button>
+            </div>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer>
         <div class="footer-top">
@@ -1111,6 +1263,40 @@
                 const heightPercent = Math.min(100, Math.max(15, (index + 1) * 20 * ratio + 20));
                 bar.style.height = heightPercent + '%';
             });
+        }
+
+        // CHATBOT LOGIC
+        function toggleChat() {
+            const w = document.getElementById('chatWindow');
+            w.style.display = w.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function askChat(type) {
+            const body = document.getElementById('chatBody');
+            let q = '', a = '';
+
+            if (type === 'fees') { 
+                q = 'Are there any setup fees?'; 
+                a = 'No! There are absolutely zero setup fees. You only pay for performance (CPA, CPL, etc).'; 
+            }
+            if (type === 'channels') { 
+                q = 'What traffic channels do you support?'; 
+                a = 'We specialize in Email, SMS, Display, Search, Social, and Co-registration traffic channels globally.'; 
+            }
+            if (type === 'contact') { 
+                q = 'How can I contact support?'; 
+                a = 'You can reach out directly via the Portal Login or email our support team at support@digiwise.com.'; 
+            }
+            if (type === 'join') { 
+                q = 'How do I join as a Publisher?'; 
+                a = 'Click the "Portal Login" or "Access Portal" button above. If you do not have an account yet, contact your administrator to receive access!'; 
+            }
+
+            body.innerHTML += `<div class="chat-msg user">${q}</div>`;
+            setTimeout(() => {
+                body.innerHTML += `<div class="chat-msg bot">${a}</div>`;
+                body.scrollTop = body.scrollHeight;
+            }, 400);
         }
 
         let cCount = 14820;
