@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DigiWise Dashboard | Performance Portal</title>
+    <title>DigiWise Dashboard | Performance Management Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -32,6 +32,7 @@
 
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
             --shadow-md: 0 4px 15px -2px rgba(15, 23, 42, 0.06);
+            --shadow-lg: 0 20px 40px -15px rgba(15, 23, 42, 0.12);
         }
 
         [data-theme="dark"] {
@@ -58,8 +59,66 @@
             background-color: var(--bg-body);
             color: var(--text-main);
             min-height: 100vh;
-            display: flex;
             transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        /* LOGIN OVERLAY PAGE */
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+        }
+
+        .login-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 3rem 2.5rem;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .brand-logo-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--primary-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.35rem;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+        }
+
+        .brand-name {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+        }
+
+        /* APP CONTAINER */
+        .app-container {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .app-container.active {
+            display: flex;
         }
 
         /* SIDEBAR */
@@ -76,35 +135,6 @@
             justify-content: space-between;
             padding: 1.5rem;
             z-index: 100;
-        }
-
-        .brand-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            margin-bottom: 2.2rem;
-            padding-left: 0.5rem;
-        }
-
-        .brand-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--primary-gradient);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.25rem;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-        }
-
-        .brand-name {
-            font-size: 1.45rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: var(--text-main);
         }
 
         .nav-menu {
@@ -166,10 +196,16 @@
             color: var(--text-main);
         }
 
-        .user-details span {
-            font-size: 0.75rem;
-            color: var(--text-muted);
+        .role-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
         }
+        .role-badge.admin { background: #fee2e2; color: #dc2626; }
+        .role-badge.user { background: #dbeafe; color: #2563eb; }
 
         /* MAIN CONTENT AREA */
         .main-wrapper {
@@ -205,26 +241,6 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-        }
-
-        .theme-toggle-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            background: var(--bg-card);
-            color: var(--text-main);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            transition: all 0.2s ease;
-        }
-
-        .theme-toggle-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
         }
 
         .btn {
@@ -265,10 +281,23 @@
             color: var(--primary);
         }
 
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+
         /* CONTENT SECTION */
         .content {
             padding: 2rem;
             flex: 1;
+        }
+
+        /* PAGES */
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
         }
 
         /* METRIC CARDS GRID */
@@ -279,52 +308,26 @@
             margin-bottom: 2rem;
         }
 
-        .metric-card {
+        .stat-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 1rem;
             padding: 1.5rem;
             box-shadow: var(--shadow-sm);
-            transition: all 0.25s ease;
         }
 
-        .metric-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .metric-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-        }
-
-        .metric-title {
+        .stat-card h3 {
             font-size: 0.825rem;
             font-weight: 700;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
         }
 
-        .metric-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            background: var(--primary-light);
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-        }
-
-        .metric-value {
+        .stat-card .value {
             font-size: 2rem;
             font-weight: 800;
-            line-height: 1.2;
             color: var(--text-main);
         }
 
@@ -345,12 +348,6 @@
             margin-bottom: 1.5rem;
             flex-wrap: wrap;
             gap: 1rem;
-        }
-
-        .card-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--text-main);
         }
 
         .table-responsive {
@@ -375,54 +372,93 @@
         }
 
         td {
-            padding: 1.1rem 1rem;
+            padding: 1rem;
             font-size: 0.925rem;
             border-bottom: 1px solid var(--border);
             color: var(--text-main);
-        }
-
-        tr:last-child td {
-            border-bottom: none;
         }
 
         tr:hover td {
             background: var(--primary-light);
         }
 
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.3rem 0.75rem;
-            border-radius: 9999px;
+        .status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
             font-size: 0.75rem;
             font-weight: 700;
+            text-transform: uppercase;
+        }
+        .status.active { background: #ecfdf5; color: #059669; }
+        .status.inactive { background: #fef2f2; color: #dc2626; }
+        .status.click { background: #f0f9ff; color: #0284c7; }
+        .status.punch { background: #fef3c7; color: #d97706; }
+
+        .actions {
+            display: flex;
+            gap: 0.4rem;
         }
 
-        .badge-success { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
-        .badge-info { background: #f0f9ff; color: #0284c7; border: 1px solid #bae6fd; }
-        .badge-warning { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
-
-        /* SEARCH & INPUTS */
-        .input-group {
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-muted);
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            background: var(--bg-input);
+            justify-content: center;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn.edit:hover { background: #eff6ff; color: #2563eb; border-color: #bfdbfe; }
+        .action-btn.key:hover { background: #fef3c7; color: #d97706; border-color: #fde68a; }
+        .action-btn.delete:hover { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
+
+        /* MY CAMPAIGNS GRID */
+        .campaigns-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .campaign-card {
+            background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 0.5rem 1rem;
+            border-radius: 1.25rem;
+            padding: 1.75rem;
+            box-shadow: var(--shadow-sm);
+            position: relative;
         }
 
-        .input-group input {
-            background: transparent;
-            border: none;
-            outline: none;
+        .campaign-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
             color: var(--text-main);
-            font-size: 0.9rem;
-            width: 100%;
+            margin-bottom: 0.75rem;
         }
 
-        /* MODAL OVERLAY */
+        .country-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .campaign-card .count {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-top: 0.75rem;
+        }
+
+        /* MODALS */
         .modal {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -461,11 +497,21 @@
             margin-bottom: 1.5rem;
         }
 
-        .form-control {
+        .modal-close {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
             margin-bottom: 1.25rem;
         }
 
-        .form-control label {
+        .form-group label {
             display: block;
             font-size: 0.85rem;
             font-weight: 700;
@@ -473,7 +519,7 @@
             margin-bottom: 0.4rem;
         }
 
-        .form-control input, .form-control select {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 0.8rem 1rem;
             background: var(--bg-input);
@@ -484,7 +530,14 @@
             outline: none;
         }
 
-        /* TOAST NOTIFICATION */
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        /* TOAST */
         .toast {
             position: fixed;
             bottom: 2rem;
@@ -504,524 +557,1091 @@
             z-index: 2000;
         }
 
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.error { background: #ef4444; }
+        .toast.warning { background: #f59e0b; }
+
+        .pagination {
+            display: flex;
+            gap: 0.35rem;
+            align-items: center;
+        }
+
+        .pagination button {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .pagination button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
         }
     </style>
 </head>
 
 <body>
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div>
-            <a href="index.html" class="brand-logo">
+
+    <!-- 1. LOGIN PAGE (Displayed when not authenticated) -->
+    <div class="login-page" id="loginPage">
+        <div class="login-card">
+            <a href="index.html" class="brand-logo-center">
                 <div class="brand-icon">
                     <i class="fa-solid fa-bolt"></i>
                 </div>
                 <span class="brand-name">DigiWise</span>
             </a>
-
-            <ul class="nav-menu">
-                <li class="nav-item active" onclick="switchTab('overview', this)">
-                    <a href="#"><i class="fa-solid fa-chart-pie"></i> Overview</a>
-                </li>
-                <li class="nav-item" onclick="switchTab('campaigns', this)">
-                    <a href="#"><i class="fa-solid fa-bullhorn"></i> Campaigns & Offers</a>
-                </li>
-                <li class="nav-item" id="adminMenuUsers" style="display: none;" onclick="switchTab('users', this)">
-                    <a href="#"><i class="fa-solid fa-users"></i> Manage Users</a>
-                </li>
-                <li class="nav-item" id="adminMenuAssign" style="display: none;" onclick="switchTab('assignments', this)">
-                    <a href="#"><i class="fa-solid fa-link"></i> Campaign Assignments</a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="sidebar-footer">
-            <div class="user-info">
-                <div class="user-avatar" id="avatarInitials">DW</div>
-                <div class="user-details">
-                    <h4 id="userName">User Name</h4>
-                    <span id="userRole">Publisher</span>
-                </div>
-            </div>
-            <button class="theme-toggle-btn" onclick="logout()" title="Logout">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-            </button>
-        </div>
-    </aside>
-
-    <!-- MAIN WRAPPER -->
-    <div class="main-wrapper">
-        <!-- TOPBAR -->
-        <header class="topbar">
-            <h1 class="page-title" id="pageTitle">Dashboard Overview</h1>
             
-            <div class="topbar-actions">
-                <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle Theme">
-                    <i class="fa-solid fa-sun"></i>
+            <h2 style="text-align: center; font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem;">Sign In to Portal</h2>
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">Enter your email & password to access your dashboard</p>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="loginEmail" required placeholder="admin@admin.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.85rem; margin-top: 0.5rem;">
+                    Sign In <i class="fa-solid fa-arrow-right"></i>
                 </button>
-                <button class="btn btn-outline" onclick="location.reload()">
-                    <i class="fa-solid fa-rotate"></i> Refresh
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. MAIN APPLICATION CONTAINER -->
+    <div class="app-container" id="appContainer">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div>
+                <a href="index.html" class="brand-logo-center" style="justify-content: flex-start; margin-bottom: 2rem;">
+                    <div class="brand-icon">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <span class="brand-name">DigiWise</span>
+                </a>
+
+                <ul class="nav-menu">
+                    <li class="nav-item active">
+                        <a href="#" class="nav-link active" data-page="overview"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+                    </li>
+                    <li class="nav-item admin-only" style="display:none;">
+                        <a href="#" class="nav-link" data-page="admins"><i class="fa-solid fa-user-shield"></i> Admins</a>
+                    </li>
+                    <li class="nav-item admin-only" style="display:none;">
+                        <a href="#" class="nav-link" data-page="users"><i class="fa-solid fa-users"></i> Users</a>
+                    </li>
+                    <li class="nav-item admin-only" style="display:none;">
+                        <a href="#" class="nav-link" data-page="campaigns"><i class="fa-solid fa-bullhorn"></i> Campaigns</a>
+                    </li>
+                    <li class="nav-item admin-only" style="display:none;">
+                        <a href="#" class="nav-link" data-page="assign"><i class="fa-solid fa-link"></i> Assign Offers</a>
+                    </li>
+                    <li class="nav-item admin-only" style="display:none;">
+                        <a href="#" class="nav-link" data-page="viewUC"><i class="fa-solid fa-list-check"></i> Assignments List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-page="settings"><i class="fa-solid fa-gear"></i> Settings</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="avatarInitials">DW</div>
+                    <div class="user-details">
+                        <h4 id="userName">User</h4>
+                        <span id="roleBadge" class="role-badge user">User</span>
+                    </div>
+                </div>
+                <button class="action-btn delete" onclick="logout()" title="Logout">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 </button>
             </div>
-        </header>
+        </aside>
 
-        <!-- CONTENT AREA -->
-        <main class="content">
+        <!-- MAIN WRAPPER -->
+        <div class="main-wrapper">
+            <header class="topbar">
+                <h1 class="page-title" id="pageTitle">Overview</h1>
+                <div class="topbar-actions">
+                    <button class="btn btn-outline" onclick="refreshData()">
+                        <i class="fa-solid fa-rotate"></i> Refresh
+                    </button>
+                </div>
+            </header>
 
-            <!-- METRIC STATS -->
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-header">
-                        <span class="metric-title">Total Clicks</span>
-                        <div class="metric-icon"><i class="fa-solid fa-mouse-pointer"></i></div>
+            <main class="content">
+
+                <!-- 1. OVERVIEW PAGE -->
+                <div class="page active" id="overviewPage">
+                    <div class="metrics-grid" id="dashStats"></div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 style="font-size: 1.15rem; font-weight: 700;">My Assigned Campaigns</h2>
+                            <select id="myCampCountryFilter" onchange="renderMyCampaigns()" style="padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid var(--border); font-weight: 600;"></select>
+                        </div>
+                        <div class="campaigns-grid" id="myCampaignsGrid"></div>
                     </div>
-                    <div class="metric-value" id="statClicks">0</div>
                 </div>
 
-                <div class="metric-card">
-                    <div class="metric-header">
-                        <span class="metric-title">Active Offers</span>
-                        <div class="metric-icon"><i class="fa-solid fa-layer-group"></i></div>
-                    </div>
-                    <div class="metric-value" id="statOffers">0</div>
-                </div>
-
-                <div class="metric-card">
-                    <div class="metric-header">
-                        <span class="metric-title">Assigned Links</span>
-                        <div class="metric-icon"><i class="fa-solid fa-link"></i></div>
-                    </div>
-                    <div class="metric-value" id="statAssignments">0</div>
-                </div>
-
-                <div class="metric-card">
-                    <div class="metric-header">
-                        <span class="metric-title">Account Status</span>
-                        <div class="metric-icon" style="color: #059669; background: #ecfdf5;"><i class="fa-solid fa-shield-check"></i></div>
-                    </div>
-                    <div class="metric-value" style="font-size: 1.4rem; color: #059669;" id="statStatus">Active</div>
-                </div>
-            </div>
-
-            <!-- OVERVIEW TAB -->
-            <div id="tabOverview">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">My Assigned Offers & Tracking Links</h2>
-                        <div class="input-group" style="width: 250px;">
-                            <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted);"></i>
-                            <input type="text" placeholder="Search offer..." oninput="filterTable('userLinksTable', this.value)">
+                <!-- 2. ADMINS PAGE (ADMIN ONLY) -->
+                <div class="page" id="adminsPage">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Manage Administrator Accounts</h2>
+                            <button class="btn btn-primary" onclick="openAddAdmin()"><i class="fa-solid fa-user-plus"></i> Add Admin</button>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <input type="text" id="adminSearch" placeholder="Search admin..." onkeyup="renderAdmins()" style="padding:0.6rem 1rem; border-radius:8px; border:1px solid var(--border); width: 250px;">
+                        </div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminTable"></tbody>
+                            </table>
+                        </div>
+                        <div style="display:flex; justify-between; align-items:center; margin-top:1rem;">
+                            <span id="adminInfo" style="color:var(--text-muted); font-size:0.85rem;"></span>
+                            <div class="pagination" id="adminPag"></div>
                         </div>
                     </div>
-                    <div class="table-responsive">
-                        <table id="userLinksTable">
-                            <thead>
-                                <tr>
-                                    <th>Offer Name</th>
-                                    <th>Offer ID</th>
-                                    <th>GEO</th>
-                                    <th>Type</th>
-                                    <th>Clicks Count</th>
-                                    <th>Smart Link</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="userLinksBody">
-                                <tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Loading assignments...</td></tr>
-                            </tbody>
-                        </table>
+                </div>
+
+                <!-- 3. USERS PAGE (ADMIN ONLY) -->
+                <div class="page" id="usersPage">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Manage Users / Publishers</h2>
+                            <button class="btn btn-primary" onclick="openAddUser()"><i class="fa-solid fa-user-plus"></i> Add User</button>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <input type="text" id="userSearch" placeholder="Search user..." onkeyup="renderUsers()" style="padding:0.6rem 1rem; border-radius:8px; border:1px solid var(--border); width: 250px;">
+                        </div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                        <th>Type</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="userTable"></tbody>
+                            </table>
+                        </div>
+                        <div style="display:flex; justify-between; align-items:center; margin-top:1rem;">
+                            <span id="userInfo" style="color:var(--text-muted); font-size:0.85rem;"></span>
+                            <div class="pagination" id="userPag"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- CAMPAIGNS TAB -->
-            <div id="tabCampaigns" style="display: none;">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Available Campaigns</h2>
-                        <button class="btn btn-primary" id="addCampaignBtn" style="display: none;" onclick="openModal('addCampaignModal')">
-                            <i class="fa-solid fa-plus"></i> New Campaign
+                <!-- 4. CAMPAIGNS PAGE (ADMIN ONLY) -->
+                <div class="page" id="campaignsPage">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Manage Campaigns</h2>
+                            <button class="btn btn-primary" onclick="openAddCampaign()"><i class="fa-solid fa-plus"></i> Add Campaign</button>
+                        </div>
+                        <div style="display:flex; gap:1rem; margin-bottom:1rem;">
+                            <input type="text" id="campSearch" placeholder="Search campaign..." onkeyup="renderCampaigns()" style="padding:0.6rem 1rem; border-radius:8px; border:1px solid var(--border); width: 250px;">
+                            <select id="campCountryFilter" onchange="renderCampaigns()" style="padding:0.6rem 1rem; border-radius:8px; border:1px solid var(--border);"></select>
+                        </div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Offer ID</th>
+                                        <th>Country</th>
+                                        <th>Link</th>
+                                        <th>Type</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="campTable"></tbody>
+                            </table>
+                        </div>
+                        <div style="display:flex; justify-between; align-items:center; margin-top:1rem;">
+                            <span id="campInfo" style="color:var(--text-muted); font-size:0.85rem;"></span>
+                            <div class="pagination" id="campPag"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. ASSIGN OFFERS PAGE (ADMIN ONLY) -->
+                <div class="page" id="assignPage">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Assign Campaigns to User / Admin</h2>
+                            <button class="btn btn-primary" onclick="submitAssign()"><i class="fa-solid fa-floppy-disk"></i> Save Assignments</button>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display:block; font-weight:700; margin-bottom:0.5rem;">Select Target Account:</label>
+                            <select id="assignUser" style="padding:0.75rem 1rem; border-radius:10px; border:1px solid var(--border); width:100%; max-width:400px; font-weight:600;"></select>
+                        </div>
+
+                        <div style="display:flex; justify-between; align-items:center; margin-bottom:1rem;">
+                            <h3 style="font-size:1rem; font-weight:700;">Select Campaigns to Assign:</h3>
+                            <div>
+                                <button class="btn btn-outline" onclick="checkAll(true)">Select All</button>
+                                <button class="btn btn-outline" onclick="checkAll(false)">Deselect All</button>
+                            </div>
+                        </div>
+
+                        <div id="assignList"></div>
+                    </div>
+                </div>
+
+                <!-- 6. ASSIGNMENTS LIST PAGE (ADMIN ONLY) -->
+                <div class="page" id="viewUCPage">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>All Assigned Tracking Links</h2>
+                            <button class="btn btn-danger" onclick="resetCounts()"><i class="fa-solid fa-rotate-left"></i> Reset All Counts to 0</button>
+                        </div>
+                        <div style="display:flex; gap:1rem; margin-bottom:1rem;">
+                            <input type="text" id="ucSearch" placeholder="Search target or campaign..." onkeyup="renderUC()" style="padding:0.6rem 1rem; border-radius:8px; border:1px solid var(--border); width:250px;">
+                            <select id="ucCountryFilter" onchange="renderUC()" style="padding:0.6rem 1rem; border-radius:8px; border:1px solid var(--border);"></select>
+                        </div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Target User</th>
+                                        <th>Campaign</th>
+                                        <th>Country</th>
+                                        <th>Type</th>
+                                        <th>Tracking Link</th>
+                                        <th>Clicks</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ucTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. SETTINGS PAGE -->
+                <div class="page" id="settingsPage">
+                    <div class="card" style="max-width: 500px;">
+                        <h2 style="margin-bottom: 1.5rem;">Account Security</h2>
+                        <button class="btn btn-primary" onclick="openModal('myPwdModal')">
+                            <i class="fa-solid fa-key"></i> Change Password
                         </button>
                     </div>
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Campaign Name</th>
-                                    <th>Offer ID</th>
-                                    <th>Country</th>
-                                    <th>Type</th>
-                                    <th>Destination URL</th>
-                                </tr>
-                            </thead>
-                            <tbody id="campaignsBody">
-                                <tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Loading campaigns...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
-            </div>
 
-            <!-- USERS TAB (ADMIN) -->
-            <div id="tabUsers" style="display: none;">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Registered Publishers & Users</h2>
-                    </div>
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Status</th>
-                                    <th>Created At</th>
-                                </tr>
-                            </thead>
-                            <tbody id="usersBody">
-                                <tr><td colspan="5" style="text-align: center;">Loading users...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ASSIGNMENTS TAB (ADMIN) -->
-            <div id="tabAssignments" style="display: none;">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Assign Campaign to Publisher</h2>
-                        <button class="btn btn-primary" onclick="openModal('assignModal')">
-                            <i class="fa-solid fa-link"></i> Create Assignment
-                        </button>
-                    </div>
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Assignment ID</th>
-                                    <th>User Name</th>
-                                    <th>User Email</th>
-                                    <th>Campaign Name</th>
-                                    <th>Total Clicks</th>
-                                </tr>
-                            </thead>
-                            <tbody id="adminAssignBody">
-                                <tr><td colspan="5" style="text-align: center;">Loading assignments...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-        </main>
-    </div>
-
-    <!-- CREATE CAMPAIGN MODAL (ADMIN) -->
-    <div class="modal" id="addCampaignModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Add New Campaign</h3>
-                <button class="theme-toggle-btn" onclick="closeModal('addCampaignModal')">&times;</button>
-            </div>
-            <form onsubmit="handleCreateCampaign(event)">
-                <div class="form-control">
-                    <label>Campaign Name</label>
-                    <input type="text" id="campName" required placeholder="e.g. Crypto App Install">
-                </div>
-                <div class="form-control">
-                    <label>Offer ID</label>
-                    <input type="text" id="campOfferId" required placeholder="OFFER-101">
-                </div>
-                <div class="form-control">
-                    <label>Country / GEO</label>
-                    <input type="text" id="campCountry" required placeholder="US, UK, CA">
-                </div>
-                <div class="form-control">
-                    <label>Destination Link</label>
-                    <input type="url" id="campLink" required placeholder="https://landingpage.com">
-                </div>
-                <div class="form-control">
-                    <label>Payout Type</label>
-                    <select id="campType">
-                        <option value="Click">CPA / Click</option>
-                        <option value="CPL">CPL / Lead</option>
-                        <option value="CPS">CPS / Sale</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Campaign</button>
-            </form>
+            </main>
         </div>
     </div>
 
-    <!-- ASSIGN CAMPAIGN MODAL (ADMIN) -->
-    <div class="modal" id="assignModal">
+    <!-- MODALS -->
+    <div class="modal" id="adminModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Assign Campaign to User</h3>
-                <button class="theme-toggle-btn" onclick="closeModal('assignModal')">&times;</button>
+                <h3 id="adminModalTitle">Add Admin</h3>
+                <button class="modal-close" onclick="closeModal('adminModal')">&times;</button>
             </div>
-            <form onsubmit="handleCreateAssignment(event)">
-                <div class="form-control">
-                    <label>Select User</label>
-                    <select id="assignUserSelect" required></select>
-                </div>
-                <div class="form-control">
-                    <label>Select Campaign</label>
-                    <select id="assignCampSelect" required></select>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Assignment</button>
-            </form>
+            <input type="hidden" id="adminEditId">
+            <div class="form-group"><label>Name</label><input id="adminName" placeholder="Full name"></div>
+            <div class="form-group"><label>Email</label><input type="email" id="adminEmail" placeholder="Email address"></div>
+            <div class="form-group"><label>Password</label><input type="password" id="adminPwd" placeholder="Password"></div>
+            <div class="form-group"><label>Status</label>
+                <select id="adminStatus">
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('adminModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveAdmin()">Save Admin</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="adminPwdModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Reset Admin Password</h3>
+                <button class="modal-close" onclick="closeModal('adminPwdModal')">&times;</button>
+            </div>
+            <input type="hidden" id="adminPwdId">
+            <div class="form-group"><label>New Password</label><input type="password" id="newAdminPwd"></div>
+            <div class="form-group"><label>Confirm Password</label><input type="password" id="confirmAdminPwd"></div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('adminPwdModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="resetAdminPwd()">Update Password</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="userModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="userModalTitle">Add User</h3>
+                <button class="modal-close" onclick="closeModal('userModal')">&times;</button>
+            </div>
+            <input type="hidden" id="userEditId">
+            <div class="form-group"><label>Name</label><input id="userNameInp" placeholder="Full name"></div>
+            <div class="form-group"><label>Email</label><input type="email" id="userEmail" placeholder="Email address"></div>
+            <div class="form-group"><label>Password</label><input type="password" id="userPwd" placeholder="Password"></div>
+            <div class="form-group"><label>Status</label>
+                <select id="userStatus">
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+            </div>
+            <div class="form-group"><label>Type</label>
+                <select id="userType">
+                    <option value="Punch">Punch</option>
+                    <option value="Click">Click</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('userModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveUser()">Save User</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="userPwdModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Reset User Password</h3>
+                <button class="modal-close" onclick="closeModal('userPwdModal')">&times;</button>
+            </div>
+            <input type="hidden" id="userPwdId">
+            <div class="form-group"><label>New Password</label><input type="password" id="newUserPwd"></div>
+            <div class="form-group"><label>Confirm Password</label><input type="password" id="confirmUserPwd"></div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('userPwdModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="resetUserPwd()">Update Password</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="campModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="campModalTitle">Add Campaign</h3>
+                <button class="modal-close" onclick="closeModal('campModal')">&times;</button>
+            </div>
+            <input type="hidden" id="campEditId">
+            <div class="form-group"><label>Name</label><input id="campName" placeholder="Campaign name"></div>
+            <div class="form-group"><label>Offer ID</label><input id="campOffer" placeholder="Offer ID"></div>
+            <div class="form-group"><label>Country</label><select id="campCountry"></select></div>
+            <div class="form-group"><label>Link</label><input id="campLink" placeholder="https://"></div>
+            <div class="form-group"><label>Type</label>
+                <select id="campType">
+                    <option value="Click">Click</option>
+                    <option value="Punch">Punch</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('campModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveCampaign()">Save Campaign</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="myPwdModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change My Password</h3>
+                <button class="modal-close" onclick="closeModal('myPwdModal')">&times;</button>
+            </div>
+            <div class="form-group"><label>Current Password</label><input type="password" id="currPwd"></div>
+            <div class="form-group"><label>New Password</label><input type="password" id="myNewPwd"></div>
+            <div class="form-group"><label>Confirm Password</label><input type="password" id="myConfirmPwd"></div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('myPwdModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="changeMyPwd()">Update Password</button>
+            </div>
         </div>
     </div>
 
     <!-- TOAST -->
-    <div class="toast" id="toast">
-        <i class="fa-solid fa-circle-check"></i>
-        <span id="toastMsg">Action completed successfully!</span>
-    </div>
+    <div class="toast" id="toast"></div>
 
     <script src="config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const sb = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
 
+        const COUNTRIES = [
+            "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
+            "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi",
+            "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic",
+            "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia",
+            "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana",
+            "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Ivory Coast",
+            "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg",
+            "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar",
+            "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman",
+            "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda",
+            "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria",
+            "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu",
+            "Uganda", "Ukraine", "UAE", "UK", "USA", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
+        ];
+
+        const COUNTRY_ISO = {
+            "Afghanistan": "af", "Albania": "al", "Algeria": "dz", "Andorra": "ad", "Angola": "ao", "Antigua and Barbuda": "ag", "Argentina": "ar", "Armenia": "am", "Australia": "au", "Austria": "at",
+            "Azerbaijan": "az", "Bahamas": "bs", "Bahrain": "bh", "Bangladesh": "bd", "Barbados": "bb", "Belarus": "by", "Belgium": "be", "Belize": "bz", "Benin": "bj", "Bhutan": "bt",
+            "Bolivia": "bo", "Bosnia and Herzegovina": "ba", "Botswana": "bw", "Brazil": "br", "Brunei": "bn", "Bulgaria": "bg", "Burkina Faso": "bf", "Burundi": "bi", "Cabo Verde": "cv", "Cambodia": "kh",
+            "Cameroon": "cm", "Canada": "ca", "Central African Republic": "cf", "Chad": "td", "Chile": "cl", "China": "cn", "Colombia": "co", "Comoros": "km", "Congo": "cg", "Costa Rica": "cr",
+            "Croatia": "hr", "Cuba": "cu", "Cyprus": "cy", "Czech Republic": "cz", "Denmark": "dk", "Djibouti": "dj", "Dominica": "dm", "Dominican Republic": "do", "East Timor": "tl", "Ecuador": "ec",
+            "Egypt": "eg", "El Salvador": "sv", "Equatorial Guinea": "gq", "Eritrea": "er", "Estonia": "ee", "Eswatini": "sz", "Ethiopia": "et", "Fiji": "fj", "Finland": "fi", "France": "fr",
+            "Gabon": "ga", "Gambia": "gm", "Georgia": "ge", "Germany": "de", "Ghana": "gh", "Greece": "gr", "Grenada": "gd", "Guatemala": "gt", "Guinea": "gn", "Guinea-Bissau": "gw",
+            "Guyana": "gy", "Haiti": "ht", "Honduras": "hn", "Hong Kong": "hk", "Hungary": "hu", "Iceland": "is", "India": "in", "Indonesia": "id", "Iran": "ir", "Iraq": "iq",
+            "Ireland": "ie", "Israel": "il", "Italy": "it", "Ivory Coast": "ci", "Jamaica": "jm", "Japan": "jp", "Jordan": "jo", "Kazakhstan": "kz", "Kenya": "ke", "Kiribati": "ki",
+            "Kosovo": "xk", "Kuwait": "kw", "Kyrgyzstan": "kg", "Laos": "la", "Latvia": "lv", "Lebanon": "lb", "Lesotho": "ls", "Liberia": "lr", "Libya": "ly", "Liechtenstein": "li",
+            "Lithuania": "lt", "Luxembourg": "lu", "Madagascar": "mg", "Malawi": "mw", "Malaysia": "my", "Maldives": "mv", "Mali": "ml", "Malta": "mt", "Marshall Islands": "mh", "Mauritania": "mr",
+            "Mauritius": "mu", "Mexico": "mx", "Micronesia": "fm", "Moldova": "md", "Monaco": "mc", "Mongolia": "mn", "Montenegro": "me", "Morocco": "ma", "Mozambique": "mz", "Myanmar": "mm",
+            "Namibia": "na", "Nauru": "nr", "Nepal": "np", "Netherlands": "nl", "New Zealand": "nz", "Nicaragua": "ni", "Niger": "ne", "Nigeria": "ng", "North Korea": "kp", "North Macedonia": "mk",
+            "Norway": "no", "Oman": "om", "Pakistan": "pk", "Palau": "pw", "Palestine": "ps", "Panama": "pa", "Papua New Guinea": "pg", "Paraguay": "py", "Peru": "pe", "Philippines": "ph",
+            "Poland": "pl", "Portugal": "pt", "Qatar": "qa", "Romania": "ro", "Russia": "ru", "Rwanda": "rw", "Saint Kitts and Nevis": "kn", "Saint Lucia": "lc", "Saint Vincent and the Grenadines": "vc",
+            "Samoa": "ws", "San Marino": "sm", "Sao Tome and Principe": "st", "Saudi Arabia": "sa", "Senegal": "sn", "Serbia": "rs", "Seychelles": "sc", "Sierra Leone": "sl", "Singapore": "sg",
+            "Slovakia": "sk", "Slovenia": "si", "Solomon Islands": "sb", "Somalia": "so", "South Africa": "za", "South Korea": "kr", "South Sudan": "ss", "Spain": "es", "Sri Lanka": "lk", "Sudan": "sd",
+            "Suriname": "sr", "Sweden": "se", "Switzerland": "ch", "Syria": "sy", "Taiwan": "tw", "Tajikistan": "tj", "Tanzania": "tz", "Thailand": "th", "Togo": "tg", "Tonga": "to",
+            "Trinidad and Tobago": "tt", "Tunisia": "tn", "Turkey": "tr", "Turkmenistan": "tm", "Tuvalu": "tv", "Uganda": "ug", "Ukraine": "ua", "UAE": "ae", "UK": "gb", "USA": "us",
+            "Uruguay": "uy", "Uzbekistan": "uz", "Vanuatu": "vu", "Vatican City": "va", "Venezuela": "ve", "Vietnam": "vn", "Yemen": "ye", "Zambia": "zm", "Zimbabwe": "zw"
+        };
+
+        function getFlag(country) {
+            if (!country) return '🌍';
+            const cleanCountry = country.trim();
+            const countryKey = Object.keys(COUNTRY_ISO).find(k => k.toLowerCase() === cleanCountry.toLowerCase());
+            const iso = countryKey ? COUNTRY_ISO[countryKey] : null;
+            if (iso) {
+                return `<img src="https://flagcdn.com/w40/${iso}.png" width="18" alt="${cleanCountry}" style="border-radius:2px; vertical-align:middle;">`;
+            }
+            return '🌍';
+        }
+
         let currentUser = null;
+        let isAdmin = false;
+        let page = { admins: 1, users: 1, camps: 1 };
 
-        function initSession() {
-            const raw = sessionStorage.getItem('digiUser');
-            if (!raw) {
-                window.location.href = 'index.html';
-                return;
-            }
-            currentUser = JSON.parse(raw);
+        let _admins = [];
+        let _users = [];
+        let _campaigns = [];
+        let _assignments = [];
 
-            document.getElementById('userName').innerText = currentUser.name;
-            document.getElementById('userRole').innerText = currentUser.role === 'admin' ? 'Administrator' : 'Publisher';
-            document.getElementById('avatarInitials').innerText = currentUser.name.substring(0, 2).toUpperCase();
+        const countryOptions = '<option value="">🌍 All Countries</option>' + COUNTRIES.map(c => `<option value="${c}">${c}</option>`).join('');
+        document.getElementById('campCountry').innerHTML = COUNTRIES.map(c => `<option value="${c}">${c}</option>`).join('');
+        document.getElementById('myCampCountryFilter').innerHTML = countryOptions;
+        document.getElementById('campCountryFilter').innerHTML = countryOptions;
+        document.getElementById('ucCountryFilter').innerHTML = countryOptions;
 
-            if (currentUser.role === 'admin') {
-                document.getElementById('adminMenuUsers').style.display = 'block';
-                document.getElementById('adminMenuAssign').style.display = 'block';
-                document.getElementById('addCampaignBtn').style.display = 'inline-flex';
-            }
-
-            loadDashboardData();
-        }
-
-        function toggleTheme() {
-            const html = document.documentElement;
-            const current = html.getAttribute('data-theme');
-            const target = current === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', target);
-            document.getElementById('themeBtn').innerHTML = target === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
-        }
-
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').innerText = msg;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
+        function toast(msg, type = 'success') {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = 'toast show' + (type === 'error' ? ' error' : type === 'warning' ? ' warning' : '');
+            setTimeout(() => t.className = 'toast', 3000);
         }
 
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-        function switchTab(tabName, el) {
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            el.classList.add('active');
-
-            document.getElementById('tabOverview').style.display = 'none';
-            document.getElementById('tabCampaigns').style.display = 'none';
-            document.getElementById('tabUsers').style.display = 'none';
-            document.getElementById('tabAssignments').style.display = 'none';
-
-            if (tabName === 'overview') {
-                document.getElementById('tabOverview').style.display = 'block';
-                document.getElementById('pageTitle').innerText = 'Dashboard Overview';
-            } else if (tabName === 'campaigns') {
-                document.getElementById('tabCampaigns').style.display = 'block';
-                document.getElementById('pageTitle').innerText = 'Campaigns Marketplace';
-            } else if (tabName === 'users') {
-                document.getElementById('tabUsers').style.display = 'block';
-                document.getElementById('pageTitle').innerText = 'User Management';
-            } else if (tabName === 'assignments') {
-                document.getElementById('tabAssignments').style.display = 'block';
-                document.getElementById('pageTitle').innerText = 'Campaign Assignments';
-            }
-        }
-
-        async function loadDashboardData() {
+        async function refreshData() {
             try {
-                const { data: campaigns } = await sb.from('campaigns').select('*');
-                document.getElementById('statOffers').innerText = campaigns ? campaigns.length : 0;
-                renderCampaigns(campaigns || []);
+                if (isAdmin) {
+                    const { data: admins } = await sb.from('admins').select('*').order('id');
+                    const { data: users } = await sb.from('users').select('*').order('id');
+                    const { data: camps } = await sb.from('campaigns').select('*').order('id');
+                    const { data: assigns } = await sb.from('assignments').select('*');
 
-                let query = sb.from('assignments').select('*, campaigns(*)');
-                if (currentUser.role !== 'admin') {
-                    query = query.eq('user_id', currentUser.id);
+                    _admins = admins || [];
+                    _users = users || [];
+                    _campaigns = camps || [];
+                    _assignments = assigns || [];
+                } else {
+                    const { data: userAssigns } = await sb.from('assignments').select('*').eq('user_id', currentUser.id);
+                    _assignments = userAssigns || [];
+
+                    if (_assignments.length > 0) {
+                        const campaignIds = _assignments.map(a => a.campaign_id);
+                        const { data: camps } = await sb.from('campaigns').select('*').in('id', campaignIds);
+                        _campaigns = camps || [];
+                    } else {
+                        _campaigns = [];
+                    }
                 }
-                const { data: assignments } = await query;
-                
-                let totalClicks = 0;
-                if (assignments) {
-                    assignments.forEach(a => totalClicks += (a.count || 0));
-                }
-                document.getElementById('statClicks').innerText = totalClicks.toLocaleString();
-                document.getElementById('statAssignments').innerText = assignments ? assignments.length : 0;
-
-                renderUserLinks(assignments || []);
-
-                if (currentUser.role === 'admin') {
-                    loadAdminData(campaigns || []);
-                }
-            } catch (err) {
-                console.error(err);
+                updateStats();
+                renderAll();
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                toast('Error fetching data', 'error');
             }
         }
 
-        function renderCampaigns(list) {
-            const body = document.getElementById('campaignsBody');
-            if (list.length === 0) {
-                body.innerHTML = `<tr><td colspan="6" style="text-align:center; color: var(--text-muted);">No campaigns available.</td></tr>`;
-                return;
-            }
-
-            body.innerHTML = list.map(c => `
-                <tr>
-                    <td>#${c.id}</td>
-                    <td><strong>${c.name}</strong></td>
-                    <td><span class="badge badge-info">${c.offer_id || 'N/A'}</span></td>
-                    <td>${c.country || 'Global'}</td>
-                    <td><span class="badge badge-success">${c.type || 'CPA'}</span></td>
-                    <td><a href="${c.link}" target="_blank" style="color: var(--primary); font-weight: 600;">${c.link}</a></td>
-                </tr>
-            `).join('');
-        }
-
-        function renderUserLinks(list) {
-            const body = document.getElementById('userLinksBody');
-            if (list.length === 0) {
-                body.innerHTML = `<tr><td colspan="7" style="text-align:center; color: var(--text-muted);">No tracking links assigned yet.</td></tr>`;
-                return;
-            }
-
-            const baseUrl = window.location.origin + window.location.pathname.replace('dashboard.html', 'track.html');
-
-            body.innerHTML = list.map(a => {
-                const link = `${baseUrl}?ref=${a.id}`;
-                const camp = a.campaigns || { name: 'Campaign', offer_id: 'N/A', country: 'Global', type: 'CPA' };
-                return `
-                    <tr>
-                        <td><strong>${camp.name}</strong></td>
-                        <td><span class="badge badge-info">${camp.offer_id || 'N/A'}</span></td>
-                        <td>${camp.country || 'Global'}</td>
-                        <td><span class="badge badge-success">${camp.type || 'CPA'}</span></td>
-                        <td><strong style="color: var(--primary); font-size: 1.1rem;">${a.count || 0}</strong></td>
-                        <td><input type="text" readonly value="${link}" style="background: var(--bg-input); border: 1px solid var(--border); padding: 0.4rem 0.6rem; border-radius: 6px; color: var(--text-main); font-size: 0.85rem; width: 220px;"></td>
-                        <td>
-                            <button class="btn btn-outline" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;" onclick="copyLink('${link}')">
-                                <i class="fa-solid fa-copy"></i> Copy
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        async function loadAdminData(campaigns) {
-            const { data: users } = await sb.from('users').select('*');
-            if (users) {
-                document.getElementById('usersBody').innerHTML = users.map(u => `
-                    <tr>
-                        <td>#${u.id}</td>
-                        <td><strong>${u.name}</strong></td>
-                        <td>${u.email}</td>
-                        <td><span class="badge badge-success">${u.status || 'Active'}</span></td>
-                        <td>${new Date(u.created_at).toLocaleDateString()}</td>
-                    </tr>
-                `).join('');
-
-                document.getElementById('assignUserSelect').innerHTML = users.map(u => `<option value="${u.id}">${u.name} (${u.email})</option>`).join('');
-            }
-
-            document.getElementById('assignCampSelect').innerHTML = campaigns.map(c => `<option value="${c.id}">${c.name} (${c.offer_id})</option>`).join('');
-
-            const { data: adminAssigns } = await sb.from('assignments').select('*, users(*), campaigns(*)');
-            if (adminAssigns) {
-                document.getElementById('adminAssignBody').innerHTML = adminAssigns.map(a => `
-                    <tr>
-                        <td>#${a.id}</td>
-                        <td>${a.users ? a.users.name : 'System Admin'}</td>
-                        <td>${a.users ? a.users.email : 'N/A'}</td>
-                        <td>${a.campaigns ? a.campaigns.name : 'Unknown'}</td>
-                        <td><strong>${a.count || 0}</strong></td>
-                    </tr>
-                `).join('');
-            }
-        }
-
-        async function handleCreateCampaign(e) {
+        // LOGIN SUBMIT LOGIC
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-            const name = document.getElementById('campName').value.trim();
-            const offer_id = document.getElementById('campOfferId').value.trim();
-            const country = document.getElementById('campCountry').value.trim();
-            const link = document.getElementById('campLink').value.trim();
-            const type = document.getElementById('campType').value;
+            const email = document.getElementById('loginEmail').value.trim();
+            const pwd = document.getElementById('loginPassword').value.trim();
+            const btn = this.querySelector('button');
+            const originalText = btn.innerHTML;
 
             try {
-                const { error } = await sb.from('campaigns').insert([{ name, offer_id, country, link, type }]);
-                if (error) throw error;
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Signing in...';
+                btn.disabled = true;
 
-                showToast('New campaign created successfully!');
-                closeModal('addCampaignModal');
-                loadDashboardData();
+                // 1. Check Admin table
+                let { data: admin } = await sb.from('admins').select('*').eq('email', email).limit(1).maybeSingle();
+                if (admin && admin.password === pwd) {
+                    if (admin.status !== 'Active') throw new Error('Account inactive');
+                    currentUser = admin;
+                    isAdmin = true;
+                    saveSession();
+                    showDashboard();
+                    return;
+                }
+
+                // 2. Check User table
+                let { data: user } = await sb.from('users').select('*').eq('email', email).limit(1).maybeSingle();
+                if (user && user.password === pwd) {
+                    if (user.status !== 'Active') throw new Error('Account inactive');
+                    currentUser = user;
+                    isAdmin = false;
+                    saveSession();
+                    showDashboard();
+                    return;
+                }
+
+                throw new Error('Invalid email or password.');
             } catch (err) {
-                alert(err.message);
+                toast(err.message, 'error');
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
             }
+        });
+
+        function saveSession() {
+            const session = { userId: currentUser.id, isAdmin: isAdmin, timestamp: Date.now() };
+            localStorage.setItem('digi_session', JSON.stringify(session));
         }
 
-        async function handleCreateAssignment(e) {
-            e.preventDefault();
-            const user_id = document.getElementById('assignUserSelect').value;
-            const campaign_id = document.getElementById('assignCampSelect').value;
+        async function loadSession() {
+            const s = localStorage.getItem('digi_session');
+            if (!s) return false;
+            const session = JSON.parse(s);
+            if (Date.now() - session.timestamp > 24 * 60 * 60 * 1000) {
+                clearSession(); return false;
+            }
 
             try {
-                const { error } = await sb.from('assignments').insert([{ user_id, campaign_id, count: 0 }]);
-                if (error) throw error;
+                const table = session.isAdmin ? 'admins' : 'users';
+                const { data: user } = await sb.from(table).select('*').eq('id', session.userId).single();
 
-                showToast('Campaign assigned to user successfully!');
-                closeModal('assignModal');
-                loadDashboardData();
-            } catch (err) {
-                alert(err.message || 'Error creating assignment');
-            }
+                if (user && user.status === 'Active') {
+                    currentUser = user;
+                    isAdmin = session.isAdmin;
+                    return true;
+                }
+            } catch (e) { console.error(e); }
+
+            clearSession();
+            return false;
         }
 
-        function copyLink(url) {
-            navigator.clipboard.writeText(url);
-            showToast('Tracking link copied to clipboard!');
-        }
+        function clearSession() { localStorage.removeItem('digi_session'); }
 
-        function filterTable(tableId, query) {
-            const trs = document.querySelectorAll(`#${tableId} tbody tr`);
-            trs.forEach(tr => {
-                tr.style.display = tr.innerText.toLowerCase().includes(query.toLowerCase()) ? '' : 'none';
-            });
+        function showDashboard() {
+            document.getElementById('userName').textContent = currentUser.name;
+            const badge = document.getElementById('roleBadge');
+            badge.textContent = isAdmin ? 'Admin' : 'Publisher';
+            badge.className = 'role-badge ' + (isAdmin ? 'admin' : 'user');
+            document.getElementById('avatarInitials').textContent = currentUser.name.substring(0, 2).toUpperCase();
+
+            document.querySelectorAll('.admin-only').forEach(el => el.style.display = isAdmin ? 'block' : 'none');
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('appContainer').classList.add('active');
+
+            refreshData();
         }
 
         function logout() {
-            sessionStorage.setItem('digiUser', '');
-            sessionStorage.clear();
-            window.location.href = 'index.html';
+            currentUser = null;
+            isAdmin = false;
+            clearSession();
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('appContainer').classList.remove('active');
+            document.getElementById('loginForm').reset();
         }
 
-        initSession();
+        // PAGE NAVIGATION
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const pageName = this.dataset.page;
+                if (!pageName) return;
+
+                const adminPages = ['admins', 'users', 'campaigns', 'assign', 'viewUC'];
+                if (adminPages.includes(pageName) && !isAdmin) {
+                    toast('Admin access required!', 'warning');
+                    return;
+                }
+
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                document.getElementById(pageName + 'Page').classList.add('active');
+
+                const titleMap = {
+                    overview: 'Dashboard Overview',
+                    admins: 'Admin Accounts',
+                    users: 'Users & Publishers',
+                    campaigns: 'Campaigns Marketplace',
+                    assign: 'Campaign Assignments',
+                    viewUC: 'Assigned Tracking Links',
+                    settings: 'Account Settings'
+                };
+                document.getElementById('pageTitle').innerText = titleMap[pageName] || 'Dashboard';
+            });
+        });
+
+        // STATS & RENDERING
+        function updateStats() {
+            if (!currentUser) return;
+            const statsHtml = isAdmin ? `
+                <div class="stat-card"><h3><i class="fa-solid fa-user-shield"></i> Admins</h3><div class="value">${_admins.length}</div></div>
+                <div class="stat-card"><h3><div class="metric-icon"><i class="fa-solid fa-users"></i></div> Users</h3><div class="value">${_users.length}</div></div>
+                <div class="stat-card"><h3><i class="fa-solid fa-bullhorn"></i> Campaigns</h3><div class="value">${_campaigns.length}</div></div>
+                <div class="stat-card"><h3><i class="fa-solid fa-mouse-pointer"></i> Global Clicks</h3><div class="value">${_assignments.reduce((s, a) => s + (a.count || 0), 0)}</div></div>
+            ` : `
+                <div class="stat-card"><h3><i class="fa-solid fa-bullhorn"></i> My Campaigns</h3><div class="value">${_assignments.length}</div></div>
+                <div class="stat-card"><h3><i class="fa-solid fa-mouse-pointer"></i> My Clicks</h3><div class="value">${_assignments.reduce((s, a) => s + (a.count || 0), 0)}</div></div>
+                <div class="stat-card"><h3><i class="fa-solid fa-globe"></i> Active GEOs</h3><div class="value">${new Set(_campaigns.map(c => c.country)).size}</div></div>
+            `;
+            document.getElementById('dashStats').innerHTML = statsHtml;
+        }
+
+        function renderAll() {
+            renderMyCampaigns();
+            if (isAdmin) {
+                renderAdmins();
+                renderUsers();
+                renderCampaigns();
+                renderUC();
+                renderAssign();
+            }
+        }
+
+        function renderTable(data, tableId, infoId, pagId, key, rowFn) {
+            const searchInput = document.getElementById(tableId.replace('Table', 'Search'));
+            const search = searchInput ? searchInput.value.toLowerCase() : '';
+            const filtered = data.filter(i => JSON.stringify(i).toLowerCase().includes(search));
+            const perPage = 10;
+            const totalPages = Math.ceil(filtered.length / perPage) || 1;
+            page[key] = Math.min(page[key], totalPages);
+            const start = (page[key] - 1) * perPage;
+            const items = filtered.slice(start, start + perPage);
+
+            document.getElementById(tableId).innerHTML = items.length ? items.map(rowFn).join('') : '<tr><td colspan="10" style="text-align:center;padding:2rem;color:var(--text-muted);">No data available</td></tr>';
+            document.getElementById(infoId).textContent = `${filtered.length ? start + 1 : 0}-${Math.min(start + perPage, filtered.length)} of ${filtered.length}`;
+
+            let html = `<button onclick="goPage('${key}',-1)" ${page[key] === 1 ? 'disabled' : ''}>‹</button>`;
+            for (let i = 1; i <= totalPages; i++) html += `<button class="${i === page[key] ? 'active' : ''}" onclick="goPage('${key}',${i},true)">${i}</button>`;
+            html += `<button onclick="goPage('${key}',1)" ${page[key] === totalPages ? 'disabled' : ''}>›</button>`;
+            document.getElementById(pagId).innerHTML = html;
+        }
+
+        function goPage(k, v, abs = false) { page[k] = abs ? v : page[k] + v; renderAll(); }
+
+        function renderAdmins() {
+            renderTable(_admins, 'adminTable', 'adminInfo', 'adminPag', 'admins', a => `<tr><td><strong>${a.name}</strong></td><td>${a.email}</td><td><span class="status ${a.status.toLowerCase()}">${a.status}</span></td><td class="actions"><button class="action-btn edit" onclick="editAdmin(${a.id})"><i class="fa-solid fa-pen"></i></button><button class="action-btn key" onclick="openAdminPwd(${a.id})"><i class="fa-solid fa-key"></i></button><button class="action-btn delete" onclick="delAdmin(${a.id})"><i class="fa-solid fa-trash"></i></button></td></tr>`);
+        }
+
+        function renderUsers() {
+            renderTable(_users, 'userTable', 'userInfo', 'userPag', 'users', u => `<tr><td><strong>${u.name}</strong></td><td>${u.email}</td><td><span class="status ${u.status.toLowerCase()}">${u.status}</span></td><td><span class="badge badge-info">${u.type}</span></td><td class="actions"><button class="action-btn edit" onclick="editUser(${u.id})"><i class="fa-solid fa-pen"></i></button><button class="action-btn key" onclick="openUserPwd(${u.id})"><i class="fa-solid fa-key"></i></button><button class="action-btn delete" onclick="delUser(${u.id})"><i class="fa-solid fa-trash"></i></button></td></tr>`);
+        }
+
+        function renderCampaigns() {
+            const country = document.getElementById('campCountryFilter').value;
+            const data = country ? _campaigns.filter(c => c.country === country) : _campaigns;
+            renderTable(data, 'campTable', 'campInfo', 'campPag', 'camps', c => `<tr><td><strong>${c.name}</strong></td><td><span class="badge badge-info">${c.offer_id || '-'}</span></td><td><div><span style="margin-right:4px;">${getFlag(c.country)}</span> ${c.country || '-'}</div></td><td><a href="${c.link}" target="_blank" style="color:var(--primary); font-weight:600;">${c.link || ''}</a></td><td><span class="status ${(c.type || 'click').toLowerCase()}">${c.type || 'Click'}</span></td><td class="actions"><button class="action-btn edit" onclick="editCamp(${c.id})"><i class="fa-solid fa-pen"></i></button><button class="action-btn delete" onclick="delCamp(${c.id})"><i class="fa-solid fa-trash"></i></button></td></tr>`);
+        }
+
+        function renderUC() {
+            const search = (document.getElementById('ucSearch') || {}).value?.toLowerCase() || '';
+            const country = document.getElementById('ucCountryFilter').value;
+
+            const filtered = _assignments.filter(uc => {
+                const u = _users.find(x => x.id === uc.user_id) || _admins.find(x => x.id === uc.admin_id);
+                const c = _campaigns.find(x => x.id === uc.campaign_id);
+                const roleText = uc.admin_id ? '[Admin] ' : '';
+                const matchesSearch = ((roleText + (u?.name || '')) + ' ' + (u?.email || '') + ' ' + (c?.name || '')).toLowerCase().includes(search);
+                const matchesCountry = !country || c?.country === country;
+                return matchesSearch && matchesCountry;
+            });
+
+            const baseUrl = window.location.origin + window.location.pathname.replace('dashboard.html', 'track.html');
+
+            document.getElementById('ucTable').innerHTML = filtered.length ? filtered.map(uc => {
+                const u = _users.find(x => x.id === uc.user_id) || _admins.find(x => x.id === uc.admin_id);
+                const c = _campaigns.find(x => x.id === uc.campaign_id);
+                const roleBadge = uc.admin_id ? '<span class="role-badge admin">Admin</span>' : '';
+                const trackLink = `${baseUrl}?ref=${uc.id}`;
+
+                return `<tr>
+                    <td>${roleBadge} <strong>${u?.name || 'Unknown'}</strong></td>
+                    <td>${c?.name || 'Unknown'}</td>
+                    <td><div><span style="margin-right:4px;">${getFlag(c?.country)}</span> ${c?.country || '-'}</div></td>
+                    <td><span class="status ${(c?.type || 'click').toLowerCase()}">${c?.type || 'Click'}</span></td>
+                    <td>
+                        <div style="display:flex;align-items:center;gap:0.5rem;">
+                            <input readonly value="${trackLink}" style="width:200px;font-size:0.8rem;padding:0.35rem 0.5rem;border:1px solid var(--border);border-radius:6px;background:var(--bg-input);">
+                            <button onclick="navigator.clipboard.writeText('${trackLink}');toast('Copied link!')" class="action-btn" title="Copy"><i class="fa-solid fa-copy"></i></button>
+                        </div>
+                    </td>
+                    <td><strong style="color:var(--primary);">${uc.count || 0}</strong></td>
+                    <td class="actions"><button class="action-btn delete" onclick="delUC(${uc.id})"><i class="fa-solid fa-trash"></i></button></td>
+                </tr>`;
+            }).join('') : '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--text-muted);">No assignments found</td></tr>';
+        }
+
+        function renderAssign() {
+            const sel = document.getElementById('assignUser');
+            let opts = '<option value="">Select Target Account...</option>';
+            opts += '<optgroup label="Admins">';
+            opts += _admins.filter(a => a.status === 'Active').map(a => `<option value="admin:${a.id}">${a.name} (${a.email})</option>`).join('');
+            opts += '</optgroup><optgroup label="Publishers / Users">';
+            opts += _users.filter(u => u.status === 'Active').map(u => `<option value="user:${u.id}">${u.name} (${u.email})</option>`).join('');
+            opts += '</optgroup>';
+            sel.innerHTML = opts;
+            sel.onchange = (e) => loadUserAssignments(e.target.value);
+
+            document.getElementById('assignList').innerHTML = _campaigns.length ? `<div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));gap:1.25rem;">` + _campaigns.map(c => `
+                <label style="position:relative;display:block;background:var(--bg-card);padding:1.25rem;border-radius:12px;border:1px solid var(--border);cursor:pointer;box-shadow:var(--shadow-sm);">
+                    <input type="checkbox" value="${c.id}" id="c_${c.id}" style="position:absolute;top:15px;right:15px;accent-color:var(--primary);width:18px;height:18px;cursor:pointer;">
+                    <div style="font-weight:700;margin-bottom:0.4rem;padding-right:2rem;color:var(--text-main);font-size:1rem;">${c.name}</div>
+                    <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.5rem;font-size:0.875rem;color:var(--text-muted);">
+                        <span>${getFlag(c.country)}</span> ${c.country}
+                    </div>
+                    <span class="status ${(c.type || 'click').toLowerCase()}">${c.type}</span>
+                </label>
+            `).join('') + `</div>` : '<p style="padding:1rem;color:var(--text-muted);">No campaigns available</p>';
+        }
+
+        function loadUserAssignments(val) {
+            document.querySelectorAll('#assignList input').forEach(cb => cb.checked = false);
+            if (!val) return;
+            const [type, id] = val.split(':');
+            const userAssigns = _assignments.filter(a => (type === 'admin' ? a.admin_id : a.user_id) == id);
+            userAssigns.forEach(a => {
+                const cb = document.getElementById('c_' + a.campaign_id);
+                if (cb) cb.checked = true;
+            });
+        }
+
+        function renderMyCampaigns() {
+            const country = document.getElementById('myCampCountryFilter').value;
+            const filtered = _assignments.filter(assign => {
+                const isMine = isAdmin ? (assign.admin_id == currentUser.id) : (assign.user_id == currentUser.id);
+                if (!isMine) return false;
+
+                const c = _campaigns.find(c => c.id === assign.campaign_id);
+                return c && (!country || c.country === country);
+            });
+
+            const baseUrl = window.location.origin + window.location.pathname.replace('dashboard.html', 'track.html');
+
+            const html = filtered.length ? filtered.map(assign => {
+                const c = _campaigns.find(c => c.id === assign.campaign_id);
+                if (!c) return '';
+                const trackLink = `${baseUrl}?ref=${assign.id}`;
+
+                return `
+                <div class="campaign-card">
+                    <h3><i class="fa-solid fa-bullhorn" style="color:var(--primary);"></i> ${c.name}</h3>
+                    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+                        <span class="country-badge"><span>${getFlag(c.country)}</span> ${c.country}</span>
+                        <span class="status ${(c.type || 'click').toLowerCase()}">${c.type || 'Click'}</span>
+                    </div>
+                    <p style="font-size:0.85rem; font-weight:700; color:var(--text-muted); margin-bottom:0.4rem;">Smart Tracking Link:</p>
+                    <div style="background:var(--bg-input);padding:0.6rem 0.8rem;border-radius:10px;margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center;gap:0.5rem;border:1px solid var(--border);">
+                        <a href="${trackLink}" target="_blank" style="font-size:0.85rem;text-decoration:none;color:var(--primary);font-weight:600;word-break:break-all;flex:1;">${trackLink}</a>
+                        <button onclick="navigator.clipboard.writeText('${trackLink}');toast('Copied link!')" class="action-btn" title="Copy"><i class="fa-solid fa-copy"></i></button>
+                    </div>
+                    <div class="count"><i class="fa-solid fa-mouse-pointer"></i> ${assign.count || 0} Total Clicks</div>
+                </div>`;
+            }).join('') : '<p style="color:var(--text-muted);grid-column:1/-1;text-align:center;padding:3rem;"><i class="fa-solid fa-inbox" style="font-size:2.5rem;display:block;margin-bottom:1rem;opacity:0.4;"></i>No campaigns assigned yet.</p>';
+            document.getElementById('myCampaignsGrid').innerHTML = html;
+        }
+
+        // CRUD ADMINS
+        function openAddAdmin() {
+            document.getElementById('adminEditId').value = '';
+            document.getElementById('adminName').value = '';
+            document.getElementById('adminEmail').value = '';
+            document.getElementById('adminPwd').value = '';
+            document.getElementById('adminStatus').value = 'Active';
+            document.getElementById('adminModalTitle').innerText = 'Add Admin';
+            openModal('adminModal');
+        }
+        function editAdmin(id) {
+            const a = _admins.find(x => x.id === id);
+            document.getElementById('adminEditId').value = id;
+            document.getElementById('adminName').value = a.name;
+            document.getElementById('adminEmail').value = a.email;
+            document.getElementById('adminStatus').value = a.status;
+            document.getElementById('adminModalTitle').innerText = 'Edit Admin';
+            openModal('adminModal');
+        }
+        async function saveAdmin() {
+            const id = document.getElementById('adminEditId').value;
+            const payload = {
+                name: document.getElementById('adminName').value.trim(),
+                email: document.getElementById('adminEmail').value.trim(),
+                status: document.getElementById('adminStatus').value
+            };
+            const pwd = document.getElementById('adminPwd').value.trim();
+
+            try {
+                if (id) {
+                    await sb.from('admins').update(payload).eq('id', id).throwOnError();
+                } else {
+                    if (!pwd) return toast('Password is required', 'error');
+                    payload.password = pwd;
+                    await sb.from('admins').insert([payload]).throwOnError();
+                }
+                closeModal('adminModal');
+                toast('Admin saved!');
+                refreshData();
+            } catch (e) { toast(e.message, 'error'); }
+        }
+        async function delAdmin(id) {
+            if (confirm('Delete administrator account?')) {
+                await sb.from('admins').delete().eq('id', id);
+                refreshData();
+                toast('Admin deleted!');
+            }
+        }
+        function openAdminPwd(id) {
+            document.getElementById('adminPwdId').value = id;
+            document.getElementById('newAdminPwd').value = '';
+            document.getElementById('confirmAdminPwd').value = '';
+            openModal('adminPwdModal');
+        }
+        async function resetAdminPwd() {
+            const id = document.getElementById('adminPwdId').value;
+            const p = document.getElementById('newAdminPwd').value.trim();
+            if (p !== document.getElementById('confirmAdminPwd').value.trim()) return toast('Passwords do not match', 'error');
+            await sb.from('admins').update({ password: p }).eq('id', id);
+            closeModal('adminPwdModal');
+            toast('Admin password updated!');
+        }
+
+        // CRUD USERS
+        function openAddUser() {
+            document.getElementById('userEditId').value = '';
+            document.getElementById('userNameInp').value = '';
+            document.getElementById('userEmail').value = '';
+            document.getElementById('userPwd').value = '';
+            document.getElementById('userStatus').value = 'Active';
+            document.getElementById('userType').value = 'Punch';
+            document.getElementById('userModalTitle').innerText = 'Add User';
+            openModal('userModal');
+        }
+        function editUser(id) {
+            const u = _users.find(x => x.id === id);
+            document.getElementById('userEditId').value = id;
+            document.getElementById('userNameInp').value = u.name;
+            document.getElementById('userEmail').value = u.email;
+            document.getElementById('userStatus').value = u.status;
+            document.getElementById('userType').value = u.type;
+            document.getElementById('userModalTitle').innerText = 'Edit User';
+            openModal('userModal');
+        }
+        async function saveUser() {
+            const id = document.getElementById('userEditId').value;
+            const payload = {
+                name: document.getElementById('userNameInp').value.trim(),
+                email: document.getElementById('userEmail').value.trim(),
+                status: document.getElementById('userStatus').value,
+                type: document.getElementById('userType').value
+            };
+            const pwd = document.getElementById('userPwd').value.trim();
+
+            try {
+                if (id) {
+                    await sb.from('users').update(payload).eq('id', id).throwOnError();
+                } else {
+                    if (!pwd) return toast('Password is required', 'error');
+                    payload.password = pwd;
+                    await sb.from('users').insert([payload]).throwOnError();
+                }
+                closeModal('userModal');
+                toast('User saved!');
+                refreshData();
+            } catch (e) { toast(e.message, 'error'); }
+        }
+        async function delUser(id) {
+            if (confirm('Delete user?')) {
+                await sb.from('users').delete().eq('id', id);
+                refreshData();
+                toast('User deleted!');
+            }
+        }
+        function openUserPwd(id) {
+            document.getElementById('userPwdId').value = id;
+            document.getElementById('newUserPwd').value = '';
+            document.getElementById('confirmUserPwd').value = '';
+            openModal('userPwdModal');
+        }
+        async function resetUserPwd() {
+            const id = document.getElementById('userPwdId').value;
+            const p = document.getElementById('newUserPwd').value.trim();
+            if (p !== document.getElementById('confirmUserPwd').value.trim()) return toast('Passwords do not match', 'error');
+            await sb.from('users').update({ password: p }).eq('id', id);
+            closeModal('userPwdModal');
+            toast('User password updated!');
+        }
+
+        // CRUD CAMPAIGNS
+        function openAddCampaign() {
+            document.getElementById('campEditId').value = '';
+            document.getElementById('campName').value = '';
+            document.getElementById('campOffer').value = '';
+            document.getElementById('campLink').value = '';
+            document.getElementById('campModalTitle').innerText = 'Add Campaign';
+            openModal('campModal');
+        }
+        function editCamp(id) {
+            const c = _campaigns.find(x => x.id === id);
+            document.getElementById('campEditId').value = id;
+            document.getElementById('campName').value = c.name;
+            document.getElementById('campOffer').value = c.offer_id;
+            document.getElementById('campCountry').value = c.country;
+            document.getElementById('campLink').value = c.link;
+            document.getElementById('campType').value = c.type;
+            document.getElementById('campModalTitle').innerText = 'Edit Campaign';
+            openModal('campModal');
+        }
+        async function saveCampaign() {
+            const id = document.getElementById('campEditId').value;
+            const payload = {
+                name: document.getElementById('campName').value.trim(),
+                offer_id: document.getElementById('campOffer').value.trim(),
+                country: document.getElementById('campCountry').value,
+                link: document.getElementById('campLink').value.trim(),
+                type: document.getElementById('campType').value
+            };
+
+            try {
+                if (id) await sb.from('campaigns').update(payload).eq('id', id).throwOnError();
+                else await sb.from('campaigns').insert([payload]).throwOnError();
+                closeModal('campModal');
+                toast('Campaign saved!');
+                refreshData();
+            } catch (e) { toast(e.message, 'error'); }
+        }
+        async function delCamp(id) {
+            if (confirm('Delete campaign?')) {
+                await sb.from('campaigns').delete().eq('id', id);
+                refreshData();
+                toast('Campaign deleted!');
+            }
+        }
+
+        // ASSIGNMENTS SYNC
+        function checkAll(v) { document.querySelectorAll('#assignList input').forEach(cb => cb.checked = v); }
+        async function submitAssign() {
+            const val = document.getElementById('assignUser').value;
+            if (!val) return toast('Select a target account first', 'error');
+            const [type, id] = val.split(':');
+
+            const allCbs = Array.from(document.querySelectorAll('#assignList input'));
+            const checkedIds = allCbs.filter(cb => cb.checked).map(cb => parseInt(cb.value));
+
+            const currentIds = _assignments.filter(a => (type === 'admin' ? a.admin_id : a.user_id) == id).map(a => a.campaign_id);
+            const toAdd = checkedIds.filter(id => !currentIds.includes(id));
+            const toRemove = currentIds.filter(id => !checkedIds.includes(id));
+
+            if (toAdd.length === 0 && toRemove.length === 0) return toast('No changes made');
+
+            try {
+                if (toAdd.length) {
+                    const inserts = toAdd.map(cid => {
+                        const obj = { campaign_id: cid, count: 0 };
+                        if (type === 'admin') obj.admin_id = id;
+                        else obj.user_id = id;
+                        return obj;
+                    });
+                    await sb.from('assignments').insert(inserts).throwOnError();
+                }
+                if (toRemove.length) {
+                    const removeAssignIds = _assignments.filter(a => (type === 'admin' ? a.admin_id : a.user_id) == id && toRemove.includes(a.campaign_id)).map(a => a.id);
+                    if (removeAssignIds.length) await sb.from('assignments').delete().in('id', removeAssignIds).throwOnError();
+                }
+
+                toast('Assignments updated successfully!');
+                refreshData();
+                setTimeout(() => loadUserAssignments(val), 500);
+            } catch (e) { toast(e.message, 'error'); }
+        }
+
+        async function delUC(id) {
+            if (confirm('Remove assignment?')) {
+                await sb.from('assignments').delete().eq('id', id);
+                refreshData();
+                toast('Assignment removed!');
+            }
+        }
+
+        async function resetCounts() {
+            if (confirm('Reset all campaign click counts to 0?')) {
+                await sb.from('assignments').update({ count: 0 }).gt('id', 0);
+                refreshData();
+                toast('All click counts reset to 0!');
+            }
+        }
+
+        // SETTINGS: CHANGE MY PASSWORD
+        async function changeMyPwd() {
+            const curr = document.getElementById('currPwd').value.trim();
+            const p = document.getElementById('myNewPwd').value.trim();
+
+            if (currentUser.password !== curr) return toast('Current password incorrect', 'error');
+            if (p !== document.getElementById('myConfirmPwd').value.trim()) return toast('Passwords do not match', 'error');
+
+            try {
+                const table = isAdmin ? 'admins' : 'users';
+                await sb.from(table).update({ password: p }).eq('id', currentUser.id).throwOnError();
+                currentUser.password = p;
+                closeModal('myPwdModal');
+                toast('Password updated successfully!');
+            } catch (e) { toast('Error updating password', 'error'); }
+        }
+
+        // INIT SESSION ON STARTUP
+        (async function () {
+            if (await loadSession()) {
+                showDashboard();
+            }
+        })();
     </script>
 </body>
 
