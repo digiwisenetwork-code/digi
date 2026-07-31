@@ -4,907 +4,992 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADSAFFILIATENETWORK - Performance Marketing Agents</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@400;600&display=swap"
-        rel="stylesheet">
+    <title>DigiWise | Next-Gen Performance Marketing Network</title>
+    <meta name="description" content="DigiWise is the premier performance marketing network empowering publishers, advertisers, and digital marketers with real-time tracking, high-payout offers, and instant payouts.">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            --primary: #c30000;
-            /* Deep Red from images */
-            --dark: #1f1f1f;
-            --gray: #545454;
-            --light: #f9f9f9;
-            --white: #ffffff;
-            --border: #ececec;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-light: rgba(37, 99, 235, 0.08);
+            --primary-gradient: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #1d4ed8 100%);
+            --accent-cyan: #0284c7;
+            --accent-emerald: #10b981;
+            
+            --bg-body: #ffffff;
+            --bg-surface: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --border-hover: #cbd5e1;
+            
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --text-dim: #64748b;
+            
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
+            --shadow-lg: 0 20px 40px -15px rgba(15, 23, 42, 0.12);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            overflow-wrap: break-word;
-            /* Prevent overflow globally */
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Open Sans', sans-serif;
-            color: var(--gray);
-            background: var(--white);
+            background-color: var(--bg-body);
+            color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
-            width: 100%;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--dark);
-            font-weight: 700;
-            word-wrap: break-word;
-            word-break: break-word;
-            /* Ensure long words like Adsaffiliatenetwork wrap */
-            hyphens: auto;
-        }
-
-        a {
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        /* HEADER */
+        /* HEADER & NAVIGATION */
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.2rem 8%;
-            /* Minimal padding */
-            background: var(--white);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            gap: 1rem;
-            height: 90px;
-            /* Fixed height for consistency */
-            flex-wrap: nowrap;
-        }
-
-        .logo {
+            left: 0;
+            right: 0;
+            height: 80px;
             display: flex;
             align-items: center;
-            flex-shrink: 0;
-            text-decoration: none;
-            padding: 0;
-            height: 100%;
+            justify-content: space-between;
+            padding: 0 6%;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
         }
 
-        .logo img {
-            height: 85px;
-            /* "Zoomer" - fills the header */
-            width: auto;
-            max-width: 400px;
-            object-fit: contain;
-            transition: height 0.3s ease;
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--primary-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+        }
+
+        .brand-tag {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            background: var(--primary-light);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: 20px;
+            color: var(--primary);
         }
 
         .nav-links {
             display: flex;
-            gap: 1.5rem;
-            /* Reduced from 2rem */
             align-items: center;
-            flex-wrap: wrap;
-            /* For mid-size screens */
-            justify-content: center;
+            gap: 2.2rem;
+            list-style: none;
         }
 
         .nav-links a {
-            color: var(--dark);
+            color: var(--text-muted);
+            text-decoration: none;
             font-weight: 600;
-            font-size: 0.9rem;
-            /* Slightly smaller */
-            white-space: nowrap;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
         }
 
         .nav-links a:hover {
             color: var(--primary);
         }
 
-        .login-btn {
-            background: var(--primary);
-            color: white !important;
-            padding: 0.6rem 1.8rem;
-            border-radius: 50px;
-            font-weight: 600;
-            box-shadow: 0 4px 6px rgba(195, 0, 0, 0.2);
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
-        .login-btn:hover {
-            background: #a00000;
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.4rem;
+            border-radius: 10px;
+            font-size: 0.925rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        .btn-ghost:hover {
+            background: var(--bg-surface);
+            border-color: var(--border-hover);
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-primary:hover {
             transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
         }
 
         /* HERO SECTION */
-        .hero {
+        .hero-section {
+            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 160px 6% 90px 6%;
+        }
+
+        .hero-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.4rem 1rem;
+            background: var(--primary-light);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -1.5px;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title span {
+            color: var(--primary);
+        }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 2.2rem;
+            max-width: 580px;
+        }
+
+        .hero-cta {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        /* HERO PREVIEW CARD */
+        .hero-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-card-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 5rem 8%;
-            background: var(--white);
-            min-height: 85vh;
-        }
-
-        .hero-content {
-            flex: 1;
-            max-width: 600px;
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            line-height: 1.1;
             margin-bottom: 1.5rem;
-            color: #333;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
         }
 
-        .hero-content h1 span {
-            color: var(--primary);
-        }
-
-        .hero-content p {
-            font-size: 1.1rem;
-            margin-bottom: 2.5rem;
-            color: var(--gray);
-            border-left: 4px solid var(--primary);
-            padding-left: 1rem;
-        }
-
-        .hero-image {
-            flex: 1;
+        .metric-badge {
             display: flex;
-            justify-content: center;
-        }
-
-        .hero-image img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .cta-btn {
-            background: var(--primary);
-            color: white;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 0.75rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: 8px;
+            color: #059669;
+            font-size: 0.8rem;
             font-weight: 700;
-            font-size: 1rem;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(195, 0, 0, 0.3);
         }
 
-        .cta-btn:hover {
-            background: #900000;
-            transform: translateY(-2px);
+        .hero-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
         }
 
-        /* WHY US */
-        .section {
-            padding: 5rem 8%;
+        .hero-stat-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.25rem;
+        }
+
+        .hero-stat-box h4 {
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            margin-bottom: 0.35rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+        }
+
+        .hero-stat-box p {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        /* FEATURES SECTION */
+        .features-section {
+            padding: 100px 6%;
+            background: #ffffff;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 4rem auto;
+        }
+
+        .section-subtitle {
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
         }
 
         .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: -0.75px;
+            color: var(--text-main);
             margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        .section-title .bar {
-            width: 60px;
-            height: 4px;
-            background: var(--primary);
+        .features-grid {
+            max-width: 1280px;
             margin: 0 auto;
-        }
-
-        .about-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-            font-size: 1rem;
-        }
-
-        .feature-box {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 2rem;
-            background: var(--light);
-            padding: 2rem;
-            border-radius: 10px;
-            border-left: 5px solid var(--primary);
-        }
-
-        .feature-box i {
-            font-size: 2.5rem;
-            color: var(--primary);
-        }
-
-        /* TRAFFIC CHANNELS */
-        .traffic-section {
-            background: var(--light);
-        }
-
-        .traffic-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
             gap: 2rem;
         }
 
-        @media(max-width: 350px) {
-            .traffic-grid {
-                grid-template-columns: 1fr;
-                /* Force 1 col for very small screens */
-            }
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 2.2rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
         }
 
-        .traffic-card {
-            background: var(--white);
-            padding: 2.5rem 2rem;
-            text-align: center;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            transition: 0.3s;
-            border-bottom: 4px solid transparent;
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
         }
 
-        .traffic-card:hover {
-            transform: translateY(-10px);
-            border-bottom: 4px solid var(--primary);
-        }
-
-        .traffic-card i {
-            font-size: 2.5rem;
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            background: var(--primary-light);
             color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
             margin-bottom: 1.5rem;
-            background: rgba(195, 0, 0, 0.1);
-            width: 80px;
-            height: 80px;
-            line-height: 80px;
-            border-radius: 50%;
         }
 
-        .traffic-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
+        .feature-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.75rem;
         }
 
-        .traffic-card p {
-            font-size: 0.9rem;
-            color: var(--gray);
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
-        .submenu {
-            list-style: none;
-            background: rgba(0, 0, 0, 0.02);
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
+        /* CALCULATOR SECTION */
+        .calculator-section {
+            padding: 90px 6%;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
 
-        .submenu.open {
-            max-height: 500px;
-            /* Increased to ensure all items show */
-            transition: max-height 0.3s ease-in;
-        }
-
-        .submenu .nav-link {
-            padding-left: 2.5rem;
-            font-size: 0.9rem;
-            border-radius: 0;
-            margin-bottom: 0;
-        }
-
-        /* MISSION */
-        .mission-section {
-            text-align: center;
-            background: var(--white);
-            padding: 6rem 8%;
-        }
-
-        .mission-box {
-            max-width: 900px;
+        .calc-container {
+            max-width: 1100px;
             margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1.75rem;
+            padding: 3.5rem 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.5rem;
+            align-items: center;
+            box-shadow: var(--shadow-md);
         }
 
-        .mission-box h2 {
-            font-size: 2.5rem;
+        .calc-input-group {
             margin-bottom: 2rem;
         }
 
-        .mission-box p {
-            font-size: 1.3rem;
-            font-weight: 300;
-            color: #555;
+        .calc-input-group label {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.75rem;
+        }
+
+        .calc-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #e2e8f0;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .calc-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+        }
+
+        .calc-result-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .calc-result-number {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0.5rem 0;
+        }
+
+        /* STATS BAR */
+        .stats-bar {
+            max-width: 1280px;
+            margin: 80px auto;
+            padding: 0 6%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .stat-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 1.8rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 0.35rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
         }
 
         /* FOOTER */
         footer {
-            background: #111;
-            color: #aaa;
-            padding: 4rem 8% 2rem;
-            text-align: center;
-        }
-
-        .footer-logo {
-            margin-bottom: 1.5rem;
-            display: inline-block;
-        }
-
-        .footer-logo img {
-            height: 100px;
-            /* Increased from 70px */
-            width: auto;
-            max-width: 350px;
-            object-fit: contain;
-        }
-
-        .footer-text-logo {
-            margin-bottom: 1.5rem;
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: white;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        @media(max-width: 900px) {
-            .footer-text-logo {
-                font-size: 1.4rem;
-                /* Reduced size for mobile */
-                flex-wrap: wrap;
-                /* Allow wrapping if absolutely needed on tiny screens */
-            }
-        }
-
-        @media(max-width: 900px) {
-            .footer-logo img {
-                height: 80px;
-                /* Increased mobile footer logo */
-            }
-        }
-
-        .footer-links {
-            margin-bottom: 2rem;
-        }
-
-        .footer-links a {
-            color: #aaa;
-            margin: 0 1rem;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary);
-        }
-
-        .copy {
-            border-top: 1px solid #333;
-            padding-top: 2rem;
-            font-size: 0.9rem;
-        }
-
-        /* Updated Mobile Logic for index.html */
-        @media(max-width: 900px) {
-            header {
-                padding: 0.2rem 5%;
-                /* Minimal padding to maximize logo space */
-                height: 70px;
-                /* Fixed height as requested */
-                flex-wrap: nowrap;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .logo {
-                max-width: 80%;
-                /* Allow logo to take more width */
-                height: 100%;
-                display: flex;
-                align-items: center;
-            }
-
-            .logo img {
-                height: 65px;
-                /* "Zoomer" - fills the header */
-                width: auto;
-                max-width: 100%;
-                object-fit: contain;
-            }
-
-            .nav-links {
-                display: flex;
-                gap: 0;
-            }
-
-            .nav-links a:not(.login-btn) {
-                display: none;
-            }
-
-            .nav-links .login-btn {
-                display: flex !important;
-                align-items: center;
-                justify-content: center;
-                gap: 0.3rem;
-                font-size: 0.8rem;
-                padding: 0.5rem 0.8rem;
-                white-space: nowrap;
-                flex-shrink: 0;
-            }
-
-            .nav-links .login-btn i {
-                font-size: 0.8rem;
-            }
-
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                padding: 120px 5% 3rem 5%;
-                /* Optimized for new header height */
-                min-height: auto;
-            }
-
-            html,
-            body {
-                overflow-x: hidden;
-            }
-
-            .hero-content {
-                margin: 0 0 2rem 0;
-                max-width: 100% !important;
-                padding: 0 1rem;
-                /* specific padding */
-            }
-
-            .hero-content h1 {
-                font-size: 1.8rem !important;
-                /* Force override */
-                line-height: 1.3;
-                margin-bottom: 1rem;
-                word-wrap: break-word;
-                /* Ensure long words break */
-            }
-
-            .hero-content h1 span {
-                white-space: nowrap;
-                /* Keep Co-reg together */
-                display: inline-block;
-            }
-
-            .hero-content p {
-                border-left: none;
-                border-bottom: 3px solid var(--primary);
-                padding: 0 0 1rem 0;
-                display: block;
-                font-size: 0.95rem;
-            }
-
-            .wc-container {
-                width: 100%;
-                max-width: 300px;
-                height: 220px;
-                transform: scale(0.65);
-                /* Reduced scale to fit better */
-                margin: 0 auto;
-                display: block;
-            }
-
-            .section {
-                padding: 3rem 5%;
-            }
-        }
-
-        /* Word Cloud Graphic */
-        .wc-container {
-            position: relative;
-            width: 380px;
-            height: 280px;
+            border-top: 1px solid var(--border);
+            background: #ffffff;
+            padding: 4rem 6% 2rem 6%;
+            max-width: 1280px;
             margin: 0 auto;
-        }
-
-        .wc-bg {
-            position: absolute;
-            inset: 0;
-            background: var(--primary);
-            border-radius: 20px;
-            transform: translate(15px, 15px);
-        }
-
-        .wc-card {
-            position: absolute;
-            inset: 0;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Montserrat', sans-serif;
-            padding: 2rem;
-            background-image: radial-gradient(#f0f0f0 1px, transparent 1px);
-            background-size: 20px 20px;
+            gap: 2.5rem;
         }
 
-        /* Chatbot */
-        .chat-widget {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 2000;
-            font-family: 'Open Sans', sans-serif;
-        }
-
-        .chat-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(195, 0, 0, 0.4);
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .chat-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .chat-window {
-            position: absolute;
-            bottom: 80px;
-            right: 0;
-            width: 350px;
-            height: 450px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            border: 1px solid #eee;
-        }
-
-        .chat-header {
-            background: var(--primary);
-            color: white;
-            padding: 1rem;
+        .footer-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .chat-body {
-            flex: 1;
-            padding: 1rem;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            background: #f9f9f9;
-        }
-
-        .msg {
-            padding: 0.8rem 1rem;
-            border-radius: 10px;
-            max-width: 80%;
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
-        .msg.bot {
-            background: white;
-            color: #333;
-            align-self: flex-start;
-            border-bottom-left-radius: 2px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        }
-
-        .msg.user {
-            background: var(--primary);
-            color: white;
-            align-self: flex-end;
-            border-bottom-right-radius: 2px;
-        }
-
-        .chat-options {
-            padding: 1rem;
-            background: white;
-            border-top: 1px solid #eee;
-            display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 2rem;
         }
 
-        .chat-options button {
-            flex: 1;
-            min-width: 45%;
-            padding: 0.5rem;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            background: white;
-            border-radius: 5px;
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-dim);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+        }
+
+        /* AUTH MODALS */
+        .modal-backdrop {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s ease;
+        }
+
+        .modal-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .auth-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.8rem;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            transform: translateY(15px);
+            transition: all 0.25s ease;
+        }
+
+        .modal-backdrop.active .auth-card {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            font-size: 0.8rem;
-            transition: 0.2s;
+            font-size: 1.2rem;
+            transition: all 0.2s ease;
         }
 
-        .chat-options button:hover {
-            background: var(--primary);
-            color: white;
+        .modal-close:hover {
+            color: var(--text-main);
+            background: #e2e8f0;
         }
 
-        /* Duplicate removed */
+        .auth-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            text-align: center;
+            color: var(--text-main);
+            margin-bottom: 0.4rem;
+        }
 
-        /* Media queries merged above */
+        .auth-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.925rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.35rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .auth-alert {
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .auth-alert.error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+        }
+
+        .auth-alert.success {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #059669;
+        }
+
+        @media (max-width: 992px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                padding-top: 120px;
+            }
+            .calc-container {
+                grid-template-columns: 1fr;
+            }
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .nav-links {
+                display: none;
+            }
+        }
     </style>
 </head>
 
 <body>
-
+    <!-- HEADER -->
     <header>
-        <a href="index.html" class="logo">
-            <img src="assets/logo.png" alt="ADSAFFILIATENETWORK Logo">
+        <a href="#" class="brand-logo">
+            <div class="brand-icon">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+            <span class="brand-name">DigiWise</span>
+            <span class="brand-tag">NETWORK</span>
         </a>
-        <nav class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#mission">Mission</a>
-            <a href="#contact">Contact</a>
-            <a href="dashboard.html" class="login-btn"><i class="fas fa-lock"></i> Login</a>
-        </nav>
+
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#calculator">Earnings Calc</a></li>
+            <li><a href="#network">Network Stats</a></li>
+            <li><a href="#about">About Us</a></li>
+        </ul>
+
+        <div class="header-actions">
+            <button class="btn btn-ghost" onclick="openModal('loginModal')">
+                <i class="fa-solid fa-right-to-bracket"></i> Login
+            </button>
+            <button class="btn btn-primary" onclick="openModal('registerModal')">
+                Get Started <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
     </header>
 
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Bringing in Qualified, Highly Interested Traffic To Your Audience <span>Co-reg</span></h1>
-            <p>ADSAFFILIATENETWORK works hard to deliver the best, most innovative marketing services and solutions. Our
-                goal is
-                to help clients grow, reach their audience effectively, and succeed in all areas of performance
-                marketing.</p>
-            <a href="#services" class="cta-btn">See Our Work</a>
-        </div>
-        <div class="hero-image">
-            <div class="wc-container">
-                <div class="wc-bg"></div>
-                <div class="wc-card">
-                    <div
-                        style="display:flex;align-items:baseline;flex-wrap:wrap;justify-content:center;gap:0.5rem;margin-bottom:1rem;">
-                        <span
-                            style="font-size:1.4rem;font-weight:700;color:#333;text-transform:uppercase;">DIGITAL</span>
-                        <span
-                            style="font-size:2.2rem;font-weight:800;color:var(--primary);text-transform:uppercase;">MARKETING</span>
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="badge-pill">
+                    <i class="fa-solid fa-chart-line"></i> Premier Performance Marketing Network
+                </div>
+                <h1 class="hero-title">Scale Performance Revenue with <span>DigiWise</span></h1>
+                <p class="hero-desc">
+                    Access high-payout CPA/CPL offers, real-time conversion tracking, and guaranteed weekly payouts with enterprise-grade technology.
+                </p>
+                <div class="hero-cta">
+                    <button class="btn btn-primary" style="padding: 0.9rem 2rem; font-size: 1rem;" onclick="openModal('registerModal')">
+                        Join as Publisher <i class="fa-solid fa-user-plus"></i>
+                    </button>
+                    <button class="btn btn-ghost" style="padding: 0.9rem 2rem; font-size: 1rem;" onclick="openModal('loginModal')">
+                        Publisher Login <i class="fa-solid fa-gauge-high"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <div class="hero-card-header">
+                    <div>
+                        <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);">Live Platform Overview</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Real-time performance snapshot</p>
                     </div>
-                    <div
-                        style="display:flex;gap:1.5rem;align-items:center;justify-content:center;width:100%;margin-bottom:0.5rem;flex-wrap:wrap;">
-                        <span style="font-size:1.2rem;font-weight:700;color:#444;">SEO</span>
-                        <span style="font-size:1.5rem;font-weight:800;color:#555;">BUSINESS</span>
+                    <div class="metric-badge">
+                        <i class="fa-solid fa-circle" style="font-size: 0.5rem;"></i> Active
                     </div>
-                    <div
-                        style="display:flex;gap:1rem;align-items:center;justify-content:center;width:100%;margin-bottom:1rem;">
-                        <span style="font-size:1.3rem;font-weight:800;color:#333;">TRAFFIC CONTENT</span>
+                </div>
+
+                <div class="hero-stats-grid">
+                    <div class="hero-stat-box">
+                        <h4>Daily Clicks</h4>
+                        <p id="heroClicks">14,250</p>
                     </div>
-                    <span style="font-size:1.2rem;font-weight:700;color:#444;">WEB SALES</span>
+                    <div class="hero-stat-box">
+                        <h4>Conversions</h4>
+                        <p id="heroConversions" style="color: #059669;">1,280</p>
+                    </div>
+                    <div class="hero-stat-box">
+                        <h4>Conversion Rate</h4>
+                        <p style="color: #2563eb;">8.98%</p>
+                    </div>
+                    <div class="hero-stat-box">
+                        <h4>Est. Revenue</h4>
+                        <p style="color: #0284c7;">$5,420.00</p>
+                    </div>
+                </div>
+
+                <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 10px; padding: 0.85rem 1rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem;">
+                    <span style="color: var(--text-muted); font-weight: 600;"><i class="fa-solid fa-shield-check" style="color: #10b981;"></i> SmartLink Verification Active</span>
+                    <span style="color: var(--primary); font-weight: 700;">Weekly Payouts</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section" id="about">
-        <div class="section-title">
-            <h2>Why Use Ads Affiliate Network??</h2>
-            <div class="bar"></div>
+    <!-- FEATURES SECTION -->
+    <section id="features" class="features-section">
+        <div class="section-header">
+            <p class="section-subtitle">Why DigiWise</p>
+            <h2 class="section-title">Built for High-Growth Performance Marketers</h2>
+            <p style="color: var(--text-muted);">Industrial-strength tracking and high-converting campaign offers tailored for maximum EPC.</p>
         </div>
-        <div class="about-grid">
-            <div class="about-text">
-                <p>ADSAFFILIATENETWORK is powered by a team of experienced marketing and creative professionals,
-                    bringing over
-                    20 years of combined expertise in the digital space.</p>
-                <p>We not only understand the value of lead generation and customer acquisition but also recognize the
-                    importance of clear brand messaging, audience connection, and delivering strong ROI.</p>
 
-                <div class="feature-box">
-                    <i class="fas fa-sitemap"></i>
-                    <div>
-                        <h3>Dedicated Account Manager</h3>
-                        <p>Our account managers identify the best channels and target audiences for your brand. From
-                            crafting impactful creatives to delivering insightful analysis, we ensure you get the ROI
-                            you're looking for.</p>
-                    </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-bolt"></i>
                 </div>
-
-                <div class="feature-box" style="margin-top:1rem; border-color:#222;">
-                    <i class="fas fa-wallet" style="color:#222;"></i>
-                    <div>
-                        <h3>No Set Up Fees</h3>
-                        <p>Pay for performance only. Whether it's CPL, CPA, CPC, or CPM, you choose the campaign model
-                            that best fits your goals and budget.</p>
-                    </div>
-                </div>
+                <h3>Real-Time Tracking</h3>
+                <p>Instant click & conversion sync backed by scalable cloud infrastructure with zero postback latency.</p>
             </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-globe"></i>
+                </div>
+                <h3>Global Premium Offers</h3>
+                <p>Handpicked direct brand offers across US, EU, and APAC with competitive payouts.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+                <h3>Guaranteed Payouts</h3>
+                <p>Reliable weekly payments via Wire, PayPal, Crypto, or Direct Transfer with transparent reporting.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <h3>SmartLink Technology</h3>
+                <p>Automated geo-targeting dynamically routes traffic to the highest-converting active destination.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- EARNINGS CALCULATOR -->
+    <section id="calculator" class="calculator-section">
+        <div class="calc-container">
             <div>
-                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80"
-                    alt="Analytics" style="width:100%;border-radius:10px;box-shadow:0 15px 30px rgba(0,0,0,0.1);">
+                <p class="section-subtitle">Revenue Estimator</p>
+                <h2 style="font-size: 2.2rem; font-weight: 800; color: var(--text-main); margin-bottom: 1rem;">Estimate Your Monthly Payouts</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Adjust traffic volume and payout rates to see your potential monthly income on DigiWise.</p>
+
+                <div class="calc-input-group">
+                    <label>Monthly Clicks: <span id="clicksVal" style="color: var(--primary);">50,000</span></label>
+                    <input type="range" min="1000" max="250000" step="1000" value="50000" class="calc-slider" id="clicksSlider" oninput="updateCalc()">
+                </div>
+
+                <div class="calc-input-group">
+                    <label>Average Payout Per Conversion: <span id="payoutVal" style="color: var(--accent-emerald);">$15.00</span></label>
+                    <input type="range" min="1" max="100" step="1" value="15" class="calc-slider" id="payoutSlider" oninput="updateCalc()">
+                </div>
+            </div>
+
+            <div class="calc-result-box">
+                <p style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 700;">Estimated Monthly Earnings</p>
+                <div class="calc-result-number" id="calcTotal">$37,500</div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Calculated at an average 5% conversion rate</p>
+                <button class="btn btn-primary" style="width: 100%;" onclick="openModal('registerModal')">
+                    Start Earning Now
+                </button>
             </div>
         </div>
     </section>
 
-    <section class="section traffic-section" id="services">
-        <div class="section-title">
-            <h2>Worldwide CPA Lead Generation</h2>
-            <p style="max-width:700px;margin:1rem auto 0;">We specialize in four different traffic channels: email,
-                display, SMS and co-registration.</p>
-            <div class="bar" style="margin-top:1rem;"></div>
+    <!-- NETWORK STATS -->
+    <section id="network" class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Active Campaigns</div>
         </div>
-
-        <div class="traffic-grid">
-            <div class="traffic-card">
-                <i class="fas fa-envelope-open-text"></i>
-                <h3>Email Traffic</h3>
-                <p>Hit 'em at home – Tap into our broad range of email databases to communicate with prospective
-                    customers in their domain.</p>
-            </div>
-            <div class="traffic-card">
-                <i class="fas fa-comment-dots"></i>
-                <h3>SMS Traffic</h3>
-                <p>Get personal – reach customers in the most direct way and engage them through the medium they feel
-                    most comfortable.</p>
-            </div>
-            <div class="traffic-card">
-                <i class="fas fa-laptop-code"></i>
-                <h3>Display Traffic</h3>
-                <p>World wide – Enjoy the benefits of our website network and place your advertisements amongst content
-                    that best compliments your brand.</p>
-            </div>
-            <div class="traffic-card">
-                <i class="fas fa-wifi"></i>
-                <h3>Co-reg Traffic</h3>
-                <p>Ask Away – design questions to generate interest from online questionnaires, surveys and competitions
-                    to maximise your database.</p>
-            </div>
-            <div class="traffic-card">
-                <i class="fas fa-user-friends"></i>
-                <h3>Social</h3>
-                <p>Be part of the buzz – Build clever communications and strategies to precisely target the customers
-                    likely to engage.</p>
-            </div>
-            <div class="traffic-card">
-                <i class="fas fa-code"></i>
-                <h3>Web Development</h3>
-                <p>Build your presence – From sleek landing pages to complex web applications, we build solutions that
-                    convert and perform.</p>
-            </div>
+        <div class="stat-item">
+            <div class="stat-number">$12M+</div>
+            <div class="stat-label">Paid to Affiliates</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">99.9%</div>
+            <div class="stat-label">System Uptime</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">150+</div>
+            <div class="stat-label">Global Markets</div>
         </div>
     </section>
 
-    <section class="section mission-section" id="mission">
-        <div class="mission-box">
-            <h5 style="color:var(--primary);letter-spacing:2px;margin-bottom:1rem;text-transform:uppercase;">Our Mission
-            </h5>
-            <h2>DRIVING CREATIVE PERFORMANCE</h2>
-            <div class="bar" style="margin-bottom:2rem;"></div>
-            <p>"Our mission is to handle every detail once a brand joins our agency, ensuring the most innovative and
-                effective creative adaptations for each traffic channel. Using data-driven insights, we personalize
-                creativity to engage each user while maintaining brand safety."</p>
-            <br>
-            <p style="font-size:1.1rem; color:var(--dark); font-weight:600;">We work on a performance basis, if we don't
-                perform, you don't pay us.</p>
-            <br>
-            <a href="#contact" class="cta-btn">Contact Us Today</a>
-        </div>
-    </section>
-
-    <footer id="contact">
-        <div class="footer-text-logo">
-            <i class="fas fa-cube"></i> ADS<span style="color:var(--primary);">AFFILIATENETWORK</span>
-        </div>
-        <div class="footer-links">
-            <a href="#">Home</a>
-            <a href="#">About Us</a>
-            <a href="#">Services</a>
-            <a href="#">Contact</a>
-            <a href="dashboard.html">Login</a>
-        </div>
-        <div style="margin-bottom: 2rem; color: #888;">
-            <p><i class="fas fa-map-marker-alt" style="color: var(--primary); margin-right: 0.5rem;"></i> Karnataka, HSR
-                Layout, Pincode 560102</p>
-        </div>
-        <div class="copy">
-            <p>&copy; 2026 ADSAFFILIATENETWORK. All Rights Reserved.</p>
-            <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 1.5rem; font-size: 1.8rem;">
-                <a href="https://wa.me/919392333155" target="_blank" style="color: #25D366;" title="WhatsApp"><i
-                        class="fab fa-whatsapp"></i></a>
-                <a href="mailto:chakri@adsaffiliatenetwork.com" style="color: #EA4335;" title="Email"><i
-                        class="fas fa-envelope"></i></a>
-                <a href="https://instagram.com" target="_blank" style="color: #E1306C;"><i
-                        class="fab fa-instagram"></i></a>
-                <a href="https://twitter.com" target="_blank" style="color: #1DA1F2;"><i class="fab fa-twitter"></i></a>
-                <a href="https://linkedin.com" target="_blank" style="color: #0077B5;"><i
-                        class="fab fa-linkedin"></i></a>
+    <!-- FOOTER -->
+    <footer id="about">
+        <div class="footer-top">
+            <a href="#" class="brand-logo">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <span class="brand-name">DigiWise</span>
+            </a>
+            <div style="display: flex; gap: 1.8rem;">
+                <a href="#features" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Features</a>
+                <a href="#calculator" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Calculator</a>
+                <a href="#network" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Stats</a>
             </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 DigiWise Network. All rights reserved.</p>
+            <p>Enterprise Performance Marketing Platform</p>
         </div>
     </footer>
 
-    <div class="chat-widget">
-        <button class="chat-btn" onclick="toggleChat()"><i class="fas fa-comment-dots"></i></button>
-        <div class="chat-window" id="chatWindow">
-            <div class="chat-header">
-                <div style="font-weight:700;"><i class="fas fa-robot"></i> Assistant</div>
-                <button onclick="toggleChat()"
-                    style="background:none;border:none;color:white;font-size:1.2rem;cursor:pointer;">&times;</button>
-            </div>
-            <div class="chat-body" id="chatBody">
-                <div class="msg bot">Hello! Welcome to Adsaffiliatenetwork. How can I help you regarding our services?
+    <!-- LOGIN MODAL -->
+    <div class="modal-backdrop" id="loginModal">
+        <div class="auth-card">
+            <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+            <h2 class="auth-title">Welcome Back</h2>
+            <p class="auth-subtitle">Sign in to your DigiWise account</p>
+
+            <div class="auth-alert error" id="loginError"></div>
+
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Account Role</label>
+                    <select id="loginRole">
+                        <option value="user">Publisher / Affiliate</option>
+                        <option value="admin">Administrator</option>
+                    </select>
                 </div>
-            </div>
-            <div class="chat-options">
-                <button onclick="ask('fees')">Are there setup fees?</button>
-                <button onclick="ask('channels')">What traffic channels?</button>
-                <button onclick="ask('contact')">How do I contact you?</button>
-                <button onclick="ask('join')">How to join?</button>
-            </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="loginEmail" required placeholder="name@company.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+                    Sign In <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+            <p style="text-align: center; font-size: 0.875rem; color: var(--text-muted); margin-top: 1.5rem;">
+                Need an account? <a href="#" style="color: var(--primary); font-weight: 700;" onclick="closeModal('loginModal'); openModal('registerModal');">Register now</a>
+            </p>
         </div>
     </div>
 
+    <!-- REGISTER MODAL -->
+    <div class="modal-backdrop" id="registerModal">
+        <div class="auth-card">
+            <button class="modal-close" onclick="closeModal('registerModal')">&times;</button>
+            <h2 class="auth-title">Create Account</h2>
+            <p class="auth-subtitle">Join DigiWise Performance Network</p>
+
+            <div class="auth-alert error" id="registerError"></div>
+            <div class="auth-alert success" id="registerSuccess"></div>
+
+            <form onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>Full Name / Company</label>
+                    <input type="text" id="regName" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="regEmail" required placeholder="name@company.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="regPassword" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+                    Create Account <i class="fa-solid fa-user-plus"></i>
+                </button>
+            </form>
+            <p style="text-align: center; font-size: 0.875rem; color: var(--text-muted); margin-top: 1.5rem;">
+                Already registered? <a href="#" style="color: var(--primary); font-weight: 700;" onclick="closeModal('registerModal'); openModal('loginModal');">Log in</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        function toggleChat() {
-            const w = document.getElementById('chatWindow');
-            w.style.display = w.style.display === 'flex' ? 'none' : 'flex';
+        const sb = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
+
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+        function updateCalc() {
+            const clicks = parseInt(document.getElementById('clicksSlider').value);
+            const payout = parseInt(document.getElementById('payoutSlider').value);
+            
+            document.getElementById('clicksVal').innerText = clicks.toLocaleString();
+            document.getElementById('payoutVal').innerText = '$' + payout.toFixed(2);
+            
+            const conversions = clicks * 0.05;
+            const total = conversions * payout;
+            document.getElementById('calcTotal').innerText = '$' + Math.round(total).toLocaleString();
         }
 
-        function ask(type) {
-            const body = document.getElementById('chatBody');
-            let q = '', a = '';
+        async function handleLogin(e) {
+            e.preventDefault();
+            const role = document.getElementById('loginRole').value;
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const errDiv = document.getElementById('loginError');
+            errDiv.style.display = 'none';
 
-            if (type === 'fees') { q = 'Are there setup fees?'; a = 'No! There are absolutely no setup fees. You only pay for performance (CPA, CPL, etc).'; }
-            if (type === 'channels') { q = 'What traffic channels?'; a = 'We specialize in Email, SMS, Display, and Co-registration traffic.'; }
-            if (type === 'contact') { q = 'Contact info?'; a = 'You can reach us via the Contact Us form or email support@adsaffiliatenetwork.com.'; }
-            if (type === 'join') { q = 'How to join?'; a = 'Click the "Login" button to access the dashboard. If you are a new advertiser, contact us to get an account.'; }
+            try {
+                const table = (role === 'admin') ? 'admins' : 'users';
+                const { data, error } = await sb
+                    .from(table)
+                    .select('*')
+                    .eq('email', email)
+                    .eq('password', password)
+                    .single();
 
-            body.innerHTML += `<div class="msg user">${q}</div>`;
-            setTimeout(() => {
-                body.innerHTML += `<div class="msg bot">${a}</div>`;
-                body.scrollTop = body.scrollHeight;
-            }, 500);
+                if (error || !data) {
+                    throw new Error('Invalid credentials. Please check your email and password.');
+                }
+
+                sessionStorage.setItem('digiUser', JSON.stringify({
+                    id: data.id,
+                    name: data.name,
+                    email: data.email,
+                    role: role
+                }));
+
+                window.location.href = 'dashboard.html';
+            } catch (err) {
+                errDiv.innerText = err.message;
+                errDiv.style.display = 'block';
+            }
+        }
+
+        async function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value.trim();
+            const errDiv = document.getElementById('registerError');
+            const succDiv = document.getElementById('registerSuccess');
+            
+            errDiv.style.display = 'none';
+            succDiv.style.display = 'none';
+
+            try {
+                const { data, error } = await sb
+                    .from('users')
+                    .insert([{ name, email, password, status: 'Active', type: 'Publisher' }])
+                    .select();
+
+                if (error) throw error;
+
+                succDiv.innerText = 'Registration successful! Opening login...';
+                succDiv.style.display = 'block';
+
+                setTimeout(() => {
+                    closeModal('registerModal');
+                    openModal('loginModal');
+                    document.getElementById('loginEmail').value = email;
+                }, 1500);
+
+            } catch (err) {
+                errDiv.innerText = err.message || 'Registration failed.';
+                errDiv.style.display = 'block';
+            }
         }
     </script>
 </body>

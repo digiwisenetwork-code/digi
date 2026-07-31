@@ -1,2161 +1,1027 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADSAFFILIATENETWORK - Dashboard</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@400;600&display=swap"
-        rel="stylesheet">
+    <title>DigiWise Dashboard | Performance Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-light: rgba(37, 99, 235, 0.08);
+            --primary-gradient: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #1d4ed8 100%);
+            
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-sidebar: #ffffff;
+            --bg-input: #f1f5f9;
+            --border: #e2e8f0;
+            --border-hover: #cbd5e1;
+            
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --text-dim: #94a3b8;
+
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #0284c7;
+
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 15px -2px rgba(15, 23, 42, 0.06);
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #090d16;
+            --bg-card: #111827;
+            --bg-sidebar: #0e1320;
+            --bg-input: #1f2937;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(37, 99, 235, 0.3);
+            
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #c30000;
-            --primary-glow: rgba(195, 0, 0, 0.15);
-            --primary-gradient: linear-gradient(135deg, #c30000 0%, #ff4444 100%);
-            --bg-dark: #f8f9fa;
-            --bg-card: #ffffff;
-            --bg-card-glass: rgba(255, 255, 255, 0.85);
-            --bg-input: #f1f3f5;
-            --text: #333333;
-            --text-muted: #64748b;
-            --success: #22c55e;
-            --success-glow: rgba(34, 197, 94, 0.15);
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --info: #3b82f6;
-            --info-glow: rgba(59, 130, 246, 0.15);
-            --border: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-            --shadow-glow: 0 0 20px rgba(195, 0, 0, 0.2);
-        }
-
-        [data-theme="dark"] {
-            --bg-dark: #0f0f1a;
-            --bg-card: #1a1a2e;
-            --bg-card-glass: rgba(26, 26, 46, 0.85);
-            --bg-input: #0f3460;
-            --text: #f8fafc;
-            --text-muted: #94a3b8;
-            --success: #22c55e;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --info: #3b82f6;
-            --border: #334155;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
-            --shadow-glow: 0 0 30px rgba(195, 0, 0, 0.3);
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         body {
-            font-family: 'Open Sans', sans-serif;
-            background: var(--bg-dark);
-            color: var(--text);
+            background-color: var(--bg-body);
+            color: var(--text-main);
             min-height: 100vh;
-            transition: all 0.3s;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        .logo,
-        .nav-link,
-        .btn {
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .login-container {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh
+            transition: background-color 0.25s ease, color 0.25s ease;
         }
 
-        .login-box {
-            background: var(--bg-card);
-            padding: 3rem;
-            border-radius: 1.5rem;
-            width: 100%;
-            max-width: 420px;
-            border: 1px solid var(--border)
-        }
-
-        @media(max-width: 480px) {
-            .login-box {
-                padding: 1.5rem;
-                /* Reduce padding on mobile */
-            }
-        }
-
-        .login-box h1 {
-            text-align: center;
-            color: var(--text);
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            word-break: break-word;
-            line-height: 1.2;
-        }
-
-        .login-box h1 span {
-            color: var(--primary);
-        }
-
-        .login-box>p {
-            text-align: center;
-            color: var(--text-muted);
-            margin-bottom: 2rem
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-muted);
-            font-size: 0.9rem
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 0.875rem;
-            background: var(--bg-input);
-            border: 1px solid var(--border);
-            border-radius: 0.75rem;
-            color: var(--text);
-            font-size: 1rem
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--primary)
-        }
-
-        .btn {
-            width: 100%;
-            padding: 0.875rem;
-            background: var(--primary);
-            border: none;
-            border-radius: 0.75rem;
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: opacity 0.3s
-        }
-
-        .btn:hover {
-            opacity: 0.9
-        }
-
-        .app-container {
-            display: flex;
-            width: 100%;
-            min-height: 100vh;
-            overflow-x: hidden;
-            /* Prevent horizontal scroll */
-            position: relative;
-        }
-
+        /* SIDEBAR */
         .sidebar {
-            width: 260px;
-            background: var(--bg-card);
+            width: 270px;
+            background: var(--bg-sidebar);
             border-right: 1px solid var(--border);
             height: 100vh;
-            overflow-y: auto;
-            position: sticky;
+            position: fixed;
             top: 0;
-            flex-shrink: 0;
-            transition: margin-left 0.3s ease;
-            z-index: 1000;
-        }
-
-        .logo {
-            padding: 1.5rem 1rem;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-            /* Slightly reduced */
-            font-weight: 700;
-            color: var(--text);
+            left: 0;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: space-between;
-            border-bottom: 1px solid var(--border);
+            padding: 1.5rem;
+            z-index: 100;
         }
 
-        .logo div {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 160px;
-            /* Limit text width to leave room for toggle */
-        }
-
-        .logo span {
-            color: var(--primary);
-        }
-
-        .nav-menu {
-            list-style: none
-        }
-
-        .nav-item {
-            margin-bottom: 0.5rem
-        }
-
-        .nav-link {
+        .brand-logo {
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            padding: 0.75rem 0.875rem;
-            /* Slightly more compact */
-            color: var(--text-muted);
-            border-radius: 0.75rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-            /* Slightly smaller for better fit */
+            text-decoration: none;
+            margin-bottom: 2.2rem;
+            padding-left: 0.5rem;
         }
 
-        .nav-link:hover,
-        .nav-link.active {
-            background: rgba(211, 47, 47, 0.2);
-            color: var(--text)
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
 
-        .nav-link.disabled {
-            opacity: 0.5;
-            cursor: not-allowed
+        .brand-name {
+            font-size: 1.45rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
         }
 
-        .submenu {
+        .nav-menu {
             list-style: none;
-            background: rgba(0, 0, 0, 0.03);
-            /* Subtle contrast */
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
         }
 
-        .submenu.open {
-            max-height: 500px;
-            transition: max-height 0.3s ease-in;
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 0.85rem 1rem;
+            border-radius: 10px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
         }
 
-        .submenu .nav-link {
-            padding-left: 2.25rem;
-            /* Reduced indent to look cleaner */
+        .nav-item.active a, .nav-item a:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .sidebar-footer {
+            border-top: 1px solid var(--border);
+            padding-top: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
             font-size: 0.9rem;
+        }
+
+        .user-details h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--text-main);
+        }
+
+        .user-details span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* MAIN CONTENT AREA */
+        .main-wrapper {
+            margin-left: 270px;
+            flex: 1;
+            min-height: 100vh;
             display: flex;
-            justify-content: flex-start;
-            /* Force left align */
-            align-items: center;
-            width: 100%;
+            flex-direction: column;
         }
 
-        .main-content {
-            flex-grow: 1;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            width: 0;
-            /* Force Flexbox to handle width properly */
-            min-width: 0;
-            /* Important for truncating text flex children */
-            height: 100vh;
-            overflow-y: auto;
-        }
-
-        /* Desktop: Close Sidebar */
-        body.sidebar-closed .sidebar {
-            margin-left: -260px;
-            /* Pull off screen */
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
+        /* TOPBAR */
+        .topbar {
+            height: 75px;
             border-bottom: 1px solid var(--border);
-            flex-wrap: wrap;
-            gap: 1rem
-        }
-
-        .welcome {
-            font-size: 1.1rem;
-            /* Slightly smaller */
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 200px;
-            /* Prevent long names from breaking header */
-        }
-
-        .role-badge {
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.5rem;
-            font-size: 0.7rem;
-            font-weight: 600;
-            margin-left: 0.5rem
-        }
-
-        .role-badge.admin {
-            background: rgba(211, 47, 47, 0.2);
-            color: var(--primary)
-        }
-
-        .role-badge.user {
-            background: rgba(59, 130, 246, 0.2);
-            color: var(--info)
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-        }
-
-        @media(max-width: 600px) {
-            .header-actions {
-                gap: 0.25rem;
-                width: 100%;
-                justify-content: flex-start;
-            }
-
-            .header-actions button {
-                padding: 0.4rem 0.6rem;
-                font-size: 0.75rem;
-            }
-
-            .header-actions button span {
-                display: none;
-                /* Hide button text on small screens, keep icons */
-            }
-        }
-
-        .header-actions button {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 0.5rem;
-            cursor: pointer;
+            padding: 0 2rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 0.875rem
-        }
-
-        .theme-btn {
-            background: var(--bg-input);
-            color: var(--text);
-            border: 1px solid var(--border) !important
-        }
-
-        .pwd-btn {
-            background: var(--bg-input);
-            color: var(--text);
-            border: 1px solid var(--border) !important
-        }
-
-        .logout-btn {
-            background: var(--danger);
-            color: white
-        }
-
-        .logo img {
-            height: 60px;
-            /* Increased from 45px */
-            max-width: 200px;
-            width: auto;
-            object-fit: contain;
-            transition: height 0.3s ease;
-        }
-
-        .login-logo img {
-            height: 120px;
-            /* Increased from 90px */
-            width: auto;
-            max-width: 100%;
-            object-fit: contain;
-        }
-
-        @media(max-width: 600px) {
-            .logo img {
-                height: 45px;
-                /* Increased mobile sidebar logo */
-                max-width: 160px;
-            }
-
-            .login-logo img {
-                height: 90px;
-            }
-        }
-
-        /* Dark Mode Logo Support - Removed to prevent white box issue */
-
-        .page {
-            display: none
-        }
-
-        .page.active {
-            display: block
-        }
-
-        .page-header {
-            display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        @media(max-width: 600px) {
-            .page-header {
-                flex-direction: row;
-                align-items: center;
-                padding: 0 0.5rem;
-                /* Added padding to prevent edge sticking */
-            }
-
-            .page-title {
-                font-size: 1.1rem;
-                flex: 1;
-                min-width: 120px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            .add-btn {
-                padding: 0.45rem 0.9rem;
-                font-size: 0.85rem;
-                flex-shrink: 0;
-                margin-right: 0.25rem;
-                /* Force distance from edge */
-            }
+            background: var(--bg-sidebar);
+            position: sticky;
+            top: 0;
+            z-index: 90;
         }
 
         .page-title {
-            font-size: 1.25rem;
-            font-weight: 600
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.25rem;
-            margin-bottom: 2rem
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
-        .stat-card {
-            background: var(--bg-card);
-            padding: 1.5rem;
-            border-radius: 1rem;
+        .theme-toggle-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow);
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--primary-gradient);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .stat-card:hover::before {
-            opacity: 1;
-        }
-
-        .stat-card h3 {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .stat-card h3 i {
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-
-        .stat-card .value {
-            font-size: 2rem;
-            font-weight: 700;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .table-container {
             background: var(--bg-card);
-            border-radius: 1rem;
-            border: 1px solid var(--border);
-            overflow-x: auto;
-            /* Enable horizontal scroll */
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .table-container table {
-            min-width: 700px;
-            /* Prevent shrinking below readable width */
-        }
-
-        .table-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-            flex-wrap: wrap;
-            gap: 1rem
-        }
-
-        .search-box {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--bg-input);
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem
-        }
-
-        .search-box input {
-            background: none;
-            border: none;
-            color: var(--text);
-            outline: none;
-            width: 150px
-        }
-
-        .add-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: var(--primary);
-            border: none;
-            border-radius: 0.5rem;
-            color: white;
+            color: var(--text-main);
             cursor: pointer;
-            font-weight: 500
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.25rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* CONTENT SECTION */
+        .content {
+            padding: 2rem;
+            flex: 1;
+        }
+
+        /* METRIC CARDS GRID */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s ease;
+        }
+
+        .metric-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .metric-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .metric-title {
+            font-size: 0.825rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--text-main);
+        }
+
+        /* TABLES & CARDS */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 1.75rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
         }
 
         table {
             width: 100%;
-            border-collapse: collapse
-        }
-
-        th,
-        td {
-            padding: 0.875rem 1rem;
+            border-collapse: collapse;
             text-align: left;
-            border-bottom: 1px solid var(--border)
         }
 
         th {
-            background: var(--bg-input);
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            text-transform: uppercase
-        }
-
-        .status {
-            padding: 0.25rem 0.5rem;
-            border-radius: 1rem;
-            font-size: 0.7rem;
-            font-weight: 600
-        }
-
-        .status.active {
-            background: rgba(34, 197, 94, 0.2);
-            color: var(--success)
-        }
-
-        .status.inactive {
-            background: rgba(239, 68, 68, 0.2);
-            color: var(--danger)
-        }
-
-        .status.click {
-            background: rgba(59, 130, 246, 0.2);
-            color: var(--info)
-        }
-
-        .status.punch {
-            background: rgba(245, 158, 11, 0.2);
-            color: var(--warning)
-        }
-
-        .actions {
-            display: flex;
-            gap: 0.25rem
-        }
-
-        .action-btn {
-            padding: 0.4rem;
-            border: none;
-            border-radius: 0.25rem;
-            cursor: pointer
-        }
-
-        .action-btn.edit {
-            background: rgba(211, 47, 47, 0.2);
-            color: var(--primary)
-        }
-
-        .action-btn.delete {
-            background: rgba(239, 68, 68, 0.2);
-            color: var(--danger)
-        }
-
-        .action-btn.key {
-            background: rgba(34, 197, 94, 0.2);
-            color: var(--success)
-        }
-
-        .table-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             padding: 1rem;
-            flex-wrap: wrap;
-            gap: 1rem
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
         }
 
-        .pagination {
+        td {
+            padding: 1.1rem 1rem;
+            font-size: 0.925rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: var(--primary-light);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.3rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .badge-success { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+        .badge-info { background: #f0f9ff; color: #0284c7; border: 1px solid #bae6fd; }
+        .badge-warning { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+
+        /* SEARCH & INPUTS */
+        .input-group {
             display: flex;
-            gap: 0.25rem
-        }
-
-        .pagination button {
-            padding: 0.4rem 0.75rem;
+            align-items: center;
+            gap: 0.5rem;
             background: var(--bg-input);
             border: 1px solid var(--border);
-            border-radius: 0.25rem;
-            color: var(--text);
-            cursor: pointer;
-            font-size: 0.8rem
+            border-radius: 10px;
+            padding: 0.5rem 1rem;
         }
 
-        .pagination button.active {
-            background: var(--primary);
-            border-color: var(--primary)
+        .input-group input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            width: 100%;
         }
 
+        /* MODAL OVERLAY */
         .modal {
-            display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
             justify-content: center;
-            align-items: center
+            padding: 1.5rem;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s ease;
         }
 
         .modal.active {
-            display: flex
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .modal-content {
-            background: var(--bg-card);
-            padding: 2rem;
-            border-radius: 1rem;
-            width: 100%;
-            max-width: 450px;
+            background: #ffffff;
             border: 1px solid var(--border);
-            max-height: 90vh;
-            overflow-y: auto
+            border-radius: 1.5rem;
+            padding: 2.2rem;
+            width: 100%;
+            max-width: 520px;
+            position: relative;
+            box-shadow: var(--shadow-md);
         }
 
         .modal-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
         }
 
-        .modal-close {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.5rem;
-            cursor: pointer
+        .form-control {
+            margin-bottom: 1.25rem;
         }
 
-        .modal-footer {
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-            margin-top: 1.5rem
+        .form-control label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.4rem;
         }
 
-        .btn-cancel {
+        .form-control input, .form-control select {
+            width: 100%;
+            padding: 0.8rem 1rem;
             background: var(--bg-input);
             border: 1px solid var(--border);
-            color: var(--text);
-            padding: 0.5rem 1.25rem;
-            border-radius: 0.5rem;
-            cursor: pointer
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
         }
 
-        .btn-submit {
-            background: var(--primary);
-            border: none;
-            color: white;
-            padding: 0.5rem 1.25rem;
-            border-radius: 0.5rem;
-            cursor: pointer
-        }
-
+        /* TOAST NOTIFICATION */
         .toast {
             position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
-            padding: 1rem 1.5rem;
-            background: var(--success);
+            bottom: 2rem;
+            right: 2rem;
+            background: #10b981;
             color: white;
-            border-radius: 0.5rem;
-            display: none;
-            z-index: 1001
+            padding: 0.9rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 2000;
         }
 
         .toast.show {
-            display: block
-        }
-
-        .toast.error {
-            background: var(--danger)
-        }
-
-        .toast.warning {
-            background: var(--warning)
-        }
-
-        .settings-section {
-            background: var(--bg-card);
-            padding: 1.5rem;
-            border-radius: 1rem;
-            border: 1px solid var(--border);
-            margin-bottom: 1rem
-        }
-
-        .settings-section h3 {
-            margin-bottom: 1rem;
-            font-size: 1rem
-        }
-
-        .campaign-list {
-            max-height: 250px;
-            overflow-y: auto;
-            background: var(--bg-input);
-            border-radius: 0.5rem;
-            padding: 0.5rem
-        }
-
-        .campaign-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem;
-            border-bottom: 1px solid var(--border)
-        }
-
-        .campaign-item input {
-            width: 16px;
-            height: 16px;
-            accent-color: var(--primary)
-        }
-
-        .campaign-card {
-            background: var(--bg-card);
-            padding: 1.5rem;
-            border-radius: 1.25rem;
-            border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow);
-        }
-
-        .campaign-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: var(--primary-gradient);
-        }
-
-        .campaign-card:hover {
-            transform: translateY(-6px) scale(1.01);
-            box-shadow: var(--shadow-glow), var(--shadow-lg);
-            border-color: rgba(195, 0, 0, 0.3);
-        }
-
-        .campaign-card h3 {
-            color: var(--text);
-            margin-bottom: 0.75rem;
-            font-size: 1.15rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .campaign-card h3 i {
-            color: var(--primary);
-        }
-
-        .campaign-card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem
-        }
-
-        .campaign-card a {
-            color: var(--primary);
-            word-break: break-all;
-            transition: opacity 0.2s;
-        }
-
-        .campaign-card a:hover {
-            opacity: 0.8;
-        }
-
-        .campaign-card .count {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 0.75rem;
-            padding: 0.6rem 1.25rem;
-            background: var(--primary-gradient);
-            border-radius: 2rem;
-            color: white;
-            font-weight: 600;
-            font-size: 0.95rem;
-            box-shadow: 0 4px 15px rgba(195, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .campaign-card:hover .count {
-            transform: scale(1.05);
-        }
-
-        .campaign-card .country-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.35rem 0.75rem;
-            background: var(--info-glow);
-            border-radius: 1rem;
-            font-size: 0.85rem;
-            color: var(--info);
-            font-weight: 500;
-        }
-
-        .campaign-card .country-badge .flag {
-            font-size: 1.1rem;
-        }
-
-        .campaigns-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.75rem
-        }
-
-        /* Flag styling in tables */
-        .country-cell {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .country-cell .flag {
-            font-size: 1.3rem;
-            line-height: 1;
-        }
-
-        /* Table row hover effect */
-        tbody tr {
-            transition: all 0.2s ease;
-        }
-
-        tbody tr:hover {
-            background: var(--primary-glow);
-        }
-
-        .access-denied {
-            text-align: center;
-            padding: 4rem 2rem
-        }
-
-        .access-denied i {
-            font-size: 4rem;
-            color: var(--danger);
-            margin-bottom: 1rem
-        }
-
-        .access-denied h2 {
-            margin-bottom: 0.5rem
-        }
-
-        .access-denied p {
-            color: var(--text-muted)
-        }
-
-        /* Mobile Responsive Logic */
-        @media(max-width: 900px) {
-            .app-container {
-                display: block;
-                /* Stack on mobile usually, or keep flex but change sidebar */
-            }
-
-            .sidebar {
-                position: fixed;
-                /* Overlay */
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 280px;
-                /* Bit wider for mobile clarity */
-                margin-left: -280px;
-                /* Hidden by default */
-                z-index: 2000;
-                /* Above everything */
-            }
-
-            /* Open State for Mobile */
-            body.sidebar-mobile-open .sidebar {
-                margin-left: 0;
-                box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-                /* Shadow when open */
-            }
-
-            /* No pushing on mobile - overlays */
-            body.sidebar-mobile-open .main-content {
-                margin-left: 0 !important;
-                width: 100% !important;
-                filter: grayscale(0.5) blur(2px) brightness(0.7);
-                /* enhanced focus menu */
-                pointer-events: none;
-            }
-
-            .main-content {
-                width: 100%;
-                padding: 1rem;
-                height: auto;
-                /* Allow scrolling naturally on mobile */
-                overflow: visible;
-            }
-        }
-
-        /* Tablet/Small Laptop specific: allow Push if screen is wide enough */
-        @media(min-width: 600px) and (max-width: 900px) {
-            .app-container {
-                display: flex;
-            }
-
-            .sidebar {
-                position: sticky;
-                margin-left: -260px;
-                /* Hidden default */
-            }
-
-            body.sidebar-mobile-open .sidebar {
-                margin-left: 0;
-            }
-
-            body.sidebar-mobile-open .main-content {
-                filter: none;
-                pointer-events: all;
-            }
-
-            /* Push works here */
-        }
-
-
-        /* Shared Toggle Styles */
-        .menu-toggle {
-            align-items: center;
-            justify-content: center;
-            background: transparent;
-            border: none;
-            padding: 0.5rem;
-            color: var(--text);
-            cursor: pointer;
-            font-size: 1.2rem;
-            margin-right: 0.5rem;
-        }
-
-        /* Header Toggle Visibility */
-        .header .menu-toggle {
-            display: none;
-            /* Hidden on Desktop (Sidebar Open) */
-        }
-
-        body.sidebar-closed .header .menu-toggle {
-            display: flex;
-            /* Sidebar Closed -> Show Toggle */
-        }
-
-        @media(max-width:900px) {
-            .header .menu-toggle {
-                display: flex;
-            }
+            transform: translateY(0);
+            opacity: 1;
         }
     </style>
 </head>
 
 <body>
-    <div class="toast" id="toast"></div>
-
-    <div class="login-container" id="loginPage">
-        <div class="login-box">
-            <a href="index.html" class="login-logo">
-                <img src="assets/logo.png" alt="ADSAFFILIATENETWORK Logo">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div>
+            <a href="index.html" class="brand-logo">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <span class="brand-name">DigiWise</span>
             </a>
-            <p>Sign in to access your dashboard</p>
-            <form id="loginForm">
-                <div class="form-group"><label>Email</label><input type="email" id="loginEmail" required
-                        placeholder="Enter your email"></div>
-                <div class="form-group"><label>Password</label><input type="password" id="loginPassword" required
-                        placeholder="Enter your password"></div>
-                <button type="submit" class="btn"><i class="fas fa-sign-in-alt"></i> Sign In</button>
-            </form>
-            <p style="margin-top:1.5rem;text-align:center;font-size:0.9rem;"><a href="index.html"
-                    style="color:var(--primary);"><i class="fas fa-arrow-left"></i> Back to Homepage</a></p>
-        </div>
-    </div>
 
-    <div class="app-container" id="appContainer">
-        <aside class="sidebar" id="sidebar">
-            <div class="logo">
-                <img src="assets/logo.png" alt="ADSAFFILIATENETWORK Logo">
-                <button onclick="toggleSidebar()"
-                    style="background:none;border:none;cursor:pointer;color:var(--text);font-size:1.2rem;"><i
-                        class="fas fa-bars"></i></button>
-            </div>
             <ul class="nav-menu">
-                <li class="nav-item"><a class="nav-link active" data-page="dashboard"><i class="fas fa-home"></i>
-                        Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link" data-page="myCampaigns"><i class="fas fa-bullhorn"></i> My
-                        Campaigns</a></li>
-                <li class="nav-item admin-only"><a class="nav-link" data-page="admins"><i
-                            class="fas fa-user-shield"></i> Administrators</a></li>
-                <li class="nav-item admin-only"><a class="nav-link" data-page="users"><i class="fas fa-users"></i>
-                        Manage Users</a></li>
-                <li class="nav-item admin-only">
-                    <a class="nav-link" data-toggle="submenu"><i class="fas fa-tasks"></i> Campaign Mgmt <i
-                            class="fas fa-chevron-down" style="margin-left:auto;font-size:0.6rem;"></i></a>
-                    <ul class="submenu" id="submenu">
-                        <li><a class="nav-link" data-page="campaigns">All Campaigns</a></li>
-                        <li><a class="nav-link" data-page="assign">Assign Campaigns</a></li>
-                        <li><a class="nav-link" data-page="viewUC">User Campaigns</a></li>
-                        <li><a class="nav-link" data-page="resetCount">Set Count Zero</a></li>
-                    </ul>
+                <li class="nav-item active" onclick="switchTab('overview', this)">
+                    <a href="#"><i class="fa-solid fa-chart-pie"></i> Overview</a>
                 </li>
-                <li class="nav-item admin-only"><a class="nav-link" data-page="settings"><i class="fas fa-cog"></i>
-                        Settings</a></li>
+                <li class="nav-item" onclick="switchTab('campaigns', this)">
+                    <a href="#"><i class="fa-solid fa-bullhorn"></i> Campaigns & Offers</a>
+                </li>
+                <li class="nav-item" id="adminMenuUsers" style="display: none;" onclick="switchTab('users', this)">
+                    <a href="#"><i class="fa-solid fa-users"></i> Manage Users</a>
+                </li>
+                <li class="nav-item" id="adminMenuAssign" style="display: none;" onclick="switchTab('assignments', this)">
+                    <a href="#"><i class="fa-solid fa-link"></i> Campaign Assignments</a>
+                </li>
             </ul>
-        </aside>
-        <main class="main-content">
-            <header class="header">
-                <div style="display:flex;align-items:center;gap:1rem;">
-                    <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
-                    <div class="welcome">Welcome, <span id="userName">User</span><span class="role-badge"
-                            id="roleBadge">User</span></div>
-                </div>
-                <div class="header-actions">
-                    <button class="theme-btn" onclick="toggleTheme()"><i class="fas fa-moon"
-                            id="themeIcon"></i></button>
-                    <button class="pwd-btn" onclick="openModal('myPwdModal')"><i class="fas fa-key"></i>
-                        Password</button>
-                    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                </div>
-            </header>
+        </div>
 
-            <!-- Dashboard Page -->
-            <div class="page active" id="dashboardPage">
-                <div class="page-header">
-                    <h1 class="page-title">Dashboard</h1>
-                </div>
-                <div class="stats-grid" id="dashStats"></div>
-            </div>
-
-            <!-- My Campaigns Page (for Users) -->
-            <div class="page" id="myCampaignsPage">
-                <div class="page-header">
-                    <h1 class="page-title">My Assigned Campaigns</h1>
-                    <div class="search-box">
-                        <i class="fas fa-globe"></i>
-                        <select id="myCampCountryFilter" onchange="renderMyCampaigns()"
-                            style="background:none; border:none; color:var(--text); outline:none; cursor:pointer;">
-                            <option value="">All Countries</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="campaigns-grid" id="myCampaignsGrid"></div>
-            </div>
-
-            <!-- Admin Pages -->
-            <div class="page" id="adminsPage">
-                <div class="page-header">
-                    <h1 class="page-title">Administrators</h1><button class="add-btn" onclick="openAddAdmin()"><i
-                            class="fas fa-plus"></i> Add</button>
-                </div>
-                <div class="table-container">
-                    <div class="table-header">
-                        <div class="search-box"><i class="fas fa-search"></i><input id="adminSearch"
-                                placeholder="Search..." onkeyup="renderAdmins()"></div>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="adminTable"></tbody>
-                    </table>
-                    <div class="table-footer"><span id="adminInfo"></span>
-                        <div class="pagination" id="adminPag"></div>
-                    </div>
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar" id="avatarInitials">DW</div>
+                <div class="user-details">
+                    <h4 id="userName">User Name</h4>
+                    <span id="userRole">Publisher</span>
                 </div>
             </div>
+            <button class="theme-toggle-btn" onclick="logout()" title="Logout">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </aside>
 
-            <div class="page" id="usersPage">
-                <div class="page-header">
-                    <h1 class="page-title">Manage Users</h1><button class="add-btn" onclick="openAddUser()"><i
-                            class="fas fa-plus"></i> Add</button>
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <h1 class="page-title" id="pageTitle">Dashboard Overview</h1>
+            
+            <div class="topbar-actions">
+                <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle Theme">
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+                <button class="btn btn-outline" onclick="location.reload()">
+                    <i class="fa-solid fa-rotate"></i> Refresh
+                </button>
+            </div>
+        </header>
+
+        <!-- CONTENT AREA -->
+        <main class="content">
+
+            <!-- METRIC STATS -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">Total Clicks</span>
+                        <div class="metric-icon"><i class="fa-solid fa-mouse-pointer"></i></div>
+                    </div>
+                    <div class="metric-value" id="statClicks">0</div>
                 </div>
-                <div class="table-container">
-                    <div class="table-header">
-                        <div class="search-box"><i class="fas fa-search"></i><input id="userSearch"
-                                placeholder="Search..." onkeyup="renderUsers()"></div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">Active Offers</span>
+                        <div class="metric-icon"><i class="fa-solid fa-layer-group"></i></div>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Status</th>
-                                <th>Type</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="userTable"></tbody>
-                    </table>
-                    <div class="table-footer"><span id="userInfo"></span>
-                        <div class="pagination" id="userPag"></div>
+                    <div class="metric-value" id="statOffers">0</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">Assigned Links</span>
+                        <div class="metric-icon"><i class="fa-solid fa-link"></i></div>
                     </div>
+                    <div class="metric-value" id="statAssignments">0</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">Account Status</span>
+                        <div class="metric-icon" style="color: #059669; background: #ecfdf5;"><i class="fa-solid fa-shield-check"></i></div>
+                    </div>
+                    <div class="metric-value" style="font-size: 1.4rem; color: #059669;" id="statStatus">Active</div>
                 </div>
             </div>
 
-            <div class="page" id="campaignsPage">
-                <div class="page-header">
-                    <h1 class="page-title">All Campaigns</h1><button class="add-btn" onclick="openAddCampaign()"><i
-                            class="fas fa-plus"></i> Add</button>
-                </div>
-                <div class="table-container">
-                    <div class="table-header">
-                        <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-                            <div class="search-box"><i class="fas fa-search"></i><input id="campSearch"
-                                    placeholder="Search..." onkeyup="renderCampaigns()"></div>
-                            <div class="search-box"><i class="fas fa-globe"></i>
-                                <select id="campCountryFilter" onchange="renderCampaigns()"
-                                    style="background:none; border:none; color:var(--text); outline:none; cursor:pointer;">
-                                    <option value="">All Countries</option>
-                                </select>
-                            </div>
+            <!-- OVERVIEW TAB -->
+            <div id="tabOverview">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">My Assigned Offers & Tracking Links</h2>
+                        <div class="input-group" style="width: 250px;">
+                            <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted);"></i>
+                            <input type="text" placeholder="Search offer..." oninput="filterTable('userLinksTable', this.value)">
                         </div>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Offer ID</th>
-                                <th>Country</th>
-                                <th>Link</th>
-                                <th>Type</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="campTable"></tbody>
-                    </table>
-                    <div class="table-footer"><span id="campInfo"></span>
-                        <div class="pagination" id="campPag"></div>
+                    <div class="table-responsive">
+                        <table id="userLinksTable">
+                            <thead>
+                                <tr>
+                                    <th>Offer Name</th>
+                                    <th>Offer ID</th>
+                                    <th>GEO</th>
+                                    <th>Type</th>
+                                    <th>Clicks Count</th>
+                                    <th>Smart Link</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userLinksBody">
+                                <tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Loading assignments...</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
 
-            <div class="page" id="assignPage">
-                <div class="page-header">
-                    <h1 class="page-title">Assign Campaigns</h1>
-                </div>
-                <div class="table-container" style="padding:1.5rem;">
-                    <div class="form-group"><label>Select User</label><select id="assignUser"
-                            style="width:100%;padding:0.75rem;background:var(--bg-input);border:1px solid var(--border);border-radius:0.5rem;color:var(--text);">
-                            <option value="">Select User...</option>
-                        </select></div>
-                    <div style="display:flex;gap:0.5rem;margin-bottom:1rem;">
-                        <button class="add-btn"
-                            style="background:var(--bg-input);border:1px solid var(--border);color:var(--text);"
-                            onclick="checkAll(true)">Check All</button>
-                        <button class="add-btn"
-                            style="background:var(--bg-input);border:1px solid var(--border);color:var(--text);"
-                            onclick="checkAll(false)">Uncheck All</button>
+            <!-- CAMPAIGNS TAB -->
+            <div id="tabCampaigns" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Available Campaigns</h2>
+                        <button class="btn btn-primary" id="addCampaignBtn" style="display: none;" onclick="openModal('addCampaignModal')">
+                            <i class="fa-solid fa-plus"></i> New Campaign
+                        </button>
                     </div>
-                    <div class="campaign-list" id="assignList"></div>
-                    <div class="modal-footer"><button class="btn-submit" onclick="submitAssign()">Assign
-                            Selected</button></div>
-                </div>
-            </div>
-
-            <div class="page" id="viewUCPage">
-                <div class="page-header">
-                    <h1 class="page-title">User Campaigns</h1>
-                </div>
-                <div class="table-container">
-                    <div class="table-header">
-                        <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-                            <div class="search-box"><i class="fas fa-search"></i><input id="ucSearch"
-                                    placeholder="Search User or Campaign..." onkeyup="renderUC()"></div>
-                            <div class="search-box"><i class="fas fa-globe"></i>
-                                <select id="ucCountryFilter" onchange="renderUC()"
-                                    style="background:none; border:none; color:var(--text); outline:none; cursor:pointer;">
-                                    <option value="">All Countries</option>
-                                </select>
-                            </div>
-                        </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Campaign Name</th>
+                                    <th>Offer ID</th>
+                                    <th>Country</th>
+                                    <th>Type</th>
+                                    <th>Destination URL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="campaignsBody">
+                                <tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Loading campaigns...</td></tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>Campaign</th>
-                                <th>Country</th>
-                                <th>Type</th>
-                                <th>Tracking Link</th>
-                                <th>Count</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="ucTable"></tbody>
-                    </table>
                 </div>
             </div>
 
-            <div class="page" id="resetCountPage">
-                <div class="page-header">
-                    <h1 class="page-title">Reset Counts</h1>
-                </div>
-                <div class="table-container" style="padding:3rem;text-align:center;">
-                    <i class="fas fa-redo" style="font-size:3rem;color:var(--primary);margin-bottom:1rem;"></i>
-                    <h2>Reset All Counts to Zero</h2>
-                    <p style="color:var(--text-muted);margin:1rem 0;">This will set all campaign counts to zero.</p>
-                    <button class="add-btn" style="display:inline-flex;" onclick="resetCounts()"><i
-                            class="fas fa-check"></i> Reset All</button>
+            <!-- USERS TAB (ADMIN) -->
+            <div id="tabUsers" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Registered Publishers & Users</h2>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Created At</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersBody">
+                                <tr><td colspan="5" style="text-align: center;">Loading users...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
-            <div class="page" id="settingsPage">
-                <div class="page-header">
-                    <h1 class="page-title">Settings</h1>
-                </div>
-                <div class="settings-section">
-                    <h3><i class="fas fa-info-circle"></i> Application Info</h3>
-                    <p style="color:var(--text-muted);margin-bottom:1rem;">Connected to Supabase Cloud Database.</p>
+            <!-- ASSIGNMENTS TAB (ADMIN) -->
+            <div id="tabAssignments" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Assign Campaign to Publisher</h2>
+                        <button class="btn btn-primary" onclick="openModal('assignModal')">
+                            <i class="fa-solid fa-link"></i> Create Assignment
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Assignment ID</th>
+                                    <th>User Name</th>
+                                    <th>User Email</th>
+                                    <th>Campaign Name</th>
+                                    <th>Total Clicks</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminAssignBody">
+                                <tr><td colspan="5" style="text-align: center;">Loading assignments...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
-            <!-- Access Denied Page -->
-            <div class="page" id="accessDeniedPage">
-                <div class="access-denied">
-                    <i class="fas fa-lock"></i>
-                    <h2>Access Denied</h2>
-                    <p>You don't have permission to access this section. This feature is only available to
-                        administrators.</p>
-                </div>
-            </div>
         </main>
     </div>
 
-    <!-- Modals -->
-    <div class="modal" id="adminModal">
+    <!-- CREATE CAMPAIGN MODAL (ADMIN) -->
+    <div class="modal" id="addCampaignModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="adminModalTitle">Add Admin</h2><button class="modal-close"
-                    onclick="closeModal('adminModal')">&times;</button>
+                <h3>Add New Campaign</h3>
+                <button class="theme-toggle-btn" onclick="closeModal('addCampaignModal')">&times;</button>
             </div>
-            <input type="hidden" id="adminEditId">
-            <div class="form-group"><label>Name</label><input id="adminName" placeholder="Full name"></div>
-            <div class="form-group"><label>Email</label><input type="email" id="adminEmail" placeholder="Email address">
-            </div>
-            <div class="form-group"><label>Password</label><input type="password" id="adminPwd" placeholder="Password">
-            </div>
-            <div class="form-group"><label>Status</label><select id="adminStatus">
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                </select></div>
-            <div class="modal-footer"><button class="btn-cancel"
-                    onclick="closeModal('adminModal')">Cancel</button><button class="btn-submit"
-                    onclick="saveAdmin()">Save</button></div>
+            <form onsubmit="handleCreateCampaign(event)">
+                <div class="form-control">
+                    <label>Campaign Name</label>
+                    <input type="text" id="campName" required placeholder="e.g. Crypto App Install">
+                </div>
+                <div class="form-control">
+                    <label>Offer ID</label>
+                    <input type="text" id="campOfferId" required placeholder="OFFER-101">
+                </div>
+                <div class="form-control">
+                    <label>Country / GEO</label>
+                    <input type="text" id="campCountry" required placeholder="US, UK, CA">
+                </div>
+                <div class="form-control">
+                    <label>Destination Link</label>
+                    <input type="url" id="campLink" required placeholder="https://landingpage.com">
+                </div>
+                <div class="form-control">
+                    <label>Payout Type</label>
+                    <select id="campType">
+                        <option value="Click">CPA / Click</option>
+                        <option value="CPL">CPL / Lead</option>
+                        <option value="CPS">CPS / Sale</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Campaign</button>
+            </form>
         </div>
     </div>
 
-    <div class="modal" id="adminPwdModal">
+    <!-- ASSIGN CAMPAIGN MODAL (ADMIN) -->
+    <div class="modal" id="assignModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Reset Password</h2><button class="modal-close"
-                    onclick="closeModal('adminPwdModal')">&times;</button>
+                <h3>Assign Campaign to User</h3>
+                <button class="theme-toggle-btn" onclick="closeModal('assignModal')">&times;</button>
             </div>
-            <input type="hidden" id="adminPwdId">
-            <div class="form-group"><label>New Password</label><input type="password" id="newAdminPwd"></div>
-            <div class="form-group"><label>Confirm Password</label><input type="password" id="confirmAdminPwd"></div>
-            <div class="modal-footer"><button class="btn-cancel"
-                    onclick="closeModal('adminPwdModal')">Cancel</button><button class="btn-submit"
-                    onclick="resetAdminPwd()">Update</button></div>
+            <form onsubmit="handleCreateAssignment(event)">
+                <div class="form-control">
+                    <label>Select User</label>
+                    <select id="assignUserSelect" required></select>
+                </div>
+                <div class="form-control">
+                    <label>Select Campaign</label>
+                    <select id="assignCampSelect" required></select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Assignment</button>
+            </form>
         </div>
     </div>
 
-    <div class="modal" id="myPwdModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Change My Password</h2><button class="modal-close"
-                    onclick="closeModal('myPwdModal')">&times;</button>
-            </div>
-            <div class="form-group"><label>Current Password</label><input type="password" id="currPwd"></div>
-            <div class="form-group"><label>New Password</label><input type="password" id="myNewPwd"></div>
-            <div class="form-group"><label>Confirm Password</label><input type="password" id="myConfirmPwd"></div>
-            <div class="modal-footer"><button class="btn-cancel"
-                    onclick="closeModal('myPwdModal')">Cancel</button><button class="btn-submit"
-                    onclick="changeMyPwd()">Update</button></div>
-        </div>
-    </div>
-
-    <div class="modal" id="userModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="userModalTitle">Add User</h2><button class="modal-close"
-                    onclick="closeModal('userModal')">&times;</button>
-            </div>
-            <input type="hidden" id="userEditId">
-            <div class="form-group"><label>Name</label><input id="userNameInp" placeholder="Full name"></div>
-            <div class="form-group"><label>Email</label><input type="email" id="userEmail" placeholder="Email address">
-            </div>
-            <div class="form-group"><label>Password</label><input type="password" id="userPwd" placeholder="Password">
-            </div>
-            <div class="form-group"><label>Status</label><select id="userStatus">
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                </select></div>
-            <div class="form-group"><label>Type</label><select id="userType">
-                    <option value="Punch">Punch</option>
-                    <option value="Click">Click</option>
-                </select></div>
-            <div class="modal-footer"><button class="btn-cancel"
-                    onclick="closeModal('userModal')">Cancel</button><button class="btn-submit"
-                    onclick="saveUser()">Save</button></div>
-        </div>
-    </div>
-
-    <div class="modal" id="userPwdModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Reset Password</h2><button class="modal-close" onclick="closeModal('userPwdModal')">&times;</button>
-            </div>
-            <input type="hidden" id="userPwdId">
-            <div class="form-group"><label>New Password</label><input type="password" id="newUserPwd"></div>
-            <div class="form-group"><label>Confirm Password</label><input type="password" id="confirmUserPwd"></div>
-            <div class="modal-footer"><button class="btn-cancel"
-                    onclick="closeModal('userPwdModal')">Cancel</button><button class="btn-submit"
-                    onclick="resetUserPwd()">Update</button></div>
-        </div>
-    </div>
-
-    <div class="modal" id="campModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="campModalTitle">Add Campaign</h2><button class="modal-close"
-                    onclick="closeModal('campModal')">&times;</button>
-            </div>
-            <input type="hidden" id="campEditId">
-            <div class="form-group"><label>Name</label><input id="campName" placeholder="Campaign name"></div>
-            <div class="form-group"><label>Offer ID</label><input id="campOffer" placeholder="Offer ID"></div>
-            <div class="form-group"><label>Country</label><select id="campCountry"></select></div>
-            <div class="form-group"><label>Link</label><input id="campLink" placeholder="https://"></div>
-            <div class="form-group"><label>Type</label><select id="campType">
-                    <option value="Click">Click</option>
-                    <option value="Punch">Punch</option>
-                </select></div>
-            <div class="modal-footer"><button class="btn-cancel"
-                    onclick="closeModal('campModal')">Cancel</button><button class="btn-submit"
-                    onclick="saveCampaign()">Save</button></div>
-        </div>
+    <!-- TOAST -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toastMsg">Action completed successfully!</span>
     </div>
 
     <script src="config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Initialize Supabase
         const sb = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
 
-        const COUNTRIES = [
-            "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
-            "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi",
-            "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic",
-            "Denmark", "Djibouti", "Dominica", "Dominican Republic",
-            "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia",
-            "Fiji", "Finland", "France",
-            "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana",
-            "Haiti", "Honduras", "Hong Kong", "Hungary",
-            "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Ivory Coast",
-            "Jamaica", "Japan", "Jordan",
-            "Kazakhstan", "Kenya", "Kiribati", "Kosovo", "Kuwait", "Kyrgyzstan",
-            "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg",
-            "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar",
-            "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway",
-            "Oman",
-            "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal",
-            "Qatar",
-            "Romania", "Russia", "Rwanda",
-            "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria",
-            "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu",
-            "Uganda", "Ukraine", "UAE", "UK", "USA", "Uruguay", "Uzbekistan",
-            "Vanuatu", "Vatican City", "Venezuela", "Vietnam",
-            "Yemen",
-            "Zambia", "Zimbabwe"
-        ];
+        let currentUser = null;
 
-        // Country to ISO 2-letter code mapping (for FlagCDN)
-        const COUNTRY_ISO = {
-            "Afghanistan": "af", "Albania": "al", "Algeria": "dz", "Andorra": "ad", "Angola": "ao",
-            "Antigua and Barbuda": "ag", "Argentina": "ar", "Armenia": "am", "Australia": "au", "Austria": "at",
-            "Azerbaijan": "az", "Bahamas": "bs", "Bahrain": "bh", "Bangladesh": "bd", "Barbados": "bb",
-            "Belarus": "by", "Belgium": "be", "Belize": "bz", "Benin": "bj", "Bhutan": "bt",
-            "Bolivia": "bo", "Bosnia and Herzegovina": "ba", "Botswana": "bw", "Brazil": "br", "Brunei": "bn",
-            "Bulgaria": "bg", "Burkina Faso": "bf", "Burundi": "bi", "Cabo Verde": "cv", "Cambodia": "kh",
-            "Cameroon": "cm", "Canada": "ca", "Central African Republic": "cf", "Chad": "td", "Chile": "cl",
-            "China": "cn", "Colombia": "co", "Comoros": "km", "Congo": "cg", "Costa Rica": "cr",
-            "Croatia": "hr", "Cuba": "cu", "Cyprus": "cy", "Czech Republic": "cz", "Denmark": "dk",
-            "Djibouti": "dj", "Dominica": "dm", "Dominican Republic": "do", "East Timor": "tl", "Ecuador": "ec",
-            "Egypt": "eg", "El Salvador": "sv", "Equatorial Guinea": "gq", "Eritrea": "er", "Estonia": "ee",
-            "Eswatini": "sz", "Ethiopia": "et", "Fiji": "fj", "Finland": "fi", "France": "fr",
-            "Gabon": "ga", "Gambia": "gm", "Georgia": "ge", "Germany": "de", "Ghana": "gh",
-            "Greece": "gr", "Grenada": "gd", "Guatemala": "gt", "Guinea": "gn", "Guinea-Bissau": "gw",
-            "Guyana": "gy", "Haiti": "ht", "Honduras": "hn", "Hong Kong": "hk", "Hungary": "hu",
-            "Iceland": "is", "India": "in", "Indonesia": "id", "Iran": "ir", "Iraq": "iq",
-            "Ireland": "ie", "Israel": "il", "Italy": "it", "Ivory Coast": "ci", "Jamaica": "jm",
-            "Japan": "jp", "Jordan": "jo", "Kazakhstan": "kz", "Kenya": "ke", "Kiribati": "ki",
-            "Kosovo": "xk", "Kuwait": "kw", "Kyrgyzstan": "kg", "Laos": "la", "Latvia": "lv",
-            "Lebanon": "lb", "Lesotho": "ls", "Liberia": "lr", "Libya": "ly", "Liechtenstein": "li",
-            "Lithuania": "lt", "Luxembourg": "lu", "Madagascar": "mg", "Malawi": "mw", "Malaysia": "my",
-            "Maldives": "mv", "Mali": "ml", "Malta": "mt", "Marshall Islands": "mh", "Mauritania": "mr",
-            "Mauritius": "mu", "Mexico": "mx", "Micronesia": "fm", "Moldova": "md", "Monaco": "mc",
-            "Mongolia": "mn", "Montenegro": "me", "Morocco": "ma", "Mozambique": "mz", "Myanmar": "mm",
-            "Namibia": "na", "Nauru": "nr", "Nepal": "np", "Netherlands": "nl", "New Zealand": "nz",
-            "Nicaragua": "ni", "Niger": "ne", "Nigeria": "ng", "North Korea": "kp", "North Macedonia": "mk",
-            "Norway": "no", "Oman": "om", "Pakistan": "pk", "Palau": "pw", "Palestine": "ps",
-            "Panama": "pa", "Papua New Guinea": "pg", "Paraguay": "py", "Peru": "pe", "Philippines": "ph",
-            "Poland": "pl", "Portugal": "pt", "Qatar": "qa", "Romania": "ro", "Russia": "ru",
-            "Rwanda": "rw", "Saint Kitts and Nevis": "kn", "Saint Lucia": "lc", "Saint Vincent and the Grenadines": "vc",
-            "Samoa": "ws", "San Marino": "sm", "Sao Tome and Principe": "st", "Saudi Arabia": "sa",
-            "Senegal": "sn", "Serbia": "rs", "Seychelles": "sc", "Sierra Leone": "sl", "Singapore": "sg",
-            "Slovakia": "sk", "Slovenia": "si", "Solomon Islands": "sb", "Somalia": "so", "South Africa": "za",
-            "South Korea": "kr", "South Sudan": "ss", "Spain": "es", "Sri Lanka": "lk", "Sudan": "sd",
-            "Suriname": "sr", "Sweden": "se", "Switzerland": "ch", "Syria": "sy", "Taiwan": "tw",
-            "Tajikistan": "tj", "Tanzania": "tz", "Thailand": "th", "Togo": "tg", "Tonga": "to",
-            "Trinidad and Tobago": "tt", "Tunisia": "tn", "Turkey": "tr", "Turkmenistan": "tm", "Tuvalu": "tv",
-            "Uganda": "ug", "Ukraine": "ua", "UAE": "ae", "UK": "gb", "USA": "us",
-            "Uruguay": "uy", "Uzbekistan": "uz", "Vanuatu": "vu", "Vatican City": "va", "Venezuela": "ve",
-            "Vietnam": "vn", "Yemen": "ye", "Zambia": "zm", "Zimbabwe": "zw",
-            // Aliases
-            "United States": "us", "United Kingdom": "gb", "United Arab Emirates": "ae", "South Korea": "kr", "North Korea": "kp", "USA": "us", "UK": "gb", "UAE": "ae"
-        };
-
-        // Get flag for country (robust matching with image fallback)
-        function getFlag(country) {
-            if (!country) return '🌍';
-            const cleanCountry = country.trim();
-
-            // Case-insensitive match for ISO code
-            const countryKey = Object.keys(COUNTRY_ISO).find(k => k.toLowerCase() === cleanCountry.toLowerCase());
-            const iso = countryKey ? COUNTRY_ISO[countryKey] : null;
-
-            if (iso) {
-                return `<img src="https://flagcdn.com/w40/${iso}.png" srcset="https://flagcdn.com/w80/${iso}.png 2x" width="20" alt="${cleanCountry}" style="border-radius:2px; vertical-align:middle;">`;
+        function initSession() {
+            const raw = sessionStorage.getItem('digiUser');
+            if (!raw) {
+                window.location.href = 'index.html';
+                return;
             }
-            return '🌍';
+            currentUser = JSON.parse(raw);
+
+            document.getElementById('userName').innerText = currentUser.name;
+            document.getElementById('userRole').innerText = currentUser.role === 'admin' ? 'Administrator' : 'Publisher';
+            document.getElementById('avatarInitials').innerText = currentUser.name.substring(0, 2).toUpperCase();
+
+            if (currentUser.role === 'admin') {
+                document.getElementById('adminMenuUsers').style.display = 'block';
+                document.getElementById('adminMenuAssign').style.display = 'block';
+                document.getElementById('addCampaignBtn').style.display = 'inline-flex';
+            }
+
+            loadDashboardData();
         }
 
-        // State
-        let currentUser = null;
-        let isAdmin = false;
-        let page = { admins: 1, users: 1, camps: 1 };
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const target = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', target);
+            document.getElementById('themeBtn').innerHTML = target === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+        }
 
-        // Data Cache (for rendering)
-        let _admins = [];
-        let _users = [];
-        let _campaigns = [];
-        let _assignments = [];
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
 
-        // Init Data with flags
-        const countryOptions = '<option value="">🌍 All Countries</option>' + COUNTRIES.map(c => `<option value="${c}">${getFlag(c)} ${c}</option>`).join('');
-        document.getElementById('campCountry').innerHTML = COUNTRIES.map(c => `<option value="${c}">${getFlag(c)} ${c}</option>`).join('');
-        document.getElementById('myCampCountryFilter').innerHTML = countryOptions;
-        document.getElementById('campCountryFilter').innerHTML = countryOptions;
-        document.getElementById('ucCountryFilter').innerHTML = countryOptions;
-
-        // Toast & Modal
-        function toast(msg, type = 'success') { const t = document.getElementById('toast'); t.textContent = msg; t.className = 'toast show' + (type === 'error' ? ' error' : type === 'warning' ? ' warning' : ''); setTimeout(() => t.className = 'toast', 3000); }
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-        // Fetch Data Wrapper
-        async function refreshData() {
-            try {
-                if (isAdmin) {
-                    const { data: admins } = await sb.from('admins').select('*').order('id');
-                    const { data: users } = await sb.from('users').select('*').order('id');
-                    const { data: camps } = await sb.from('campaigns').select('*').order('id');
-                    const { data: assigns } = await sb.from('assignments').select('*');
+        function switchTab(tabName, el) {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
 
-                    _admins = admins || [];
-                    _users = users || [];
-                    _campaigns = camps || [];
-                    _assignments = assigns || [];
-                } else {
-                    const { data: userAssigns } = await sb.from('assignments').select('*').eq('user_id', currentUser.id);
-                    _assignments = userAssigns || [];
+            document.getElementById('tabOverview').style.display = 'none';
+            document.getElementById('tabCampaigns').style.display = 'none';
+            document.getElementById('tabUsers').style.display = 'none';
+            document.getElementById('tabAssignments').style.display = 'none';
 
-                    if (_assignments.length > 0) {
-                        const campaignIds = _assignments.map(a => a.campaign_id);
-                        const { data: camps } = await sb.from('campaigns').select('*').in('id', campaignIds);
-                        _campaigns = camps || [];
-                    } else {
-                        _campaigns = [];
-                    }
-                }
-                updateStats();
-                renderAll();
-            } catch (error) {
-                console.error("Error fetching data:", error);
-                toast('Error fetching data', 'error');
+            if (tabName === 'overview') {
+                document.getElementById('tabOverview').style.display = 'block';
+                document.getElementById('pageTitle').innerText = 'Dashboard Overview';
+            } else if (tabName === 'campaigns') {
+                document.getElementById('tabCampaigns').style.display = 'block';
+                document.getElementById('pageTitle').innerText = 'Campaigns Marketplace';
+            } else if (tabName === 'users') {
+                document.getElementById('tabUsers').style.display = 'block';
+                document.getElementById('pageTitle').innerText = 'User Management';
+            } else if (tabName === 'assignments') {
+                document.getElementById('tabAssignments').style.display = 'block';
+                document.getElementById('pageTitle').innerText = 'Campaign Assignments';
             }
         }
 
-        // Auth Logic
-        document.getElementById('loginForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const pwd = document.getElementById('loginPassword').value;
-            const btn = this.querySelector('button');
-            const originalText = btn.innerHTML;
-
+        async function loadDashboardData() {
             try {
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
-                btn.disabled = true;
+                const { data: campaigns } = await sb.from('campaigns').select('*');
+                document.getElementById('statOffers').innerText = campaigns ? campaigns.length : 0;
+                renderCampaigns(campaigns || []);
 
-                console.log('Attempting login for:', email);
-
-                // Check Admin
-                let { data: admin, error: adminErr } = await sb.from('admins').select('*').eq('email', email).limit(1).maybeSingle();
-                console.log('Admin fetch result:', { admin, adminErr });
-
-                if (admin && admin.password === pwd) {
-                    if (admin.status !== 'Active') throw new Error('Account inactive');
-                    currentUser = admin;
-                    isAdmin = true;
-                    saveSession();
-                    showDashboard();
-                    return;
+                let query = sb.from('assignments').select('*, campaigns(*)');
+                if (currentUser.role !== 'admin') {
+                    query = query.eq('user_id', currentUser.id);
                 }
-
-                // Check User
-                let { data: user, error: userErr } = await sb.from('users').select('*').eq('email', email).limit(1).maybeSingle();
-                console.log('User fetch result:', { user, userErr });
-
-                if (user && user.password === pwd) {
-                    if (user.status !== 'Active') throw new Error('Account inactive');
-                    currentUser = user;
-                    isAdmin = false;
-                    saveSession();
-                    showDashboard();
-                    return;
+                const { data: assignments } = await query;
+                
+                let totalClicks = 0;
+                if (assignments) {
+                    assignments.forEach(a => totalClicks += (a.count || 0));
                 }
+                document.getElementById('statClicks').innerText = totalClicks.toLocaleString();
+                document.getElementById('statAssignments').innerText = assignments ? assignments.length : 0;
 
-                if (adminErr) console.error('Supabase Admin Error:', adminErr);
-                if (userErr) console.error('Supabase User Error:', userErr);
+                renderUserLinks(assignments || []);
 
-                throw new Error('Invalid credentials');
+                if (currentUser.role === 'admin') {
+                    loadAdminData(campaigns || []);
+                }
             } catch (err) {
-                console.error('Login Exception:', err);
-                toast(err.message, 'error');
-            } finally {
-                btn.innerHTML = originalText;
-                btn.disabled = false;
+                console.error(err);
             }
-        });
-
-        function saveSession() {
-            const session = { userId: currentUser.id, isAdmin: isAdmin, timestamp: Date.now() };
-            localStorage.setItem('adsaffiliate_session', JSON.stringify(session));
         }
 
-        async function loadSession() {
-            const s = localStorage.getItem('adsaffiliate_session');
-            if (!s) return false;
-            const session = JSON.parse(s);
-            if (Date.now() - session.timestamp > 24 * 60 * 60 * 1000) {
-                clearSession(); return false;
+        function renderCampaigns(list) {
+            const body = document.getElementById('campaignsBody');
+            if (list.length === 0) {
+                body.innerHTML = `<tr><td colspan="6" style="text-align:center; color: var(--text-muted);">No campaigns available.</td></tr>`;
+                return;
             }
+
+            body.innerHTML = list.map(c => `
+                <tr>
+                    <td>#${c.id}</td>
+                    <td><strong>${c.name}</strong></td>
+                    <td><span class="badge badge-info">${c.offer_id || 'N/A'}</span></td>
+                    <td>${c.country || 'Global'}</td>
+                    <td><span class="badge badge-success">${c.type || 'CPA'}</span></td>
+                    <td><a href="${c.link}" target="_blank" style="color: var(--primary); font-weight: 600;">${c.link}</a></td>
+                </tr>
+            `).join('');
+        }
+
+        function renderUserLinks(list) {
+            const body = document.getElementById('userLinksBody');
+            if (list.length === 0) {
+                body.innerHTML = `<tr><td colspan="7" style="text-align:center; color: var(--text-muted);">No tracking links assigned yet.</td></tr>`;
+                return;
+            }
+
+            const baseUrl = window.location.origin + window.location.pathname.replace('dashboard.html', 'track.html');
+
+            body.innerHTML = list.map(a => {
+                const link = `${baseUrl}?ref=${a.id}`;
+                const camp = a.campaigns || { name: 'Campaign', offer_id: 'N/A', country: 'Global', type: 'CPA' };
+                return `
+                    <tr>
+                        <td><strong>${camp.name}</strong></td>
+                        <td><span class="badge badge-info">${camp.offer_id || 'N/A'}</span></td>
+                        <td>${camp.country || 'Global'}</td>
+                        <td><span class="badge badge-success">${camp.type || 'CPA'}</span></td>
+                        <td><strong style="color: var(--primary); font-size: 1.1rem;">${a.count || 0}</strong></td>
+                        <td><input type="text" readonly value="${link}" style="background: var(--bg-input); border: 1px solid var(--border); padding: 0.4rem 0.6rem; border-radius: 6px; color: var(--text-main); font-size: 0.85rem; width: 220px;"></td>
+                        <td>
+                            <button class="btn btn-outline" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;" onclick="copyLink('${link}')">
+                                <i class="fa-solid fa-copy"></i> Copy
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        async function loadAdminData(campaigns) {
+            const { data: users } = await sb.from('users').select('*');
+            if (users) {
+                document.getElementById('usersBody').innerHTML = users.map(u => `
+                    <tr>
+                        <td>#${u.id}</td>
+                        <td><strong>${u.name}</strong></td>
+                        <td>${u.email}</td>
+                        <td><span class="badge badge-success">${u.status || 'Active'}</span></td>
+                        <td>${new Date(u.created_at).toLocaleDateString()}</td>
+                    </tr>
+                `).join('');
+
+                document.getElementById('assignUserSelect').innerHTML = users.map(u => `<option value="${u.id}">${u.name} (${u.email})</option>`).join('');
+            }
+
+            document.getElementById('assignCampSelect').innerHTML = campaigns.map(c => `<option value="${c.id}">${c.name} (${c.offer_id})</option>`).join('');
+
+            const { data: adminAssigns } = await sb.from('assignments').select('*, users(*), campaigns(*)');
+            if (adminAssigns) {
+                document.getElementById('adminAssignBody').innerHTML = adminAssigns.map(a => `
+                    <tr>
+                        <td>#${a.id}</td>
+                        <td>${a.users ? a.users.name : 'System Admin'}</td>
+                        <td>${a.users ? a.users.email : 'N/A'}</td>
+                        <td>${a.campaigns ? a.campaigns.name : 'Unknown'}</td>
+                        <td><strong>${a.count || 0}</strong></td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        async function handleCreateCampaign(e) {
+            e.preventDefault();
+            const name = document.getElementById('campName').value.trim();
+            const offer_id = document.getElementById('campOfferId').value.trim();
+            const country = document.getElementById('campCountry').value.trim();
+            const link = document.getElementById('campLink').value.trim();
+            const type = document.getElementById('campType').value;
 
             try {
-                const table = session.isAdmin ? 'admins' : 'users';
-                const { data: user } = await sb.from(table).select('*').eq('id', session.userId).single();
+                const { error } = await sb.from('campaigns').insert([{ name, offer_id, country, link, type }]);
+                if (error) throw error;
 
-                if (user && user.status === 'Active') {
-                    currentUser = user;
-                    isAdmin = session.isAdmin;
-                    return true;
-                }
-            } catch (e) { console.error(e); }
-
-            clearSession();
-            return false;
+                showToast('New campaign created successfully!');
+                closeModal('addCampaignModal');
+                loadDashboardData();
+            } catch (err) {
+                alert(err.message);
+            }
         }
 
-        function clearSession() { localStorage.removeItem('adsaffiliate_session'); }
+        async function handleCreateAssignment(e) {
+            e.preventDefault();
+            const user_id = document.getElementById('assignUserSelect').value;
+            const campaign_id = document.getElementById('assignCampSelect').value;
 
-        function showDashboard() {
-            document.getElementById('userName').textContent = currentUser.name.split(' ')[0];
-            const badge = document.getElementById('roleBadge');
-            badge.textContent = isAdmin ? 'Admin' : 'User';
-            badge.className = 'role-badge ' + (isAdmin ? 'admin' : 'user');
+            try {
+                const { error } = await sb.from('assignments').insert([{ user_id, campaign_id, count: 0 }]);
+                if (error) throw error;
 
-            document.querySelectorAll('.admin-only').forEach(el => el.style.display = isAdmin ? 'block' : 'none');
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('appContainer').classList.add('active');
+                showToast('Campaign assigned to user successfully!');
+                closeModal('assignModal');
+                loadDashboardData();
+            } catch (err) {
+                alert(err.message || 'Error creating assignment');
+            }
+        }
 
-            refreshData();
+        function copyLink(url) {
+            navigator.clipboard.writeText(url);
+            showToast('Tracking link copied to clipboard!');
+        }
+
+        function filterTable(tableId, query) {
+            const trs = document.querySelectorAll(`#${tableId} tbody tr`);
+            trs.forEach(tr => {
+                tr.style.display = tr.innerText.toLowerCase().includes(query.toLowerCase()) ? '' : 'none';
+            });
         }
 
         function logout() {
-            currentUser = null;
-            isAdmin = false;
-            clearSession();
-            document.getElementById('loginPage').style.display = 'flex';
-            document.getElementById('appContainer').classList.remove('active');
-            document.getElementById('loginForm').reset();
+            sessionStorage.setItem('digiUser', '');
+            sessionStorage.clear();
+            window.location.href = 'index.html';
         }
 
-        // Access Control
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function () {
-                if (this.dataset.toggle === 'submenu') {
-                    document.getElementById('submenu').classList.toggle('open');
-                    return;
-                }
-                const pageName = this.dataset.page;
-                if (!pageName) return;
-
-                const adminPages = ['admins', 'users', 'campaigns', 'assign', 'viewUC', 'resetCount', 'settings'];
-                if (adminPages.includes(pageName) && !isAdmin) {
-                    toast('Admin access required!', 'warning');
-                    return;
-                }
-
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-                document.getElementById(pageName + 'Page').classList.add('active');
-
-                // Auto-close sidebar on mobile
-                if (window.innerWidth <= 900) {
-                    document.getElementById('sidebar').classList.remove('open');
-                    document.body.classList.remove('sidebar-mobile-open');
-                }
-            });
-        });
-
-        // UI & Rendering
-        function updateStats() {
-            if (!currentUser) return;
-            const statsHtml = isAdmin ? `
-                <div class="stat-card"><h3><i class="fas fa-user-shield"></i> Admins</h3><div class="value">${_admins.length}</div></div>
-                <div class="stat-card"><h3><i class="fas fa-users"></i> Users</h3><div class="value">${_users.length}</div></div>
-                <div class="stat-card"><h3><i class="fas fa-bullhorn"></i> Campaigns</h3><div class="value">${_campaigns.length}</div></div>
-                <div class="stat-card"><h3><i class="fas fa-mouse-pointer"></i> Global Clicks</h3><div class="value">${_assignments.reduce((s, a) => s + (a.count || 0), 0)}</div></div>
-            ` : `
-                <div class="stat-card"><h3><i class="fas fa-bullhorn"></i> My Campaigns</h3><div class="value">${_assignments.length}</div></div>
-                <div class="stat-card"><h3><i class="fas fa-mouse-pointer"></i> My Clicks</h3><div class="value">${_assignments.reduce((s, a) => s + (a.count || 0), 0)}</div></div>
-                <div class="stat-card"><h3><i class="fas fa-globe"></i> Countries</h3><div class="value">${new Set(_campaigns.map(c => c.country)).size}</div></div>
-            `;
-            document.getElementById('dashStats').innerHTML = statsHtml;
-        }
-
-        function renderAll() {
-            // Always render My Campaigns so the page is ready if clicked
-            renderMyCampaigns();
-
-            if (isAdmin) {
-                renderAdmins();
-                renderUsers();
-                renderCampaigns();
-                renderUC();
-                renderAssign();
-            }
-        }
-
-        function renderTable(data, tableId, infoId, pagId, key, rowFn) {
-            const search = (document.getElementById(tableId.replace('Table', 'Search')) || {}).value?.toLowerCase() || '';
-            const filtered = data.filter(i => JSON.stringify(i).toLowerCase().includes(search));
-            const perPage = 10;
-            const totalPages = Math.ceil(filtered.length / perPage) || 1;
-            page[key] = Math.min(page[key], totalPages);
-            const start = (page[key] - 1) * perPage;
-            const items = filtered.slice(start, start + perPage);
-
-            document.getElementById(tableId).innerHTML = items.length ? items.map(rowFn).join('') : '<tr><td colspan="10" style="text-align:center;padding:2rem;color:var(--text-muted);">No data</td></tr>';
-            document.getElementById(infoId).textContent = `${filtered.length ? start + 1 : 0}-${Math.min(start + perPage, filtered.length)} of ${filtered.length}`;
-
-            let html = `<button onclick="goPage('${key}',-1)" ${page[key] === 1 ? 'disabled' : ''}>‹</button>`;
-            for (let i = 1; i <= totalPages; i++) html += `<button class="${i === page[key] ? 'active' : ''}" onclick="goPage('${key}',${i},true)">${i}</button>`;
-            html += `<button onclick="goPage('${key}',1)" ${page[key] === totalPages ? 'disabled' : ''}>›</button>`;
-            document.getElementById(pagId).innerHTML = html;
-        }
-
-        function goPage(k, v, abs = false) { page[k] = abs ? v : page[k] + v; renderAll(); }
-
-        function renderAdmins() {
-            renderTable(_admins, 'adminTable', 'adminInfo', 'adminPag', 'admins', a => `<tr><td>${a.name}</td><td>${a.email}</td><td><span class="status ${a.status.toLowerCase()}">${a.status}</span></td><td class="actions"><button class="action-btn edit" onclick="editAdmin(${a.id})"><i class="fas fa-edit"></i></button><button class="action-btn key" onclick="openAdminPwd(${a.id})"><i class="fas fa-key"></i></button><button class="action-btn delete" onclick="delAdmin(${a.id})"><i class="fas fa-trash"></i></button></td></tr>`);
-        }
-        function renderUsers() {
-            renderTable(_users, 'userTable', 'userInfo', 'userPag', 'users', u => `<tr><td>${u.name}</td><td>${u.email}</td><td><span class="status ${u.status.toLowerCase()}">${u.status}</span></td><td>${u.type}</td><td class="actions"><button class="action-btn edit" onclick="editUser(${u.id})"><i class="fas fa-edit"></i></button><button class="action-btn key" onclick="openUserPwd(${u.id})"><i class="fas fa-key"></i></button><button class="action-btn delete" onclick="delUser(${u.id})"><i class="fas fa-trash"></i></button></td></tr>`);
-        }
-        function renderCampaigns() {
-            const country = document.getElementById('campCountryFilter').value;
-            const data = country ? _campaigns.filter(c => c.country === country) : _campaigns;
-            renderTable(data, 'campTable', 'campInfo', 'campPag', 'camps', c => `<tr><td>${c.name}</td><td>${c.offer_id || '-'}</td><td><div class="country-cell"><span class="flag">${getFlag(c.country)}</span>${c.country || '-'}</div></td><td style="word-break:break-all;min-width:150px;"><a href="${c.link}" target="_blank" style="color:var(--primary)">${c.link || ''}</a></td><td><span class="status ${(c.type || 'click').toLowerCase()}">${c.type || 'Click'}</span></td><td class="actions"><button class="action-btn edit" onclick="editCamp(${c.id})"><i class="fas fa-edit"></i></button><button class="action-btn delete" onclick="delCamp(${c.id})"><i class="fas fa-trash"></i></button></td></tr>`);
-        }
-        function renderUC() {
-            const search = (document.getElementById('ucSearch') || {}).value?.toLowerCase() || '';
-            const country = document.getElementById('ucCountryFilter').value;
-
-            const filtered = _assignments.filter(uc => {
-                const u = _users.find(x => x.id === uc.user_id) || _admins.find(x => x.id === uc.admin_id);
-                const c = _campaigns.find(x => x.id === uc.campaign_id);
-                const roleText = uc.admin_id ? '[Admin] ' : '';
-                const matchesSearch = ((roleText + (u?.name || '')) + ' ' + (u?.email || '') + ' ' + (c?.name || '')).toLowerCase().includes(search);
-                const matchesCountry = !country || c?.country === country;
-                return matchesSearch && matchesCountry;
-            });
-
-            document.getElementById('ucTable').innerHTML = filtered.length ? filtered.map(uc => {
-                const u = _users.find(x => x.id === uc.user_id) || _admins.find(x => x.id === uc.admin_id);
-                const c = _campaigns.find(x => x.id === uc.campaign_id);
-                const roleBadge = uc.admin_id ? '<span class="role-badge admin">Admin</span>' : '';
-
-                const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/')) || window.location.origin;
-                const trackLink = `${baseUrl}/track.html?ref=${uc.id}`;
-
-                return `<tr>
-                    <td>${roleBadge} ${u?.name || '<em>Unknown</em>'}</td>
-                    <td>${c?.name || '<em>Unknown</em>'}</td>
-                    <td><div class="country-cell"><span class="flag">${getFlag(c?.country)}</span>${c?.country || '-'}</div></td>
-                    <td><span class="status ${(c?.type || 'click').toLowerCase()}">${c?.type || 'Click'}</span></td>
-                    <td>
-                        <div style="display:flex;align-items:center;gap:0.5rem;max-width:200px;">
-                            <input readonly value="${trackLink}" style="width:100%;font-size:0.8rem;padding:0.2rem;border:1px solid var(--border);border-radius:0.25rem;background:var(--bg-input);color:var(--text);">
-                            <button onclick="navigator.clipboard.writeText('${trackLink}');toast('Copied!')" class="action-btn" title="Copy"><i class="fas fa-copy"></i></button>
-                        </div>
-                    </td>
-                    <td>${uc.count}</td>
-                    <td class="actions"><button class="action-btn delete" onclick="delUC(${uc.id})"><i class="fas fa-trash"></i></button></td>
-                </tr>`;
-            }).join('') : '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--text-muted);">No assignments</td></tr>';
-        }
-        function renderAssign() {
-            const sel = document.getElementById('assignUser');
-            let opts = '<option value="">Select Target...</option>';
-            opts += '<optgroup label="Admins">';
-            opts += _admins.filter(a => a.status === 'Active').map(a => `<option value="admin:${a.id}">${a.name} (${a.email})</option>`).join('');
-            opts += '</optgroup><optgroup label="Users">';
-            opts += _users.filter(u => u.status === 'Active').map(u => `<option value="user:${u.id}">${u.name} (${u.email})</option>`).join('');
-            opts += '</optgroup>';
-            sel.innerHTML = opts;
-            sel.onchange = (e) => loadUserAssignments(e.target.value);
-
-            // Grid Layout for Campaigns with flags
-            document.getElementById('assignList').innerHTML = _campaigns.length ? `<div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));gap:1.25rem;">` + _campaigns.map(c => `
-                <label style="position:relative;display:block;background:var(--bg-card);padding:1.5rem;border-radius:14px;border:1px solid var(--border);cursor:pointer;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);box-shadow:var(--shadow);overflow:hidden;">
-                    <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(135deg, #c30000 0%, #ff4444 100%);"></div>
-                    <input type="checkbox" value="${c.id}" id="c_${c.id}" style="position:absolute;top:18px;right:15px;accent-color:var(--primary);width:20px;height:20px;cursor:pointer;">
-                    <div style="font-weight:700;margin-bottom:0.5rem;padding-right:2rem;color:var(--text);font-size:1.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${c.name}">${c.name}</div>
-                    <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem;font-size:0.95rem;color:var(--text-muted);">
-                        <span style="font-size:1.25rem;">${getFlag(c.country)}</span> ${c.country}
-                    </div>
-                    <div style="font-size:0.75rem;font-weight:700;color:var(--primary);background:rgba(195,0,0,0.1);display:inline-block;padding:0.35rem 0.9rem;border-radius:20px;text-transform:uppercase;">${c.type}</div>
-                </label>
-            `).join('') + `</div>` : '<p style="padding:1rem;color:var(--text-muted);">No campaigns available</p>';
-        }
-
-        function loadUserAssignments(val) {
-            document.querySelectorAll('#assignList input').forEach(cb => cb.checked = false);
-            if (!val) return;
-            const [type, id] = val.split(':');
-            const userAssigns = _assignments.filter(a => (type === 'admin' ? a.admin_id : a.user_id) == id);
-            userAssigns.forEach(a => {
-                const cb = document.getElementById('c_' + a.campaign_id);
-                if (cb) cb.checked = true;
-            });
-        }
-
-        function renderMyCampaigns() {
-            const country = document.getElementById('myCampCountryFilter').value;
-            // Filter by current role ID
-            const filtered = _assignments.filter(assign => {
-                const isMine = isAdmin ? (assign.admin_id == currentUser.id) : (assign.user_id == currentUser.id);
-                if (!isMine) return false;
-
-                const c = _campaigns.find(c => c.id === assign.campaign_id);
-                return c && (!country || c.country === country);
-            });
-
-            const html = filtered.length ? filtered.map(assign => {
-                const c = _campaigns.find(c => c.id === assign.campaign_id);
-                if (!c) return '';
-
-                // TRACKING LINK
-                const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/')) || window.location.origin;
-                const trackLink = `${baseUrl}/track.html?ref=${assign.id}`;
-
-                return `
-                <div class="campaign-card">
-                    <h3><i class="fas fa-bullhorn"></i> ${c.name}</h3>
-                    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
-                        <span class="country-badge"><span class="flag">${getFlag(c.country)}</span> ${c.country}</span>
-                        <span class="status ${(c.type || 'click').toLowerCase()}">${c.type || 'Click'}</span>
-                    </div>
-                    <p style="margin-bottom:0.5rem;"><strong>Tracking Link:</strong></p>
-                    <div style="background:var(--bg-input);padding:0.6rem 0.8rem;border-radius:0.6rem;word-break:break-all;margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center;gap:0.5rem;border:1px solid var(--border);">
-                        <a href="${trackLink}" target="_blank" style="font-size:0.85rem;text-decoration:none;flex:1;">${trackLink}</a>
-                        <button onclick="navigator.clipboard.writeText('${trackLink}');toast('Copied!')" class="action-btn" title="Copy" style="background:var(--primary-glow);"><i class="fas fa-copy" style="color:var(--primary);"></i></button>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:1rem;padding:0.75rem;background:var(--bg-input);border-radius:0.6rem;margin-bottom:1rem;">
-                        <div style="text-align:center;flex:1;">
-                            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Offer ID</div>
-                            <div style="font-weight:600;color:var(--text);">${c.offer_id || '-'}</div>
-                        </div>
-                        <div style="width:1px;height:30px;background:var(--border);"></div>
-                        <div style="text-align:center;flex:1;">
-                            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Country</div>
-                            <div style="font-weight:600;color:var(--text);display:flex;align-items:center;justify-content:center;gap:0.35rem;"><span style="font-size:1.1rem;">${getFlag(c.country)}</span> ${c.country}</div>
-                        </div>
-                    </div>
-                    <div class="count"><i class="fas fa-mouse-pointer"></i> ${assign.count} Clicks</div>
-                </div>`;
-            }).join('') : '<p style="color:var(--text-muted);grid-column:1/-1;text-align:center;padding:3rem;font-size:1.1rem;"><i class="fas fa-inbox" style="font-size:2.5rem;display:block;margin-bottom:1rem;opacity:0.5;"></i>No campaigns assigned yet.</p>';
-            document.getElementById('myCampaignsGrid').innerHTML = html;
-        }
-
-        // --- CRUD ADMINS ---
-        function openAddAdmin() {
-            document.getElementById('adminEditId').value = '';
-            document.getElementById('adminName').value = '';
-            document.getElementById('adminEmail').value = '';
-            document.getElementById('adminPwd').value = '';
-            document.getElementById('adminStatus').value = 'Active';
-            document.getElementById('adminModalTitle').textContent = 'Add Admin';
-            openModal('adminModal');
-        }
-        function editAdmin(id) {
-            const a = _admins.find(x => x.id === id);
-            document.getElementById('adminEditId').value = id;
-            document.getElementById('adminName').value = a.name;
-            document.getElementById('adminEmail').value = a.email;
-            document.getElementById('adminPwd').value = '';
-            document.getElementById('adminStatus').value = a.status;
-            document.getElementById('adminModalTitle').textContent = 'Edit Admin';
-            openModal('adminModal');
-        }
-        async function saveAdmin() {
-            const id = document.getElementById('adminEditId').value;
-            const name = document.getElementById('adminName').value;
-            const email = document.getElementById('adminEmail').value;
-            const status = document.getElementById('adminStatus').value;
-            const pwd = document.getElementById('adminPwd').value;
-
-            if (!name || !email) return toast('Fill details', 'error');
-
-            const payload = { name, email, status };
-            if (pwd) payload.password = pwd;
-
-            try {
-                if (id) {
-                    await sb.from('admins').update(payload).eq('id', id).throwOnError();
-                } else {
-                    if (!pwd) return toast('Password required for new admin', 'error');
-                    await sb.from('admins').insert([payload]).throwOnError();
-                }
-                closeModal('adminModal');
-                toast('Saved!');
-                refreshData();
-            } catch (e) { toast(e.message || 'Error saving', 'error'); }
-        }
-        async function delAdmin(id) {
-            if (_admins.length === 1) return toast('Cannot delete last admin', 'error');
-            if (confirm('Delete this admin?')) {
-                await sb.from('admins').delete().eq('id', id);
-                refreshData();
-                toast('Deleted!');
-            }
-        }
-        function openAdminPwd(id) { document.getElementById('adminPwdId').value = id; document.getElementById('newAdminPwd').value = ''; document.getElementById('confirmAdminPwd').value = ''; openModal('adminPwdModal'); }
-        async function resetAdminPwd() {
-            const id = document.getElementById('adminPwdId').value;
-            const p = document.getElementById('newAdminPwd').value;
-            const c = document.getElementById('confirmAdminPwd').value;
-            if (p !== c || p.length < 4) return toast('Invalid password', 'error');
-
-            try {
-                await sb.from('admins').update({ password: p }).eq('id', id).throwOnError();
-                closeModal('adminPwdModal');
-                toast('Updated!');
-                refreshData();
-            } catch (e) { toast('Error updating', 'error'); }
-        }
-
-        // --- CRUD USERS ---
-        function openAddUser() { document.getElementById('userEditId').value = ''; document.getElementById('userNameInp').value = ''; document.getElementById('userEmail').value = ''; document.getElementById('userPwd').value = ''; document.getElementById('userType').value = 'Punch'; openModal('userModal'); }
-        function editUser(id) { const u = _users.find(x => x.id === id); document.getElementById('userEditId').value = id; document.getElementById('userNameInp').value = u.name; document.getElementById('userEmail').value = u.email; document.getElementById('userStatus').value = u.status; document.getElementById('userType').value = u.type; openModal('userModal'); }
-        async function saveUser() {
-            const id = document.getElementById('userEditId').value;
-            const payload = {
-                name: document.getElementById('userNameInp').value,
-                email: document.getElementById('userEmail').value,
-                status: document.getElementById('userStatus').value,
-                type: document.getElementById('userType').value
-            };
-            const pwd = document.getElementById('userPwd').value;
-
-            try {
-                if (id) {
-                    if (pwd) payload.password = pwd;
-                    await sb.from('users').update(payload).eq('id', id).throwOnError();
-                } else {
-                    if (!pwd) return toast('Password required', 'error');
-                    payload.password = pwd;
-                    await sb.from('users').insert([payload]).throwOnError();
-                }
-                closeModal('userModal');
-                toast('Saved!');
-                refreshData();
-            } catch (e) { toast(e.message, 'error'); }
-        }
-        async function delUser(id) {
-            if (confirm('Delete user?')) {
-                await sb.from('users').delete().eq('id', id);
-                refreshData();
-                toast('Deleted!');
-            }
-        }
-        function openUserPwd(id) { document.getElementById('userPwdId').value = id; document.getElementById('newUserPwd').value = ''; document.getElementById('confirmUserPwd').value = ''; openModal('userPwdModal'); }
-        async function resetUserPwd() {
-            const id = document.getElementById('userPwdId').value;
-            const p = document.getElementById('newUserPwd').value;
-            if (p !== document.getElementById('confirmUserPwd').value) return toast('Mismatch', 'error');
-            await sb.from('users').update({ password: p }).eq('id', id);
-            closeModal('userPwdModal'); toast('Updated');
-        }
-
-        // --- CRUD CAMPAIGNS ---
-        function openAddCampaign() {
-            document.getElementById('campEditId').value = '';
-            document.getElementById('campName').value = '';
-            document.getElementById('campOffer').value = '';
-            document.getElementById('campLink').value = '';
-            openModal('campModal');
-        }
-        function editCamp(id) {
-            const c = _campaigns.find(x => x.id === id);
-            document.getElementById('campEditId').value = id;
-            document.getElementById('campName').value = c.name;
-            document.getElementById('campOffer').value = c.offer_id;
-            document.getElementById('campCountry').value = c.country;
-            document.getElementById('campLink').value = c.link;
-            document.getElementById('campType').value = c.type;
-            openModal('campModal');
-        }
-        async function saveCampaign() {
-            const id = document.getElementById('campEditId').value;
-            const payload = {
-                name: document.getElementById('campName').value,
-                offer_id: document.getElementById('campOffer').value,
-                country: document.getElementById('campCountry').value,
-                link: document.getElementById('campLink').value,
-                type: document.getElementById('campType').value
-            };
-
-            try {
-                if (id) await sb.from('campaigns').update(payload).eq('id', id).throwOnError();
-                else await sb.from('campaigns').insert([payload]).throwOnError();
-                closeModal('campModal');
-                toast('Saved');
-                refreshData();
-            } catch (e) { toast(e.message, 'error'); }
-        }
-        async function delCamp(id) {
-            if (confirm('Delete campaign?')) {
-                await sb.from('campaigns').delete().eq('id', id);
-                refreshData();
-                toast('Deleted');
-            }
-        }
-
-        // --- ASSIGNMENTS ---
-        function checkAll(v) { document.querySelectorAll('#assignList input').forEach(cb => cb.checked = v); }
-        async function submitAssign() {
-            const val = document.getElementById('assignUser').value;
-            if (!val) return toast('Select target', 'error');
-            const [type, id] = val.split(':');
-
-            const allCbs = Array.from(document.querySelectorAll('#assignList input'));
-            const checkedIds = allCbs.filter(cb => cb.checked).map(cb => parseInt(cb.value));
-
-            // Sync Logic
-            const currentIds = _assignments.filter(a => (type === 'admin' ? a.admin_id : a.user_id) == id).map(a => a.campaign_id);
-            const toAdd = checkedIds.filter(id => !currentIds.includes(id));
-            const toRemove = currentIds.filter(id => !checkedIds.includes(id));
-
-            if (toAdd.length === 0 && toRemove.length === 0) return toast('No changes made');
-
-            try {
-                if (toAdd.length) {
-                    const inserts = toAdd.map(cid => {
-                        const obj = { campaign_id: cid, count: 0 };
-                        if (type === 'admin') obj.admin_id = id;
-                        else obj.user_id = id;
-                        return obj;
-                    });
-                    await sb.from('assignments').insert(inserts).throwOnError();
-                }
-                if (toRemove.length) {
-                    const removeAssignIds = _assignments.filter(a => (type === 'admin' ? a.admin_id : a.user_id) == id && toRemove.includes(a.campaign_id)).map(a => a.id);
-                    if (removeAssignIds.length) await sb.from('assignments').delete().in('id', removeAssignIds).throwOnError();
-                }
-
-                toast('Assignments updated successfully!');
-                refreshData();
-                setTimeout(() => loadUserAssignments(val), 500);
-            } catch (e) { toast(e.message, 'error'); }
-        }
-        async function delUC(id) {
-            if (confirm('Remove assignment?')) {
-                await sb.from('assignments').delete().eq('id', id);
-                refreshData();
-                toast('Removed');
-            }
-        }
-        async function resetCounts() {
-            if (confirm('Reset all assignment counts to 0?')) {
-                // Hack: update where id > 0
-                await sb.from('assignments').update({ count: 0 }).gt('id', 0);
-                refreshData();
-                toast('Reset!');
-            }
-        }
-
-        // --- SETTINGS / MISC ---
-        async function changeMyPwd() {
-            const curr = document.getElementById('currPwd').value;
-            const p = document.getElementById('myNewPwd').value;
-
-            if (currentUser.password !== curr) return toast('Current password wrong', 'error');
-            if (p !== document.getElementById('myConfirmPwd').value) return toast('Mismatch', 'error');
-
-            try {
-                const table = isAdmin ? 'admins' : 'users';
-                await sb.from(table).update({ password: p }).eq('id', currentUser.id).throwOnError();
-                currentUser.password = p; // update local
-                closeModal('myPwdModal');
-                toast('Updated!');
-            } catch (e) { toast('Error', 'error'); }
-        }
-
-        // Data Migration UI - Removed logic but kept button just in case, but made it alert
-        function exportDB() { alert('Feature removed in Supabase version.'); }
-        function importDB() { alert('Feature removed in Supabase version.'); }
-        function resetDB() { alert('Use database tools to reset.'); }
-
-
-
-        // Theme
-        function toggleTheme() {
-            const b = document.body, i = document.getElementById('themeIcon');
-            if (b.getAttribute('data-theme') === 'dark') {
-                b.removeAttribute('data-theme');
-                i.className = 'fas fa-moon';
-                localStorage.setItem('theme', 'light');
-            } else {
-                b.setAttribute('data-theme', 'dark');
-                i.className = 'fas fa-sun';
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-        function toggleSidebar() {
-            if (window.innerWidth <= 900) {
-                document.getElementById('sidebar').classList.toggle('open');
-                document.body.classList.toggle('sidebar-mobile-open');
-            }
-            else document.body.classList.toggle('sidebar-closed');
-        }
-        if (localStorage.getItem('theme') === 'dark') { document.body.setAttribute('data-theme', 'dark'); document.getElementById('themeIcon').className = 'fas fa-sun'; }
-
-        // Start
-        (async function () {
-            if (await loadSession()) {
-                showDashboard();
-            }
-        })();
+        initSession();
     </script>
 </body>
 
