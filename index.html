@@ -361,7 +361,7 @@
             flex-wrap: wrap;
         }
 
-        /* HERO CARD WITH ELECTRIC BLUE ACCENTS & CHIPS */
+        /* HERO CARD */
         .hero-card-wrapper {
             position: relative;
         }
@@ -383,7 +383,6 @@
             animation: floatChip 5s ease-in-out infinite alternate;
         }
 
-        .chip-1 { top: -15px; right: -15px; color: #059669; }
         .chip-2 { bottom: -15px; left: -15px; color: var(--primary); }
 
         @keyframes floatChip {
@@ -441,41 +440,29 @@
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
-        .hero-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.25rem;
+        .hero-feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
             margin-bottom: 1.5rem;
         }
 
-        .hero-stat-box {
+        .hero-feature-item {
             background: var(--bg-surface);
             border: 1px solid var(--border);
-            border-radius: 1.25rem;
-            padding: 1.25rem;
-            transition: all 0.3s ease;
-        }
-
-        .hero-stat-box:hover {
-            background: #ffffff;
-            border-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.1);
-        }
-
-        .hero-stat-box h4 {
-            font-size: 0.78rem;
-            color: var(--text-dim);
-            margin-bottom: 0.35rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 700;
-        }
-
-        .hero-stat-box p {
-            font-size: 1.6rem;
-            font-weight: 800;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            font-weight: 600;
+            font-size: 0.95rem;
             color: var(--text-main);
+        }
+
+        .hero-feature-item i {
+            color: var(--primary);
+            font-size: 1.1rem;
         }
 
         /* FEATURES SECTION */
@@ -581,8 +568,8 @@
             line-height: 1.6;
         }
 
-        /* DYNAMIC CALCULATOR SECTION */
-        .calculator-section {
+        /* HOW IT WORKS SECTION */
+        .workflow-section {
             padding: 95px 6%;
             background: var(--bg-surface);
             border-top: 1px solid var(--border);
@@ -591,120 +578,113 @@
             z-index: 2;
         }
 
-        .calc-container {
-            max-width: 1100px;
+        .workflow-grid {
+            max-width: 1280px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .step-card {
             background: #ffffff;
             border: 1px solid var(--border);
-            border-radius: 2rem;
-            padding: 3.5rem 3rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3.5rem;
-            align-items: center;
-            box-shadow: var(--shadow-md);
-        }
-
-        .calc-input-group {
-            margin-bottom: 2rem;
-        }
-
-        .calc-input-group label {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 0.75rem;
-        }
-
-        .calc-slider {
-            width: 100%; height: 10px;
-            border-radius: 5px;
-            background: #e2e8f0;
-            outline: none;
-            -webkit-appearance: none;
-            transition: all 0.2s ease;
-        }
-
-        .calc-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 24px; height: 24px;
-            border-radius: 50%;
-            background: var(--primary);
-            cursor: pointer;
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.45);
-        }
-
-        .calc-result-box {
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.04) 0%, rgba(59, 130, 246, 0.08) 100%);
-            border: 1px solid rgba(37, 99, 235, 0.2);
             border-radius: 1.5rem;
-            padding: 2.8rem;
-            text-align: center;
-        }
-
-        .calc-result-number {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin: 0.5rem 0;
-        }
-
-        .calc-graph {
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 8px;
-            height: 55px;
-            margin-bottom: 1.5rem;
-        }
-
-        .graph-bar {
-            width: 10px;
-            background: var(--primary-light);
-            border-radius: 4px;
-            transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* STATS BAR */
-        .stats-bar {
-            max-width: 1280px;
-            margin: 90px auto;
-            padding: 0 6%;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
+            padding: 2.2rem 1.8rem;
             position: relative;
-            z-index: 2;
-        }
-
-        .stat-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 1.25rem;
-            padding: 2rem 1.25rem;
-            text-align: center;
             box-shadow: var(--shadow-sm);
             transition: all 0.3s ease;
         }
 
-        .stat-item:hover {
+        .step-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .step-badge {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+        }
+
+        .step-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.6rem;
+        }
+
+        .step-card p {
+            font-size: 0.925rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* PARTNER ADVANTAGES SECTION */
+        .advantages-section {
+            padding: 90px 6%;
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.75rem;
+        }
+
+        .advantage-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 2rem 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .advantage-card:hover {
             transform: translateY(-4px);
             border-color: var(--primary);
             box-shadow: var(--shadow-md);
         }
 
-        .stat-number {
-            font-size: 2.4rem;
-            font-weight: 800;
+        .advantage-icon {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .advantage-info h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
             color: var(--text-main);
             margin-bottom: 0.35rem;
         }
 
-        .stat-label {
-            color: var(--text-muted);
+        .advantage-info p {
             font-size: 0.9rem;
-            font-weight: 600;
+            color: var(--text-muted);
+            line-height: 1.5;
         }
 
         /* FLOATING CHATBOT WIDGET */
@@ -879,14 +859,6 @@
             .hero-title {
                 font-size: 2.8rem;
             }
-            .calc-container {
-                grid-template-columns: 1fr;
-                padding: 2.5rem 1.75rem;
-                gap: 2.5rem;
-            }
-            .stats-bar {
-                grid-template-columns: repeat(2, 1fr);
-            }
         }
 
         @media (max-width: 768px) {
@@ -926,28 +898,14 @@
             .hero-cta .btn {
                 width: 100%;
             }
-            .floating-chip {
-                display: none;
-            }
             .hero-card {
                 padding: 1.5rem;
             }
             .section-title {
                 font-size: 1.85rem;
             }
-            .features-section, .calculator-section {
+            .features-section, .workflow-section {
                 padding: 60px 5%;
-            }
-            .calc-result-number {
-                font-size: 2.5rem;
-            }
-            .stats-bar {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-                margin: 50px auto;
-            }
-            .stat-number {
-                font-size: 1.8rem;
             }
             .chat-window {
                 width: 90%;
@@ -957,12 +915,6 @@
         }
 
         @media (max-width: 480px) {
-            .hero-stats-grid {
-                grid-template-columns: 1fr;
-            }
-            .stats-bar {
-                grid-template-columns: 1fr;
-            }
             .footer-top, .footer-bottom {
                 flex-direction: column;
                 align-items: flex-start;
@@ -991,8 +943,8 @@
 
         <ul class="nav-links" id="navMenu">
             <li><a href="#features" onclick="toggleMobileMenu()">Features</a></li>
-            <li><a href="#calculator" onclick="toggleMobileMenu()">Earnings Calc</a></li>
-            <li><a href="#network" onclick="toggleMobileMenu()">Network Stats</a></li>
+            <li><a href="#workflow" onclick="toggleMobileMenu()">How It Works</a></li>
+            <li><a href="#advantages" onclick="toggleMobileMenu()">Partner Benefits</a></li>
             <li><a href="dashboard.html">Portal Login</a></li>
         </ul>
 
@@ -1013,15 +965,13 @@
     <!-- LIVE MARQUEE TICKER -->
     <div class="ticker-bar">
         <div class="ticker-track">
-            <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Publisher #4812 just cashed out $3,450.00 via Wire</div>
-            <div class="ticker-item"><i class="fa-solid fa-fire"></i> Hot Offer: US Finance App CPA - $45.00 / Install</div>
-            <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Real-time Supabase SmartLink tracking active across 150 GEOs</div>
-            <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Advertiser Campaign #108 reached 10,000 conversions</div>
+            <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Real-time Supabase SmartLink tracking active across 150 GEOs</div>
+            <div class="ticker-item"><i class="fa-solid fa-fire"></i> Premium Direct Brand Offers Available</div>
+            <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Guaranteed On-Time Weekly Publisher Payouts</div>
             <!-- Duplicate for infinite marquee loop -->
-            <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Publisher #4812 just cashed out $3,450.00 via Wire</div>
-            <div class="ticker-item"><i class="fa-solid fa-fire"></i> Hot Offer: US Finance App CPA - $45.00 / Install</div>
-            <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Real-time Supabase SmartLink tracking active across 150 GEOs</div>
-            <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Advertiser Campaign #108 reached 10,000 conversions</div>
+            <div class="ticker-item"><i class="fa-solid fa-circle-check"></i> Real-time Supabase SmartLink tracking active across 150 GEOs</div>
+            <div class="ticker-item"><i class="fa-solid fa-fire"></i> Premium Direct Brand Offers Available</div>
+            <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Guaranteed On-Time Weekly Publisher Payouts</div>
         </div>
     </div>
 
@@ -1034,7 +984,7 @@
                 </div>
                 <h1 class="hero-title">Scale Performance Revenue with <span>DigiWise</span></h1>
                 <p class="hero-desc">
-                    Access exclusive high-payout CPA/CPL offers, real-time tracking accuracy, and guaranteed weekly payouts backed by enterprise infrastructure.
+                    Access exclusive direct campaign offers, real-time tracking accuracy, and guaranteed weekly payouts backed by enterprise infrastructure.
                 </p>
                 <div class="hero-cta">
                     <a href="dashboard.html" class="btn btn-primary" style="padding: 0.95rem 2rem; font-size: 1rem;">
@@ -1048,9 +998,6 @@
 
             <!-- HERO CARD -->
             <div class="hero-card-wrapper">
-                <div class="floating-chip chip-1">
-                    <i class="fa-solid fa-arrow-trend-up"></i> +142 New Conversions Today
-                </div>
                 <div class="floating-chip chip-2">
                     <i class="fa-solid fa-bolt"></i> Instant Supabase Sync
                 </div>
@@ -1058,36 +1005,32 @@
                 <div class="hero-card">
                     <div class="hero-card-header">
                         <div>
-                            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);">Live Network Snapshot</h3>
-                            <p style="font-size: 0.85rem; color: var(--text-muted);">Real-time performance analytics</p>
+                            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);">Enterprise Marketing Suite</h3>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Real-time tracking infrastructure</p>
                         </div>
                         <div class="metric-badge">
-                            <div class="pulse-dot"></div> Live Sync
+                            <div class="pulse-dot"></div> Active Network
                         </div>
                     </div>
 
-                    <div class="hero-stats-grid">
-                        <div class="hero-stat-box">
-                            <h4>Daily Clicks</h4>
-                            <p id="heroClicks">14,820</p>
+                    <div class="hero-feature-list">
+                        <div class="hero-feature-item">
+                            <i class="fa-solid fa-shield-check"></i>
+                            <span>SmartLink Verification Protocol</span>
                         </div>
-                        <div class="hero-stat-box">
-                            <h4>Conversions</h4>
-                            <p id="heroConversions" style="color: #059669;">1,340</p>
+                        <div class="hero-feature-item">
+                            <i class="fa-solid fa-bolt"></i>
+                            <span>Zero-Latency Supabase Attribution</span>
                         </div>
-                        <div class="hero-stat-box">
-                            <h4>Conversion Rate</h4>
-                            <p style="color: #2563eb;">9.04%</p>
-                        </div>
-                        <div class="hero-stat-box">
-                            <h4>Est. Revenue</h4>
-                            <p style="color: #0284c7;">$5,680.00</p>
+                        <div class="hero-feature-item">
+                            <i class="fa-solid fa-globe"></i>
+                            <span>Global Geo-Targeted Traffic Routing</span>
                         </div>
                     </div>
 
                     <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; padding: 0.85rem 1rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; flex-wrap: wrap; gap: 0.5rem;">
-                        <span style="color: var(--text-muted); font-weight: 600;"><i class="fa-solid fa-shield-check" style="color: #10b981;"></i> SmartLink Verification Active</span>
-                        <span style="color: var(--primary); font-weight: 700;">Weekly Payouts</span>
+                        <span style="color: var(--text-muted); font-weight: 600;"><i class="fa-solid fa-check-double" style="color: #10b981;"></i> Dedicated Publisher Portal</span>
+                        <span style="color: var(--primary); font-weight: 700;">Direct Offers</span>
                     </div>
                 </div>
             </div>
@@ -1134,61 +1077,83 @@
         </div>
     </section>
 
-    <!-- EARNINGS CALCULATOR -->
-    <section id="calculator" class="calculator-section">
-        <div class="calc-container">
-            <div>
-                <p class="section-subtitle">Revenue Estimator</p>
-                <h2 style="font-size: 2rem; font-weight: 800; color: var(--text-main); margin-bottom: 1rem;">Estimate Your Monthly Income</h2>
-                <p style="color: var(--text-muted); margin-bottom: 2rem;">Adjust traffic volume and payout rates to see your potential monthly income on DigiWise.</p>
+    <!-- HOW IT WORKS SECTION -->
+    <section id="workflow" class="workflow-section">
+        <div class="section-header">
+            <p class="section-subtitle">Seamless Onboarding</p>
+            <h2 class="section-title">How DigiWise Works</h2>
+            <p style="color: var(--text-muted);">Start monetizing performance campaigns in 4 simple steps.</p>
+        </div>
 
-                <div class="calc-input-group">
-                    <label>Monthly Clicks: <span id="clicksVal" style="color: var(--primary);">50,000</span></label>
-                    <input type="range" min="1000" max="250000" step="1000" value="50000" class="calc-slider" id="clicksSlider" oninput="updateCalc()">
-                </div>
-
-                <div class="calc-input-group">
-                    <label>Average Payout Per Conversion: <span id="payoutVal" style="color: var(--accent-emerald);">$15.00</span></label>
-                    <input type="range" min="1" max="100" step="1" value="15" class="calc-slider" id="payoutSlider" oninput="updateCalc()">
-                </div>
+        <div class="workflow-grid">
+            <div class="step-card">
+                <div class="step-badge">1</div>
+                <h3>Account Access</h3>
+                <p>Get your publisher account assigned by an administrator and sign in to your portal.</p>
             </div>
-
-            <div class="calc-result-box">
-                <div class="calc-graph" id="calcGraph">
-                    <div class="graph-bar" style="height: 30%;"></div>
-                    <div class="graph-bar" style="height: 45%;"></div>
-                    <div class="graph-bar" style="height: 60%;"></div>
-                    <div class="graph-bar" style="height: 75%;"></div>
-                    <div class="graph-bar" style="height: 100%; background: var(--primary);"></div>
-                </div>
-
-                <p style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 700;">Estimated Monthly Earnings</p>
-                <div class="calc-result-number" id="calcTotal">$37,500</div>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Calculated at an average 5% conversion rate</p>
-                <a href="dashboard.html" class="btn btn-primary" style="width: 100%;">
-                    Access Portal <i class="fa-solid fa-arrow-right"></i>
-                </a>
+            <div class="step-card">
+                <div class="step-badge">2</div>
+                <h3>Browse Direct Offers</h3>
+                <p>Access exclusive high-payout CPA/CPL campaigns matched for your audience.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-badge">3</div>
+                <h3>Generate SmartLinks</h3>
+                <p>Get unique tracking links with automated geo-routing and click attribution.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-badge">4</div>
+                <h3>Monetize & Receive Payouts</h3>
+                <p>Track your conversions live and receive weekly payouts via your preferred method.</p>
             </div>
         </div>
     </section>
 
-    <!-- NETWORK STATS -->
-    <section id="network" class="stats-bar">
-        <div class="stat-item">
-            <div class="stat-number">500+</div>
-            <div class="stat-label">Active Campaigns</div>
+    <!-- PARTNER ADVANTAGES SECTION -->
+    <section id="advantages" class="advantages-section">
+        <div class="section-header">
+            <p class="section-subtitle">Network Excellence</p>
+            <h2 class="section-title">Publisher & Partner Advantages</h2>
+            <p style="color: var(--text-muted);">Everything you need to maximize performance marketing efficiency.</p>
         </div>
-        <div class="stat-item">
-            <div class="stat-number">$12M+</div>
-            <div class="stat-label">Paid to Affiliates</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">99.9%</div>
-            <div class="stat-label">System Uptime</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">150+</div>
-            <div class="stat-label">Global Markets</div>
+
+        <div class="advantages-grid">
+            <div class="advantage-card">
+                <div class="advantage-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div class="advantage-info">
+                    <h4>Brand Safety & Anti-Fraud</h4>
+                    <p>Advanced link protection ensuring clean traffic routing and compliance across all networks.</p>
+                </div>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <div class="advantage-info">
+                    <h4>24/7 Dedicated Support</h4>
+                    <p>Get direct assistance via our integrated portal assistant and support team anytime.</p>
+                </div>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">
+                    <i class="fa-solid fa-credit-card"></i>
+                </div>
+                <div class="advantage-info">
+                    <h4>Flexible Payout Channels</h4>
+                    <p>Multiple payment gateways including Wire, Direct Deposit, PayPal, and Crypto.</p>
+                </div>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <div class="advantage-info">
+                    <h4>High-Converting SmartLinks</h4>
+                    <p>Automated GEO-routing technology ensuring maximum conversion rate across global traffic.</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1223,8 +1188,8 @@
             </a>
             <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
                 <a href="#features" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Features</a>
-                <a href="#calculator" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Calculator</a>
-                <a href="#network" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Stats</a>
+                <a href="#workflow" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">How It Works</a>
+                <a href="#advantages" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Partner Benefits</a>
                 <a href="dashboard.html" style="color: var(--primary); text-decoration: none; font-weight: 700;">Login</a>
             </div>
         </div>
@@ -1246,26 +1211,6 @@
             }
         }
 
-        function updateCalc() {
-            const clicks = parseInt(document.getElementById('clicksSlider').value);
-            const payout = parseInt(document.getElementById('payoutSlider').value);
-            
-            document.getElementById('clicksVal').innerText = clicks.toLocaleString();
-            document.getElementById('payoutVal').innerText = '$' + payout.toFixed(2);
-            
-            const conversions = clicks * 0.05;
-            const total = conversions * payout;
-            document.getElementById('calcTotal').innerText = '$' + Math.round(total).toLocaleString();
-
-            const bars = document.querySelectorAll('.graph-bar');
-            const ratio = clicks / 250000;
-            bars.forEach((bar, index) => {
-                const heightPercent = Math.min(100, Math.max(15, (index + 1) * 20 * ratio + 20));
-                bar.style.height = heightPercent + '%';
-            });
-        }
-
-        // CHATBOT LOGIC
         function toggleChat() {
             const w = document.getElementById('chatWindow');
             w.style.display = w.style.display === 'flex' ? 'none' : 'flex';
@@ -1298,14 +1243,6 @@
                 body.scrollTop = body.scrollHeight;
             }, 400);
         }
-
-        let cCount = 14820;
-        setInterval(() => {
-            if (Math.random() > 0.5) {
-                cCount += Math.floor(Math.random() * 4) + 1;
-                document.getElementById('heroClicks').innerText = cCount.toLocaleString();
-            }
-        }, 2500);
     </script>
 </body>
 
